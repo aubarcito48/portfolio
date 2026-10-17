@@ -10,7 +10,9 @@ El sitio está dirigido a reclutadores, equipos de desarrollo y potenciales clie
 
 La primera entrega será una versión estática con interacciones en el navegador. La incorporación de funcionalidades dinámicas se evaluará en próximas etapas.
 
-**Publicación en Vercel:** pendiente.
+**Publicado en Vercel:** [portfolio-nahuel48.vercel.app](https://portfolio-nahuel48.vercel.app/)
+
+[![Vista previa del portfolio](public/assets/img-readme.png)](https://portfolio-nahuel48.vercel.app/)
 
 ## Objetivo
 
