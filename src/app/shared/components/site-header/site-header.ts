@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, ElementRef, input, output, signal, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-site-header',
@@ -9,6 +9,7 @@ export class SiteHeader {
   readonly theme = input.required<'dark' | 'light'>();
   readonly themeToggle = output<void>();
   readonly menuOpen = signal(false);
+  private readonly menuToggleButton = viewChild<ElementRef<HTMLButtonElement>>('menuToggleButton');
 
   toggleMenu(): void {
     this.menuOpen.update((isOpen) => !isOpen);
@@ -16,5 +17,14 @@ export class SiteHeader {
 
   closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  closeMenuOnEscape(): void {
+    if (!this.menuOpen()) {
+      return;
+    }
+
+    this.closeMenu();
+    this.menuToggleButton()?.nativeElement.focus();
   }
 }

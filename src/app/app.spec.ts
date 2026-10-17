@@ -3,6 +3,24 @@ import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
+    if (typeof HTMLDialogElement.prototype.showModal !== 'function') {
+      Object.defineProperty(HTMLDialogElement.prototype, 'showModal', {
+        configurable: true,
+        value(this: HTMLDialogElement) {
+          this.setAttribute('open', '');
+          this.querySelector<HTMLElement>('a[href], button:not([disabled])')?.focus();
+        },
+      });
+    }
+    if (typeof HTMLDialogElement.prototype.close !== 'function') {
+      Object.defineProperty(HTMLDialogElement.prototype, 'close', {
+        configurable: true,
+        value(this: HTMLDialogElement) {
+          this.removeAttribute('open');
+        },
+      });
+    }
+
     await TestBed.configureTestingModule({
       imports: [App],
     }).compileComponents();
@@ -29,6 +47,23 @@ describe('App', () => {
     expect(portrait?.getAttribute('alt')).toBe('Retrato de Nahuel Argandoña');
     expect(portrait?.getAttribute('width')).toBe('972');
     expect(portrait?.getAttribute('height')).toBe('1296');
+  });
+
+  it('should provide a skip link and a coherent heading order', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const skipLink = compiled.querySelector<HTMLAnchorElement>('.skip-link');
+    const main = compiled.querySelector<HTMLElement>('#contenido');
+    const headings = Array.from(compiled.querySelectorAll('h1, h2, h3'));
+
+    expect(skipLink?.getAttribute('href')).toBe('#contenido');
+    expect(main?.tabIndex).toBe(-1);
+    expect(headings[0]?.tagName).toBe('H1');
+    expect(headings.filter((heading) => heading.tagName === 'H1')).toHaveLength(1);
+    expect(Array.from(compiled.querySelectorAll('img')).every((image) => image.alt.length > 0)).toBe(
+      true,
+    );
   });
 
   it('should provide the optional Spotify track player in the footer without autoplay', async () => {
@@ -81,9 +116,11 @@ describe('App', () => {
     expect(slider?.textContent).toContain('Calidad de software');
     expect(slider?.querySelector('a[href="https://pinta-ebook-eta.vercel.app/"]')).toBeTruthy();
     const slides = slider?.querySelectorAll<HTMLElement>('.slider-slide');
-    expect(slides?.[1].querySelector('h2')?.textContent).toContain('PintaEbook');
+    expect(slides?.[1].querySelector('.slide-title')?.textContent).toContain('PintaEbook');
     expect(slides?.[1].querySelector('img')?.getAttribute('src')).toBe('/assets/morgan.png');
-    expect(slides?.[2].querySelector('h2')?.textContent).toContain('Calidad de software');
+    expect(slides?.[2].querySelector('.slide-title')?.textContent).toContain(
+      'Calidad de software',
+    );
     expect(slides?.[2].querySelector('img')?.getAttribute('src')).toBe(
       '/assets/nahuel-carrousel.png',
     );
@@ -92,7 +129,9 @@ describe('App', () => {
     expect(compiled.querySelector('footer .footer-watermark')).toBeNull();
     expect(slider?.querySelector('.slider-window .slider-track')).toBeTruthy();
     expect(slider?.querySelector('.slider-window .slider-controls')).toBeTruthy();
-    expect(slider?.querySelector('.slider-autoplay-toggle')).toBeNull();
+    expect(slider?.querySelector('.slider-autoplay-toggle')?.getAttribute('aria-pressed')).toBe(
+      'false',
+    );
   });
 
   it('should navigate slider slides with buttons, indicators, and arrow keys', async () => {
@@ -124,6 +163,24 @@ describe('App', () => {
     expect(slider?.querySelector('[aria-current="true"]')?.getAttribute('aria-label')).toContain(
       'diapositiva 1',
     );
+  });
+
+  it('should let users pause and resume automatic slider movement', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const toggle = compiled.querySelector<HTMLButtonElement>('.slider-autoplay-toggle');
+
+    expect(toggle?.getAttribute('aria-label')).toBe('Pausar avance automático');
+    toggle?.click();
+    fixture.detectChanges();
+    expect(toggle?.getAttribute('aria-pressed')).toBe('true');
+    expect(toggle?.getAttribute('aria-label')).toBe('Reanudar avance automático');
+
+    toggle?.click();
+    fixture.detectChanges();
+    expect(toggle?.getAttribute('aria-pressed')).toBe('false');
+    expect(toggle?.getAttribute('aria-label')).toBe('Pausar avance automático');
   });
 
   it('should provide the requested technology groups and section links', async () => {
@@ -191,21 +248,38 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    compiled.querySelector<HTMLButtonElement>('.certificate-button')?.click();
+    const trigger = compiled.querySelector<HTMLButtonElement>('.certificate-button');
+    trigger?.click();
+    await fixture.whenStable();
     fixture.detectChanges();
 
     const dialog = compiled.querySelector('[role="dialog"]');
     expect(dialog).toBeTruthy();
+    expect(document.activeElement).toBe(
+      compiled.querySelector('a[href="/assets/certificado-ispc-nahuel.pdf"]'),
+    );
     expect(dialog?.querySelector('iframe')?.getAttribute('src')).toBe(
       '/assets/certificado-ispc-nahuel.pdf',
     );
     expect(dialog?.querySelector('a[href="/assets/certificado-ispc-nahuel.pdf"]')).toBeTruthy();
 
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    dialog?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();
     expect(compiled.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.activeElement).toBe(trigger);
 
     compiled.querySelector<HTMLButtonElement>('.certificate-button')?.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const reopenedDialog = compiled.querySelector<HTMLDialogElement>('dialog');
+    const cancelEvent = new Event('cancel', { cancelable: true });
+    reopenedDialog?.dispatchEvent(cancelEvent);
+    fixture.detectChanges();
+    expect(cancelEvent.defaultPrevented).toBe(true);
+    expect(compiled.querySelector('dialog')).toBeNull();
+
+    compiled.querySelector<HTMLButtonElement>('.certificate-button')?.click();
+    await fixture.whenStable();
     fixture.detectChanges();
     compiled.querySelector<HTMLButtonElement>('.certificate-close')?.click();
     fixture.detectChanges();

@@ -19,10 +19,10 @@
           <p class="education-institution">{{ item.institution }}</p>
           <p class="education-detail">{{ item.detail }}</p>
           <button
+            #certificateTrigger
             class="certificate-button"
             type="button"
             aria-haspopup="dialog"
-            aria-controls="certificate-dialog"
             (click)="openCertificate()"
           >
             Ver certificado <span aria-hidden="true">↗</span>
@@ -33,47 +33,55 @@
   </div>
 
   @if (certificateOpen()) {
-    <div
-      class="certificate-overlay"
-      role="presentation"
+    <dialog
+      #certificateDialog
+      class="certificate-dialog"
+      id="certificate-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="certificate-title"
+      (keydown.escape)="closeCertificate()"
+      (cancel)="closeCertificateOnCancel($event)"
       (click)="closeCertificateOnBackdrop($event)"
     >
-      <section
-        class="certificate-dialog"
-        id="certificate-dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="certificate-title"
-      >
-        <div class="certificate-dialog-header">
-          <h2 id="certificate-title">Certificado Junior Full Stack Developer</h2>
-          <div class="certificate-dialog-actions">
-            <a
-              class="certificate-open-link"
-              href="/assets/certificado-ispc-nahuel.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+      <div class="certificate-dialog-header">
+        <h2 id="certificate-title">Certificado Junior Full Stack Developer</h2>
+        <div class="certificate-dialog-actions">
+          <a
+            class="certificate-open-link"
+            href="/assets/certificado-ispc-nahuel.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Abrir PDF
+          </a>
+          <button
+            #certificateClose
+            class="certificate-close"
+            type="button"
+            aria-label="Cerrar certificado"
+            (click)="closeCertificate()"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
             >
-              Abrir PDF
-            </a>
-            <button
-              class="certificate-close"
-              type="button"
-              autofocus
-              aria-label="Cerrar certificado"
-              (click)="closeCertificate()"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
+              <path d="m6 6 12 12M18 6 6 18"></path>
+            </svg>
+          </button>
         </div>
-        <iframe
-          class="certificate-viewer"
-          src="/assets/certificado-ispc-nahuel.pdf"
-          title="Certificado Junior Full Stack Developer en formato PDF"
-        ></iframe>
-      </section>
-    </div>
+      </div>
+      <iframe
+        class="certificate-viewer"
+        src="/assets/certificado-ispc-nahuel.pdf"
+        title="Certificado Junior Full Stack Developer en formato PDF"
+        tabindex="-1"
+      ></iframe>
+    </dialog>
   }
 
   <section class="technology-section" aria-labelledby="technology-title">

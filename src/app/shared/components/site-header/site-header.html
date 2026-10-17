@@ -1,6 +1,8 @@
 <header class="site-header">
-  <div class="header-inner" (keydown.escape)="closeMenu()">
-    <a class="wordmark" href="#inicio" aria-label="Nahuel Argandoña, inicio"> NA<span>.</span> </a>
+  <div class="header-inner" (keydown.escape)="closeMenuOnEscape()">
+    <a class="wordmark" href="#inicio" aria-label="NA, Nahuel Argandoña, inicio">
+      NA<span>.</span>
+    </a>
 
     <nav
       id="primary-navigation"
@@ -18,7 +20,6 @@
     <button
       class="theme-toggle"
       type="button"
-      [attr.aria-label]="theme() === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'"
       [attr.aria-pressed]="theme() === 'light'"
       (click)="themeToggle.emit()"
     >
@@ -40,10 +41,11 @@
           <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path>
         }
       </svg>
-      <span>{{ theme() === 'dark' ? 'Tema claro' : 'Tema oscuro' }}</span>
+      <span>Tema</span>
     </button>
 
     <button
+      #menuToggleButton
       class="menu-toggle"
       type="button"
       [attr.aria-label]="menuOpen() ? 'Cerrar menú' : 'Abrir menú'"

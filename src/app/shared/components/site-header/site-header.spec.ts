@@ -33,10 +33,13 @@ describe('SiteHeader', () => {
     expect(navigation?.classList.contains('is-open')).toBe(false);
 
     menuButton?.click();
-    menuButton?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    const contactLink = navigation?.querySelector<HTMLAnchorElement>('a[href="#contacto"]');
+    contactLink?.focus();
+    contactLink?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();
 
     expect(menuButton?.getAttribute('aria-expanded')).toBe('false');
     expect(navigation?.classList.contains('is-open')).toBe(false);
+    expect(document.activeElement).toBe(menuButton);
   });
 });

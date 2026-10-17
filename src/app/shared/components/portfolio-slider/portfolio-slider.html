@@ -3,9 +3,9 @@
   aria-label="Slider de presentación"
   tabindex="0"
   (keydown)="handleKeydown($event)"
-  (mouseenter)="pauseForInteraction()"
-  (mouseleave)="resumeAfterInteraction()"
-  (focusin)="pauseForInteraction()"
+  (mouseenter)="setPointerInteraction(true)"
+  (mouseleave)="setPointerInteraction(false)"
+  (focusin)="setFocusInteraction(true)"
   (focusout)="handleFocusOut($event)"
   (pointerdown)="startSwipe($event)"
   (pointerup)="finishSwipe($event)"
@@ -34,7 +34,7 @@
             [alt]="slide.imageAlt"
           />
           <div class="slide-content">
-            <h2>{{ slide.title }}</h2>
+            <p class="slide-title">{{ slide.title }}</p>
             <p class="slide-description">{{ slide.description }}</p>
             @if (slide.link) {
               <a
@@ -52,6 +52,28 @@
     </div>
 
     <div class="slider-controls" role="group" aria-label="Controles del slider">
+      <button
+        class="slider-autoplay-toggle"
+        type="button"
+        [disabled]="prefersReducedMotion()"
+        [attr.aria-label]="
+          prefersReducedMotion()
+            ? 'Avance automático desactivado por preferencia de movimiento reducido'
+            : autoplayPaused()
+              ? 'Reanudar avance automático'
+              : 'Pausar avance automático'
+        "
+        [attr.aria-pressed]="autoplayPaused() || prefersReducedMotion()"
+        (click)="toggleAutoplay()"
+      >
+        <span aria-hidden="true">{{
+          prefersReducedMotion() ? '–' : autoplayPaused() ? '▶' : 'Ⅱ'
+        }}</span>
+        <span>{{
+          prefersReducedMotion() ? 'Movimiento reducido' : autoplayPaused() ? 'Continuar' : 'Pausar'
+        }}</span>
+      </button>
+
       <button
         class="slider-arrow slider-arrow-previous"
         type="button"
@@ -87,7 +109,7 @@
         </svg>
       </button>
 
-      <p class="slider-watermark" aria-label="Desarrollado por Nahuel">dev nahuel</p>
+      <p class="slider-watermark">dev nahuel</p>
     </div>
   </div>
 </section>

@@ -76,7 +76,7 @@
 }
 
 .theme-toggle:hover {
-  border-color: var(--accent);
+  border-color: var(--accent-ink);
   color: var(--accent-ink);
 }
 
@@ -157,7 +157,7 @@
   }
 
   .menu-toggle:hover {
-    border-color: var(--accent);
+    border-color: var(--accent-ink);
     color: var(--accent-ink);
   }
 

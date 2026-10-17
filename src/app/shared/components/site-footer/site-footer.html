@@ -6,14 +6,14 @@
         <p>{{ content.contactDescription }}</p>
       </div>
 
-      <div class="contact-links" aria-label="Perfiles de contacto">
+      <nav class="contact-links" aria-label="Perfiles de contacto">
         <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer">
           LinkedIn <span aria-hidden="true">↗</span>
         </a>
         <a [href]="links.github" target="_blank" rel="noopener noreferrer">
           GitHub <span aria-hidden="true">↗</span>
         </a>
-      </div>
+      </nav>
     </section>
 
     @if (focusChill.enabled) {
@@ -36,7 +36,7 @@
 
   <div class="footer-meta">
     <div class="footer-inner">
-      <a class="wordmark" href="#inicio" aria-label="Volver al inicio">NA<span>.</span></a>
+      <a class="wordmark" href="#inicio" aria-label="NA, volver al inicio">NA<span>.</span></a>
       <p>Diseñado y desarrollado por Nahuel Argandoña.</p>
       <a class="back-to-top" href="#inicio">Volver al inicio <span aria-hidden="true">↑</span></a>
     </div>

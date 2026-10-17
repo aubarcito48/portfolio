@@ -64,7 +64,7 @@
 .hero-greeting,
 .section-eyebrow {
   margin: 0 0 1rem;
-  color: var(--accent);
+  color: var(--accent-ink);
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -97,7 +97,7 @@
 
 .name-period {
   display: inline !important;
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 .hero-specialty {
@@ -181,8 +181,8 @@
 }
 
 .button-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
 }
 
 .hero-socials {

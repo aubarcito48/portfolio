@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { sliderSlides } from '../../data/slider-slides.data';
 
@@ -12,7 +19,12 @@ import { sliderSlides } from '../../data/slider-slides.data';
 export class PortfolioSlider {
   protected readonly slides = sliderSlides;
   protected readonly activeIndex = signal(0);
-  protected readonly interactionPaused = signal(false);
+  protected readonly pointerInteraction = signal(false);
+  protected readonly focusInteraction = signal(false);
+  protected readonly interactionPaused = computed(
+    () => this.pointerInteraction() || this.focusInteraction(),
+  );
+  protected readonly autoplayPaused = signal(false);
   protected readonly prefersReducedMotion = signal(false);
   private readonly motionPreference: MediaQueryList | null =
     typeof window.matchMedia === 'function'
@@ -29,7 +41,11 @@ export class PortfolioSlider {
     this.motionPreference?.addEventListener('change', onMotionPreferenceChange);
 
     const autoplayTimer = window.setInterval(() => {
-      if (!this.interactionPaused() && !this.prefersReducedMotion()) {
+      if (
+        !this.interactionPaused() &&
+        !this.autoplayPaused() &&
+        !this.prefersReducedMotion()
+      ) {
         this.showNext();
       }
     }, 6000);
@@ -52,6 +68,10 @@ export class PortfolioSlider {
     this.activeIndex.set(index);
   }
 
+  protected toggleAutoplay(): void {
+    this.autoplayPaused.update((isPaused) => !isPaused);
+  }
+
   protected handleKeydown(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
@@ -62,12 +82,12 @@ export class PortfolioSlider {
     }
   }
 
-  protected pauseForInteraction(): void {
-    this.interactionPaused.set(true);
+  protected setPointerInteraction(isInside: boolean): void {
+    this.pointerInteraction.set(isInside);
   }
 
-  protected resumeAfterInteraction(): void {
-    this.interactionPaused.set(false);
+  protected setFocusInteraction(isInside: boolean): void {
+    this.focusInteraction.set(isInside);
   }
 
   protected handleFocusOut(event: FocusEvent): void {
@@ -77,7 +97,7 @@ export class PortfolioSlider {
         return;
       }
 
-      this.resumeAfterInteraction();
+      this.setFocusInteraction(false);
     }
   }
 
