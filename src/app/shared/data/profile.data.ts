@@ -107,7 +107,7 @@ export const portfolioContent = {
         ],
       },
       {
-        name: 'DGES — Dirección General de Educación Superior',
+        name: 'DGES',
         type: 'Pasantía · Proyecto en equipo',
         image: '/assets/dges.png',
         imageAlt:

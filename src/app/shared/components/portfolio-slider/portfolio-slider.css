@@ -119,26 +119,24 @@
   position: absolute;
   display: grid;
   width: 2.75rem;
-  height: 2.75rem;
+  height: 3.5rem;
   place-items: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  background: rgb(7 13 25 / 48%);
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: #f8fafc;
   cursor: pointer;
-  font: inherit;
-  font-size: 1.2rem;
   pointer-events: auto;
   transition:
-    border-color 160ms ease,
     color 160ms ease,
-    background-color 160ms ease,
     transform 160ms ease;
-}
-
-.slider-arrow {
   top: 50%;
   transform: translateY(-50%);
+}
+
+.slider-arrow svg {
+  width: 1.25rem;
+  height: 1.75rem;
 }
 
 .slider-arrow-previous {
@@ -150,13 +148,13 @@
 }
 
 .slider-arrow:hover {
-  border-color: #7dd3fc;
-  background: rgb(7 13 25 / 78%);
   color: #7dd3fc;
+  transform: translateY(-50%) scale(1.06);
 }
 
-.slider-arrow:hover {
-  transform: translateY(-50%) scale(1.06);
+.slider-arrow:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
 }
 
 .slider-dots {
@@ -165,14 +163,14 @@
   left: 50%;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+
   transform: translateX(-50%);
   pointer-events: auto;
 }
 
 .slider-dot {
   position: relative;
-  width: 2.75rem;
+  width: 1.5rem;
   height: 2.75rem;
   padding: 0;
   border: 0;

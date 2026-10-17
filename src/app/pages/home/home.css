@@ -85,8 +85,14 @@
   display: block;
 }
 
+.hero-first-name,
+.hero-last-name {
+  font-size: 0.68em;
+}
+
 .hero-last-name {
   color: var(--text);
+  letter-spacing: -0.055em;
 }
 
 .name-period {
