@@ -137,3 +137,20 @@ overall: NEEDS_SIGNOFF — CP06 y CP08 abiertos; CP11 manual incompleto; CP12 no
 ```
 
 **Evidencia automática:** el reporte HTML final está en `playwright-report/`; `test-results/` solo contiene el marcador de última ejecución porque la ejecución final no tuvo fallos ni generó capturas, videos o traces. No se crearon issues remotos ni se modificó el Excel. Para cerrar TK19: corregir CP06/CP08, ejecutar la revisión manual pendiente y proporcionar/desplegar la URL de Vercel; luego repetir los casos afectados sobre el deployment correspondiente al commit final.
+
+## TK20 — Integración continua con GitHub Actions
+
+**Commit evaluado localmente:** cambios sin commit sobre `HEAD` `23e1580b1d02e77e81260bb98cac98e54e7e7b5c`.
+**Workflow:** `.github/workflows/ci.yml`. Se ejecuta en pull requests, push a `main` y `workflow_dispatch`. Job Ubuntu con permiso de solo lectura `contents: read`, concurrencia por rama y límite de 20 minutos. Node.js 24, `npm ci`, build de producción, instalación con `npx playwright install --with-deps chromium firefox webkit` y la matriz completa de Playwright.
+
+El test utiliza el `webServer` de Playwright para iniciar Angular dentro del runner en `127.0.0.1:4300`; no requiere servidor manual, Vercel, credenciales ni secretos. Un error de instalación, build o E2E hace fallar el job. El paso final sube `playwright-report/` y `test-results/` incluso ante fallos, con el nombre `playwright-results-<run_id>-<attempt>` y retención de 14 días.
+
+| Comprobación | Resultado |
+|---|---|
+| Flujo CI sin fallos | `npm run build` y `CI=true npm run test:e2e` PASS localmente; 84 aprobadas, 6 omitidas por CP03 en escritorio y 0 fallidas. |
+| Detección de fallo controlado | PASS local: se añadió temporalmente una aserción deliberadamente fallida y se ejecutó `CI=true npx playwright test --project=chromium-mobile-360 --grep "controlled CI failure check"`. Playwright falló en sus 3 intentos y devolvió exit code 1. Se eliminó el test temporal después de verificarlo. |
+| Ejecución real de GitHub Actions | Pendiente: el entorno local no puede crear una ejecución remota sin publicar una rama/commit. No se presenta una prueba local como enlace de ejecución de Actions. |
+
+El fallo controlado produjo salida de diagnóstico y traces en los tres intentos, y el código de salida no-cero confirma que el paso E2E propaga el error. La especificación se quitó, así no contamina la suite normal. Para verificar carga/descarga de artefactos y una ejecución verde del workflow alojado, todavía hace falta publicar una rama o commit y revisar GitHub Actions.
+
+**Conclusión:** configuración CI completa y camino rojo probado localmente. **NEEDS_SIGNOFF** hasta que el workflow tenga una ejecución real verde en GitHub y sus artefactos sean comprobados. Consultar ejecuciones y descargar reportes en **GitHub → Actions → CI → ejecución → Artifacts**. Comandos de repetición documentados en README.

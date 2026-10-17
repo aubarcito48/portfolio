@@ -160,6 +160,21 @@ npm run test:e2e
 
 La matriz ejecuta Chromium, Firefox y WebKit emulando viewports de 360 × 800 (celular), 768 × 1024 (tablet) y 1440 × 1000 (escritorio). El ancho activa el breakpoint responsive; no representa una prueba en dispositivos físicos. CP10 comprueba ausencia de desbordamiento horizontal, visibilidad de controles principales y uso de ambos temas. CP03 del menú móvil aplica a 360 y 768 px; a 1440 px queda fuera de alcance. El resto de los casos funcionales se ejecuta en las nueve combinaciones.
 
+### Integración continua
+
+GitHub Actions ejecuta build y la matriz E2E en cada pull request, en los pushes a `main` y cuando se inicia manualmente desde **Actions → CI → Run workflow**. El job usa `npm ci`, instala las dependencias de sistema y navegadores requeridas por Playwright y deja que Playwright inicie Angular en `127.0.0.1:4300`; no requiere Vercel ni secretos.
+
+Para repetir la misma validación localmente:
+
+```bash
+npm ci
+npm run build
+npx playwright install chromium firefox webkit
+npm run test:e2e
+```
+
+Los resultados se pueden descargar desde **Actions → ejecución del workflow → Artifacts**. El artefacto `playwright-results-*` incluye el reporte HTML y los resultados/capturas/traces de Playwright, se conserva durante 14 días y se carga incluso si falla un paso. En caso de fallo, el job queda en rojo; abrir el reporte descargado o inspeccionar el trace con `npx playwright show-trace <archivo-trace.zip>`.
+
 Para probar contra un servidor ya iniciado, define `PLAYWRIGHT_BASE_URL` y Playwright no iniciará otro servidor:
 
 ```bash
