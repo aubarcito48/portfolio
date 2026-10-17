@@ -142,6 +142,32 @@ La validación del primer sprint incluirá:
 
 Cada ejecución registrará su resultado y evidencia en la planilla de casos de prueba.
 
+### Pruebas E2E con Playwright
+
+Las pruebas de extremo a extremo usan Playwright con Chromium y no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
+
+Instalar Chromium una vez por entorno:
+
+```bash
+npx playwright install chromium
+```
+
+Ejecutar las pruebas (Playwright inicia Angular en `http://127.0.0.1:4300/`):
+
+```bash
+npm run test:e2e
+```
+
+Para probar contra un servidor ya iniciado, define `PLAYWRIGHT_BASE_URL` y Playwright no iniciará otro servidor:
+
+```bash
+# PowerShell
+$env:PLAYWRIGHT_BASE_URL = "http://127.0.0.1:4200"
+npm run test:e2e
+```
+
+El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. El test smoke valida el título, la presentación principal, el h1, la especialidad y el texto alternativo del retrato, sin depender de Spotify ni de otros servicios externos.
+
 ## Proyecto destacado — PintaEbook
 
 Plataforma desarrollada en equipo con funcionalidades de frontend y backend, autenticación, integración de APIs y funciones asistidas por inteligencia artificial.
