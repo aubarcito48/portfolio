@@ -3,6 +3,8 @@ import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
+    localStorage.clear();
+
     if (typeof HTMLDialogElement.prototype.showModal !== 'function') {
       Object.defineProperty(HTMLDialogElement.prototype, 'showModal', {
         configurable: true,

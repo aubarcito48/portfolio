@@ -14,7 +14,39 @@ import { PortfolioSlider } from './shared/components/portfolio-slider/portfolio-
 export class App {
   protected readonly theme = signal<'dark' | 'light'>('dark');
 
+  constructor() {
+    this.theme.set(this.getInitialTheme());
+  }
+
   protected toggleTheme(): void {
-    this.theme.update((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'));
+    const nextTheme = this.theme() === 'dark' ? 'light' : 'dark';
+    this.theme.set(nextTheme);
+
+    try {
+      window.localStorage.setItem('portfolio-theme', nextTheme);
+    } catch (error) {
+      if (!(error instanceof DOMException)) {
+        throw error;
+      }
+
+      console.warn('No se pudo guardar la preferencia de tema en este navegador.', error);
+    }
+  }
+
+  private getInitialTheme(): 'dark' | 'light' {
+    try {
+      const savedTheme = window.localStorage.getItem('portfolio-theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        return savedTheme;
+      }
+    } catch (error) {
+      if (!(error instanceof DOMException)) {
+        throw error;
+      }
+
+      console.warn('No se pudo leer la preferencia de tema en este navegador.', error);
+    }
+
+    return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   }
 }

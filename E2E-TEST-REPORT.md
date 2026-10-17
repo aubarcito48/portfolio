@@ -39,3 +39,24 @@ integration: UNVERIFIED — sin capa backend/integración en el alcance estátic
 e2e: PASS — exit_code: 0; 1 passed, 0 failed; presentación inicial; solicitud a Spotify bloqueada
 overall: PASS — smoke E2E en Chromium y URL configurable verificados
 ```
+
+## TK17 — Pruebas de interacciones y regresión
+
+**Commit base evaluado:** `db7b9f6d1547f87ee25f3ecbf1b616cb1e46fe85` (los cambios de TK17 están en el working tree y aún no tienen commit).
+**Casos manuales relacionados:** CP02, CP03, CP04, CP05, CP07 y CP09. CP01 conserva el smoke de TK16.
+
+| Caso | Archivo | Verificaciones |
+|---|---|---|
+| CP01 | `e2e/homepage.spec.ts` | Título, contenido principal, encabezado, especialidad y texto alternativo del retrato. |
+| CP02 | `e2e/navigation.spec.ts` | Todos los enlaces internos alcanzan su sección y el título no queda oculto por el encabezado fijo. |
+| CP03 | `e2e/mobile-menu.spec.ts` | Apertura, selección de destino, cierre, Escape, retorno del foco y exclusión de enlaces ocultos del orden de tabulación. |
+| CP04 | `e2e/theme.spec.ts` | Preferencia inicial del sistema sin valor guardado, alternancia visual, persistencia al recargar y funcionamiento con almacenamiento restringido. |
+| CP05 | `e2e/carousel.spec.ts` | Contenido e indicador activo al usar anterior, siguiente, indicadores y flechas del teclado; movimiento reducido desactiva autoplay. |
+| CP07 | `e2e/external-links.spec.ts` | Destinos, apertura en pestaña nueva y `noopener noreferrer` para demos, repositorios y perfiles, sin acceder a los servicios. |
+| CP09 | `e2e/back-to-top.spec.ts` | Visibilidad del enlace al desplazarse y retorno al inicio con movimiento reducido. |
+
+La revisión detectó que el tema no se persistía ni consideraba la preferencia del sistema; se implementaron ambas conductas. Si el almacenamiento del navegador rechaza lectura o escritura, la aplicación mantiene el cambio de tema y registra una advertencia en consola.
+
+El setup compartido aborta peticiones a Spotify y Google Fonts; la suite no depende de sus respuestas. No se automatizan la disponibilidad real de demos/perfiles, reproducción de Spotify ni el comportamiento de otros navegadores y dispositivos (TK18). Las pruebas se ejecutan en Chromium; las evidencias de fallos siguen configuradas en `test-results/`.
+
+**Validación:** `npm run test:e2e` PASS — 9 tests aprobados, 0 fallidos en Chromium. `npm test -- --watch=false` PASS — 12 tests aprobados. `npm run build` PASS. No hubo fallos en la ejecución final, por lo que no se generaron nuevas evidencias de fallo; los reportes y artefactos siguen configurados en `playwright-report/` y `test-results/`.

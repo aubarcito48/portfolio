@@ -166,7 +166,7 @@ $env:PLAYWRIGHT_BASE_URL = "http://127.0.0.1:4200"
 npm run test:e2e
 ```
 
-El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. El test smoke valida el título, la presentación principal, el h1, la especialidad y el texto alternativo del retrato, sin depender de Spotify ni de otros servicios externos.
+El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. Las pruebas están organizadas por funcionalidad y etiquetadas con los casos manuales CP01, CP02, CP03, CP04, CP05, CP07 y CP09. Cubren presentación, navegación, menú móvil y teclado, temas y persistencia, carrusel, destinos externos y retorno al inicio. Las peticiones a Spotify y Google Fonts se bloquean para no depender de servicios externos; los enlaces de proyectos y contacto se comprueban por su destino y atributos sin abrirlos.
 
 ## Proyecto destacado — PintaEbook
 
