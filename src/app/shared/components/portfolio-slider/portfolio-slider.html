@@ -52,27 +52,18 @@
     </div>
 
     <div class="slider-controls" role="group" aria-label="Controles del slider">
-      <button
-        class="slider-autoplay-toggle"
-        type="button"
-        [disabled]="prefersReducedMotion()"
-        [attr.aria-label]="
-          prefersReducedMotion()
-            ? 'Avance automático desactivado por preferencia de movimiento reducido'
-            : autoplayPaused()
-              ? 'Reanudar avance automático'
-              : 'Pausar avance automático'
-        "
-        [attr.aria-pressed]="autoplayPaused() || prefersReducedMotion()"
-        (click)="toggleAutoplay()"
-      >
-        <span aria-hidden="true">{{
-          prefersReducedMotion() ? '–' : autoplayPaused() ? '▶' : 'Ⅱ'
-        }}</span>
-        <span>{{
-          prefersReducedMotion() ? 'Movimiento reducido' : autoplayPaused() ? 'Continuar' : 'Pausar'
-        }}</span>
-      </button>
+      @if (!prefersReducedMotion()) {
+        <button
+          class="slider-autoplay-toggle"
+          type="button"
+          [attr.aria-label]="autoplayPaused() ? 'Reanudar avance automático' : 'Pausar avance automático'"
+          [attr.aria-pressed]="autoplayPaused()"
+          (click)="toggleAutoplay()"
+        >
+          <span aria-hidden="true">{{ autoplayPaused() ? '▶' : 'Ⅱ' }}</span>
+          <span>{{ autoplayPaused() ? 'Continuar' : 'Pausar' }}</span>
+        </button>
+      }
 
       <button
         class="slider-arrow slider-arrow-previous"

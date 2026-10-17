@@ -9,13 +9,10 @@ test.describe('[CP05] presentation carousel', () => {
     await openPortfolio(page);
 
     const slider = page.getByRole('region', { name: 'Slider de presentación' });
-    const autoplay = page.getByRole('button', {
-      name: 'Avance automático desactivado por preferencia de movimiento reducido',
-    });
     const activeSlide = page.locator('.slider-slide[aria-hidden="false"]');
     const activeIndicator = page.locator('.slider-dot[aria-current="true"]');
 
-    await expect(autoplay).toBeDisabled();
+    await expect(page.locator('.slider-autoplay-toggle')).toHaveCount(0);
     await expect(activeSlide).toContainText('Desarrollo Full Stack');
     await expect(activeIndicator).toHaveAttribute(
       'aria-label',
