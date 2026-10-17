@@ -1,0 +1,25 @@
+<footer class="site-footer">
+  <section class="contact-section" id="contacto" aria-labelledby="contact-title">
+    <div class="contact-copy">
+      <h2 id="contact-title">{{ content.contactTitle }}</h2>
+      <p>{{ content.contactDescription }}</p>
+    </div>
+
+    <div class="contact-links" aria-label="Perfiles de contacto">
+      <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer">
+        LinkedIn <span aria-hidden="true">↗</span>
+      </a>
+      <a [href]="links.github" target="_blank" rel="noopener noreferrer">
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="footer-meta">
+    <div class="footer-inner">
+      <a class="wordmark" href="#inicio" aria-label="Volver al inicio">NA<span>.</span></a>
+      <p>Diseñado y desarrollado por Nahuel Argandoña.</p>
+      <a class="back-to-top" href="#inicio">Volver al inicio <span aria-hidden="true">↑</span></a>
+    </div>
+  </div>
+</footer>

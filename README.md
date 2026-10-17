@@ -47,18 +47,23 @@ Tailwind CSS es compatible y está configurado mediante PostCSS. Angular CLI uti
 
 El primer sprint no incluirá backend propio, base de datos ni autenticación.
 
+## Organización del código
+
+La aplicación se organiza horizontalmente: `src/app/pages/` contiene las vistas y secciones de la web, mientras que `src/app/shared/` agrupa componentes y datos reutilizables, como la cabecera, el pie de página y la información del perfil. Carpetas como `guards`, `models` y `service` se incorporarán en futuros sprints cuando sean necesarias.
+
 ## Diseño
 
 La identidad visual combinará un tema oscuro con una alternativa clara.
 
-| Elemento | Color del tema oscuro |
-|---|---|
-| Fondo principal | `#0B1020` |
-| Superficies | `#151D32` |
-| Acento principal | `#38BDF8` |
-| Acento secundario | `#A78BFA` |
-| Texto principal | `#F1F5F9` |
-| Texto secundario | `#94A3B8` |
+| Elemento | Tema oscuro | Tema claro |
+|---|---|---|
+| Fondo principal | `#0B1020` | `#F5F7FB` |
+| Superficies | `#151D32` | `#FFFFFF` |
+| Acento principal | `#38BDF8` | `#38BDF8` |
+| Acento secundario | `#A78BFA` | `#A78BFA` |
+| Texto principal | `#F1F5F9` | `#182235` |
+| Texto secundario | `#94A3B8` | `#5B687B` |
+| Bordes sutiles | `rgb(148 163 184 / 17%)` | `rgb(24 34 53 / 11%)` |
 
 Se utilizarán Space Grotesk para títulos e Inter para el cuerpo del texto.
 

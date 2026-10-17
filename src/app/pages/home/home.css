@@ -1,0 +1,244 @@
+:host {
+  display: block;
+}
+
+.hero-section {
+  padding-block: clamp(3.5rem, 8vw, 7.5rem) clamp(2rem, 4vw, 4rem);
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(17rem, 0.72fr);
+  grid-template-areas: 'copy portrait';
+  align-items: center;
+  gap: clamp(3rem, 9vw, 9rem);
+}
+
+.hero-portrait {
+  grid-area: portrait;
+  width: min(100%, 24rem);
+  justify-self: end;
+  margin: 0;
+}
+
+.portrait-frame {
+  overflow: hidden;
+  border-block: 3px solid var(--portrait-line);
+  border-radius: 1.1rem;
+  background: var(--surface);
+  box-shadow: 0 2.5rem 5rem -3.5rem rgb(0 0 0 / 70%);
+}
+
+.portrait-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 34%;
+}
+
+.hero-portrait figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.025em;
+}
+
+.caption-mark {
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hero-copy {
+  grid-area: copy;
+  max-width: 42rem;
+}
+
+.hero-greeting,
+.section-eyebrow {
+  margin: 0 0 1rem;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6.2vw, 5.25rem);
+  font-weight: 600;
+  letter-spacing: -0.075em;
+  line-height: 0.98;
+}
+
+.hero-copy h1 span {
+  display: block;
+}
+
+.hero-last-name {
+  color: var(--text);
+}
+
+.name-period {
+  display: inline !important;
+  color: var(--accent);
+}
+
+.hero-specialty {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  color: var(--accent-secondary-ink);
+  font-size: clamp(1rem, 1.65vw, 1.28rem);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.hero-summary {
+  max-width: 38rem;
+  margin: 1.35rem 0 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.hero-location {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.4rem 0 0;
+  color: var(--text);
+  font-size: 0.93rem;
+}
+
+.hero-location svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--accent-ink);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 0.55rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button-primary {
+  background: var(--accent);
+  color: #071421;
+}
+
+.button-primary:hover {
+  background: color-mix(in srgb, var(--accent) 86%, white);
+}
+
+.button-secondary {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.button-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.hero-socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.hero-socials a,
+.text-link {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.25rem;
+  transition: color 180ms ease;
+}
+
+.hero-socials a:hover,
+.text-link:hover {
+  color: var(--accent-ink);
+}
+
+@media (max-width: 760px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'portrait'
+      'copy';
+    gap: 2.4rem;
+  }
+
+  .hero-portrait {
+    width: min(68%, 19rem);
+    justify-self: start;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.75rem, 10vw, 4.25rem);
+  }
+
+  .hero-summary {
+    max-width: 40rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-portrait {
+    width: min(76%, 17rem);
+  }
+
+  .hero-socials {
+    gap: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .hero-socials a {
+    transition: none;
+  }
+}

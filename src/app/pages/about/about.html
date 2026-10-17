@@ -1,0 +1,157 @@
+<section class="about-section page-width" id="sobre-mi" aria-labelledby="about-title">
+  <div class="section-heading">
+    <p class="section-eyebrow">{{ content.eyebrow }}</p>
+    <h2 id="about-title">{{ content.title }}</h2>
+  </div>
+
+  <div class="about-intro">
+    <div class="biography">
+      @for (paragraph of content.paragraphs; track paragraph) {
+        <p>{{ paragraph }}</p>
+      }
+    </div>
+
+    <aside class="education" aria-labelledby="education-title">
+      <h3 id="education-title">{{ content.educationTitle }}</h3>
+      @for (item of content.education; track item.name) {
+        <div class="education-item">
+          <p class="education-name">{{ item.name }}</p>
+          <p class="education-institution">{{ item.institution }}</p>
+          <p class="education-detail">{{ item.detail }}</p>
+          <button
+            class="certificate-button"
+            type="button"
+            aria-haspopup="dialog"
+            aria-controls="certificate-dialog"
+            (click)="openCertificate()"
+          >
+            Ver certificado <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      }
+    </aside>
+  </div>
+
+  @if (certificateOpen()) {
+    <div
+      class="certificate-overlay"
+      role="presentation"
+      (click)="closeCertificateOnBackdrop($event)"
+    >
+      <section
+        class="certificate-dialog"
+        id="certificate-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="certificate-title"
+      >
+        <div class="certificate-dialog-header">
+          <h2 id="certificate-title">Certificado Junior Full Stack Developer</h2>
+          <div class="certificate-dialog-actions">
+            <a
+              class="certificate-open-link"
+              href="/assets/certificado-ispc-nahuel.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir PDF
+            </a>
+            <button
+              class="certificate-close"
+              type="button"
+              autofocus
+              aria-label="Cerrar certificado"
+              (click)="closeCertificate()"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+        </div>
+        <iframe
+          class="certificate-viewer"
+          src="/assets/certificado-ispc-nahuel.pdf"
+          title="Certificado Junior Full Stack Developer en formato PDF"
+        ></iframe>
+      </section>
+    </div>
+  }
+
+  <section class="technology-section" aria-labelledby="technology-title">
+    <div class="section-heading compact-heading">
+      <p class="section-eyebrow">{{ content.technologyEyebrow }}</p>
+      <h2 id="technology-title">{{ content.technologyTitle }}</h2>
+    </div>
+
+    <div class="technology-grid">
+      @for (group of content.technologyGroups; track group.name) {
+        <section class="technology-group" [attr.aria-label]="group.name">
+          <h3>{{ group.name }}</h3>
+          <ul>
+            @for (technology of group.technologies; track technology.name) {
+              <li>
+                <a
+                  [href]="technology.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="'Documentación oficial de ' + technology.name"
+                >
+                  {{ technology.name }}
+                </a>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </div>
+  </section>
+
+  <section class="featured-project" id="proyectos" aria-labelledby="projects-title">
+    <div class="section-heading compact-heading">
+      <p class="section-eyebrow">{{ content.projectEyebrow }}</p>
+      <h2 id="projects-title">{{ content.projectsTitle }}</h2>
+    </div>
+
+    <div class="project-grid">
+      @for (project of content.projects; track project.name; let index = $index) {
+        <article class="project-card" [attr.aria-labelledby]="'project-title-' + index">
+          <div class="project-image">
+            <img [src]="project.image" [alt]="project.imageAlt" loading="lazy" />
+            <span class="project-image-label">{{ content.projectEyebrow }}</span>
+          </div>
+
+          <div class="project-card-body">
+            <div class="project-title-row">
+              <h3 [id]="'project-title-' + index">{{ project.name }}</h3>
+              <span class="project-type">{{ project.type }}</span>
+            </div>
+
+            <p class="project-description">{{ project.description }}</p>
+
+            @if (project.technologies.length) {
+              <ul class="project-technologies" aria-label="Tecnologías utilizadas">
+                @for (technology of project.technologies; track technology) {
+                  <li>{{ technology }}</li>
+                }
+              </ul>
+            }
+
+            <div class="project-links">
+              @for (link of project.links; track link.url) {
+                <a
+                  class="button"
+                  [class.button-primary]="link.label === 'Ver demo' || link.label === 'Ver sitio'"
+                  [class.button-secondary]="link.label !== 'Ver demo' && link.label !== 'Ver sitio'"
+                  [href]="link.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ link.label }} <span aria-hidden="true">↗</span>
+                </a>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+</section>

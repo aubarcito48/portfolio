@@ -1,0 +1,40 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a class="wordmark" href="#inicio" aria-label="Nahuel Argandoña, inicio"> NA<span>.</span> </a>
+
+    <nav class="primary-nav" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button
+      class="theme-toggle"
+      type="button"
+      [attr.aria-label]="theme() === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'"
+      [attr.aria-pressed]="theme() === 'light'"
+      (click)="themeToggle.emit()"
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        @if (theme() === 'dark') {
+          <circle cx="12" cy="12" r="4"></circle>
+          <path
+            d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"
+          ></path>
+        } @else {
+          <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path>
+        }
+      </svg>
+      <span>{{ theme() === 'dark' ? 'Tema claro' : 'Tema oscuro' }}</span>
+    </button>
+  </div>
+</header>
