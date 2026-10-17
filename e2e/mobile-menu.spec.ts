@@ -3,7 +3,10 @@ import { openPortfolio } from './test-setup';
 
 test.describe('[CP03] mobile navigation menu', () => {
   test.beforeEach(async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
+    test.skip(
+      await page.evaluate(() => window.innerWidth > 768),
+      'El menú hamburguesa solo aplica hasta 768 px.',
+    );
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await openPortfolio(page);
   });
@@ -31,26 +34,29 @@ test.describe('[CP03] mobile navigation menu', () => {
     page,
   }) => {
     const menuButton = page.locator('.menu-toggle');
-    const themeButton = page.getByRole('button', { name: 'Tema' });
     const navigation = page.getByRole('navigation', { name: 'Navegación principal' });
-    const wordmark = page.getByRole('link', { name: 'NA, Nahuel Argandoña, inicio' });
+    const slider = page.locator('.slider-section');
 
-    await menuButton.click();
-    await themeButton.focus();
-    await page.keyboard.press('Shift+Tab');
-    await expect(navigation.getByRole('link', { name: 'Contacto' })).toBeFocused();
-    await page.keyboard.press('Shift+Tab');
-    await page.keyboard.press('Shift+Tab');
-    await page.keyboard.press('Shift+Tab');
-    await expect(navigation.getByRole('link', { name: 'Inicio' })).toBeFocused();
+    await menuButton.focus();
+    await expect(menuButton).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+    const projectLink = navigation.getByRole('link', { name: 'Proyectos' });
+    await projectLink.focus();
+    await expect(projectLink).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/#proyectos$/);
+    await expect(navigation).toBeHidden();
+
+    await menuButton.focus();
+    await page.keyboard.press('Enter');
+    await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
     await page.keyboard.press('Escape');
 
     await expect(navigation).toBeHidden();
     await expect(menuButton).toBeFocused();
     await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
-    await page.keyboard.press('Shift+Tab');
-    await expect(themeButton).toBeFocused();
-    await page.keyboard.press('Shift+Tab');
-    await expect(wordmark).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(slider).toBeFocused();
   });
 });

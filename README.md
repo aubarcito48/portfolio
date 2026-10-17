@@ -144,19 +144,21 @@ Cada ejecución registrará su resultado y evidencia en la planilla de casos de 
 
 ### Pruebas E2E con Playwright
 
-Las pruebas de extremo a extremo usan Playwright con Chromium y no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
+Las pruebas de extremo a extremo usan Playwright con Chromium, Firefox y WebKit; no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
 
-Instalar Chromium una vez por entorno:
+Instalar los navegadores usados por la matriz una vez por entorno:
 
 ```bash
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 ```
 
-Ejecutar las pruebas (Playwright inicia Angular en `http://127.0.0.1:4300/`):
+Ejecutar las pruebas funcionales y responsive (Playwright inicia Angular en `http://127.0.0.1:4300/`):
 
 ```bash
 npm run test:e2e
 ```
+
+La matriz ejecuta Chromium, Firefox y WebKit emulando viewports de 360 × 800 (celular), 768 × 1024 (tablet) y 1440 × 1000 (escritorio). El ancho activa el breakpoint responsive; no representa una prueba en dispositivos físicos. CP10 comprueba ausencia de desbordamiento horizontal, visibilidad de controles principales y uso de ambos temas. CP03 del menú móvil aplica a 360 y 768 px; a 1440 px queda fuera de alcance. El resto de los casos funcionales se ejecuta en las nueve combinaciones.
 
 Para probar contra un servidor ya iniciado, define `PLAYWRIGHT_BASE_URL` y Playwright no iniciará otro servidor:
 

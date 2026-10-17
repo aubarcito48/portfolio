@@ -17,8 +17,12 @@ test.describe('[CP02] internal navigation', () => {
       { link: 'Contacto', selector: '#contacto', heading: '¿Conectamos?' },
     ];
     const navigation = page.getByRole('navigation', { name: 'Navegación principal' });
+    const mobile = await page.evaluate(() => window.innerWidth <= 768);
 
     for (const section of sections) {
+      if (mobile) {
+        await page.getByRole('button', { name: 'Abrir menú' }).click();
+      }
       await navigation.getByRole('link', { name: section.link }).click();
 
       const target = page.locator(section.selector);
@@ -32,6 +36,9 @@ test.describe('[CP02] internal navigation', () => {
         throw new Error(`No se pudo medir el encabezado de la sección ${section.link}.`);
       }
       expect(headingBox.y).toBeGreaterThanOrEqual(headerBox.y + headerBox.height - 1);
+      if (mobile) {
+        await expect(navigation).toBeHidden();
+      }
     }
   });
 });
