@@ -1,0 +1,89 @@
+<section
+  class="slider-section page-width"
+  aria-label="Slider de presentación"
+  tabindex="0"
+  (keydown)="handleKeydown($event)"
+  (mouseenter)="pauseForInteraction()"
+  (mouseleave)="resumeAfterInteraction()"
+  (focusin)="pauseForInteraction()"
+  (focusout)="handleFocusOut($event)"
+  (pointerdown)="startSwipe($event)"
+  (pointerup)="finishSwipe($event)"
+  (pointercancel)="cancelSwipe()"
+>
+  <div class="slider-window">
+    <div
+      class="slider-track"
+      [style.transform]="'translate3d(-' + activeIndex() * 100 + '%, 0, 0)'"
+      [attr.aria-live]="interactionPaused() || prefersReducedMotion() ? 'polite' : 'off'"
+    >
+      @for (slide of slides; track slide.title; let index = $index) {
+        <article
+          class="slider-slide"
+          role="group"
+          aria-roledescription="diapositiva"
+          [attr.aria-label]="index + 1 + ' de ' + slides.length"
+          [attr.aria-hidden]="index !== activeIndex()"
+          [attr.inert]="index !== activeIndex() ? '' : null"
+        >
+          <img
+            fill
+            [ngSrc]="slide.image"
+            sizes="(max-width: 640px) 100vw, 100vw"
+            [priority]="index === 0"
+            [alt]="slide.imageAlt"
+          />
+          <div class="slide-content">
+            <h2>{{ slide.title }}</h2>
+            <p class="slide-description">{{ slide.description }}</p>
+            @if (slide.link) {
+              <a
+                class="slide-link"
+                [href]="slide.link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ slide.link.label }} <span aria-hidden="true">↗</span>
+              </a>
+            }
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="slider-controls" role="group" aria-label="Controles del slider">
+      <button
+        class="slider-arrow slider-arrow-previous"
+        type="button"
+        aria-label="Diapositiva anterior"
+        (click)="showPrevious()"
+      >
+        <span aria-hidden="true">←</span>
+      </button>
+
+      <div class="slider-dots" role="group" aria-label="Seleccionar diapositiva">
+        @for (slide of slides; track slide.title; let index = $index) {
+          <button
+            class="slider-dot"
+            type="button"
+            [class.active]="index === activeIndex()"
+            [attr.aria-label]="'Mostrar diapositiva ' + (index + 1) + ': ' + slide.title"
+            [attr.aria-current]="index === activeIndex() ? 'true' : null"
+            (click)="selectSlide(index)"
+          ></button>
+        }
+      </div>
+
+      <button
+        class="slider-arrow slider-arrow-next"
+        type="button"
+        aria-label="Diapositiva siguiente"
+        (click)="showNext()"
+      >
+        <span aria-hidden="true">→</span>
+      </button>
+
+      <p class="slider-watermark" aria-label="Desarrollado por Nahuel">dev nahuel</p>
+    </div>
+  </div>
+</section>

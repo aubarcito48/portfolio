@@ -3,7 +3,7 @@
 }
 
 .hero-section {
-  padding-block: clamp(3.5rem, 8vw, 7.5rem) clamp(2rem, 4vw, 4rem);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 4rem);
 }
 
 .hero-layout {
@@ -75,7 +75,7 @@
 .hero-copy h1 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(3rem, 6.2vw, 5.25rem);
+  font-size: clamp(3rem, 5.8vw, 5rem);
   font-weight: 600;
   letter-spacing: -0.075em;
   line-height: 0.98;
@@ -218,7 +218,7 @@
   }
 
   .hero-copy h1 {
-    font-size: clamp(2.75rem, 10vw, 4.25rem);
+    font-size: clamp(2.6rem, 9vw, 4rem);
   }
 
   .hero-summary {

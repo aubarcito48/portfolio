@@ -31,6 +31,74 @@ describe('App', () => {
     expect(portrait?.getAttribute('height')).toBe('1296');
   });
 
+  it('should render the photo slider before the profile introduction', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const slider = compiled.querySelector('app-portfolio-slider');
+    const hero = compiled.querySelector('app-home-section');
+
+    expect(slider).toBeTruthy();
+    expect(slider?.nextElementSibling).toBe(hero);
+    expect(slider?.querySelectorAll('.slider-slide')).toHaveLength(3);
+    expect(
+      Array.from(slider?.querySelectorAll('.slider-slide img') ?? []).map((image) =>
+        image.getAttribute('src'),
+      ),
+    ).toEqual([
+      '/assets/bandera-argentina.png',
+      '/assets/morgan.png',
+      '/assets/nahuel-carrousel.png',
+    ]);
+    expect(slider?.textContent).toContain('Desarrollo Full Stack');
+    expect(slider?.textContent).toContain('Calidad de software');
+    expect(slider?.querySelector('a[href="https://pinta-ebook-eta.vercel.app/"]')).toBeTruthy();
+    const slides = slider?.querySelectorAll<HTMLElement>('.slider-slide');
+    expect(slides?.[1].querySelector('h2')?.textContent).toContain('PintaEbook');
+    expect(slides?.[1].querySelector('img')?.getAttribute('src')).toBe('/assets/morgan.png');
+    expect(slides?.[2].querySelector('h2')?.textContent).toContain('Calidad de software');
+    expect(slides?.[2].querySelector('img')?.getAttribute('src')).toBe(
+      '/assets/nahuel-carrousel.png',
+    );
+    expect(slides?.[2].querySelector('.slide-link')).toBeNull();
+    expect(slider?.querySelector('.slider-watermark')?.textContent?.trim()).toBe('dev nahuel');
+    expect(compiled.querySelector('footer .footer-watermark')).toBeNull();
+    expect(slider?.querySelector('.slider-window .slider-track')).toBeTruthy();
+    expect(slider?.querySelector('.slider-window .slider-controls')).toBeTruthy();
+    expect(slider?.querySelector('.slider-autoplay-toggle')).toBeNull();
+  });
+
+  it('should navigate slider slides with buttons, indicators, and arrow keys', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const slider = compiled.querySelector<HTMLElement>('.slider-section');
+
+    expect(slider?.querySelector('[aria-current="true"]')?.getAttribute('aria-label')).toContain(
+      'diapositiva 1',
+    );
+    slider?.querySelector<HTMLButtonElement>('[aria-label="Diapositiva siguiente"]')?.click();
+    fixture.detectChanges();
+    expect(slider?.querySelector('[aria-current="true"]')?.getAttribute('aria-label')).toContain(
+      'diapositiva 2',
+    );
+    expect(slider?.querySelector('.slider-track')?.getAttribute('style')).toContain(
+      'translate3d(-100%, 0, 0)',
+    );
+
+    slider?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    fixture.detectChanges();
+    expect(slider?.querySelector('[aria-current="true"]')?.getAttribute('aria-label')).toContain(
+      'diapositiva 3',
+    );
+
+    slider?.querySelector<HTMLButtonElement>('[aria-label^="Mostrar diapositiva 1"]')?.click();
+    fixture.detectChanges();
+    expect(slider?.querySelector('[aria-current="true"]')?.getAttribute('aria-label')).toContain(
+      'diapositiva 1',
+    );
+  });
+
   it('should provide the requested technology groups and section links', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
