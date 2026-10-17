@@ -31,6 +31,33 @@ describe('App', () => {
     expect(portrait?.getAttribute('height')).toBe('1296');
   });
 
+  it('should provide the optional Spotify track player in the footer without autoplay', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const section = compiled.querySelector('.focus-chill-section');
+    const player = section?.querySelector<HTMLIFrameElement>('iframe');
+    const spotifyLink = section?.querySelector<HTMLAnchorElement>('a');
+
+    expect(section?.closest('footer')).toBeTruthy();
+    expect(section?.textContent).not.toContain('Focus & Chill');
+    expect(section?.textContent).not.toContain('Un momento para bajar un cambio');
+    expect(section?.textContent).not.toContain(
+      'Si te gusta, escuchá esta canción mientras recorrés el portfolio.',
+    );
+    expect(player?.getAttribute('src')).toBe(
+      'https://open.spotify.com/embed/track/7upAH0ezzsThyvr33YKn4u?autoplay=1&start=0',
+    );
+    expect(player?.title).toBe('Reproductor de Spotify: Pasos Al Costado de Turf');
+    expect(player?.getAttribute('loading')).toBe('lazy');
+    expect(player?.getAttribute('src')).toContain('autoplay=1');
+    expect(player?.getAttribute('src')).toContain('start=0');
+    expect(player?.getAttribute('allow')).toContain('autoplay');
+    expect(spotifyLink?.href).toBe(
+      'https://open.spotify.com/intl-es/track/7upAH0ezzsThyvr33YKn4u?si=28f3020c45534233',
+    );
+  });
+
   it('should render the photo slider before the profile introduction', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();

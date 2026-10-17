@@ -1,19 +1,38 @@
 <footer class="site-footer">
-  <section class="contact-section" id="contacto" aria-labelledby="contact-title">
-    <div class="contact-copy">
-      <h2 id="contact-title">{{ content.contactTitle }}</h2>
-      <p>{{ content.contactDescription }}</p>
-    </div>
+  <div class="footer-content">
+    <section class="contact-section" id="contacto" aria-labelledby="contact-title">
+      <div class="contact-copy">
+        <h2 id="contact-title">{{ content.contactTitle }}</h2>
+        <p>{{ content.contactDescription }}</p>
+      </div>
 
-    <div class="contact-links" aria-label="Perfiles de contacto">
-      <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer">
-        LinkedIn <span aria-hidden="true">↗</span>
-      </a>
-      <a [href]="links.github" target="_blank" rel="noopener noreferrer">
-        GitHub <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </section>
+      <div class="contact-links" aria-label="Perfiles de contacto">
+        <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer">
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+        <a [href]="links.github" target="_blank" rel="noopener noreferrer">
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    @if (focusChill.enabled) {
+      <section class="focus-chill-section" aria-label="Reproductor de música de Spotify">
+        <div class="spotify-player">
+          <iframe
+            [src]="spotifyEmbedUrl"
+            [title]="focusChill.iframeTitle"
+            loading="lazy"
+            allow="encrypted-media; fullscreen; picture-in-picture; autoplay"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+          <a [href]="focusChill.spotifyUrl" target="_blank" rel="noopener noreferrer">
+            Escuchar en Spotify <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+    }
+  </div>
 
   <div class="footer-meta">
     <div class="footer-inner">
