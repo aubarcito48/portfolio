@@ -128,6 +128,22 @@ npm run build
 
 Los archivos compilados se generan en `dist/cv-proyecto`.
 
+### Ejecutar con Docker
+
+Se requiere Docker Engine con Docker Compose. Desde la raíz del repositorio, construir y ejecutar la imagen de producción:
+
+```bash
+docker compose up --build
+```
+
+El portfolio queda disponible en `http://localhost:8080/`. Para detenerlo:
+
+```bash
+docker compose down
+```
+
+La imagen usa un build multi-stage: Node.js compila Angular y Nginx sirve únicamente los archivos estáticos resultantes.
+
 ## Pruebas y calidad
 
 La validación del primer sprint incluirá:
