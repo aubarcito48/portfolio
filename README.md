@@ -52,7 +52,15 @@ La API pública es de solo lectura y no requiere autenticación desde el fronten
 
 ## Organización del código
 
-La aplicación se organiza horizontalmente: `src/app/pages/` contiene las vistas y secciones de la web, mientras que `src/app/shared/` agrupa componentes y datos reutilizables, como la cabecera, el pie de página y la información del perfil. Carpetas como `guards`, `models` y `service` se incorporarán en futuros sprints cuando sean necesarias.
+La aplicación conserva esta estructura en `src/app/`:
+
+- `guards/`: reservada para futuras rutas protegidas; la API pública no requiere guard.
+- `models/`: interfaces del portfolio.
+- `pages/`: vistas y secciones.
+- `service/`: servicio HTTP y sus pruebas.
+- `shared/`: componentes, contenido compartido y datos de prueba.
+
+La configuración por entorno está en `src/environments/`, fuera de `app`.
 
 ## Diseño
 
@@ -133,9 +141,11 @@ Los archivos compilados se generan en `dist/cv-proyecto`.
 
 ## Integración con la API
 
-En desarrollo, Angular consulta `http://localhost:8000/api/v1`. Iniciá el backend Django en ese origen antes de usar el contenido real. La URL se define en [environment.ts](./src/app/config/environment.ts).
+En desarrollo, Angular consulta `http://localhost:8000/api/v1`. Iniciá el backend Django en ese origen antes de usar el contenido real. La URL se define en [environment.ts](./src/environments/environment.ts).
 
-La configuración de producción usa `/api/v1` en el mismo origen del sitio, adecuada cuando el servidor de despliegue enruta esa ruta hacia Django. Si frontend y backend se publican en dominios distintos, actualizá `apiBaseUrl` en [environment.production.ts](./src/app/config/environment.production.ts) con la URL absoluta del backend antes de compilar y permití el dominio del frontend en CORS de Django.
+La configuración de producción usa `https://portfolio-backend-6ecn.onrender.com/api/v1`, definida en [environment.production.ts](./src/environments/environment.production.ts). `npm run build -- --configuration production` aplica el reemplazo de entorno; `npm start` conserva el backend local. El servicio aplica esa base solo a las solicitudes HTTP: las imágenes `/assets/...` mantienen el origen del frontend y se copian desde `public/assets/` al build. No configurar un `<base href>` hacia Render.
+
+La prueba de producción del 19/10/2026 verificó siete respuestas reales de Render (incluida la segunda página de tecnologías), 24 tecnologías, 2 proyectos y seis imágenes cargadas desde el frontend. CORS permite `https://portfolio-nahuel48.vercel.app`. Se sirvió el build local mediante rutas de Playwright bajo ese origen, sin desplegar cambios ni simular la API. Resultado: [docs/production-verification.json](docs/production-verification.json). También pasaron el build y las 17 pruebas unitarias; las advertencias de canvas de jsdom no impidieron su ejecución. El mecanismo de reemplazo está documentado en [Angular CLI](https://angular.dev/tools/cli/environments).
 
 La aplicación consume `perfil/`, `tecnologias/`, `experiencias/`, `formacion/`, `proyectos/` y `enlaces/` bajo `/api/v1/`. Para los listados sigue todos los enlaces `next` de la paginación (20 elementos por defecto, máximo 100) y combina las categorías de tecnologías que puedan aparecer en páginas distintas. La sección de proyectos muestra la lista publicada; el servicio también permite consultar un proyecto individual por slug.
 

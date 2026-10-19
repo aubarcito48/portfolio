@@ -9,7 +9,7 @@ import {
   computed,
 } from '@angular/core';
 import { portfolioContent } from '../../shared/data/profile.data';
-import { PortfolioApiService } from '../../shared/data/portfolio-api.service';
+import { PortfolioApiService } from '../../service/portfolio-api.service';
 
 @Component({
   selector: 'app-about-section',

@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { environment } from '../src/app/config/environment';
+import { environment } from '../src/environments/environment';
 import {
   testEducation,
   testExperiences,
@@ -9,7 +9,7 @@ import {
   testProjects,
   testTechnologyGroups,
 } from '../src/app/shared/data/portfolio-test-data';
-import type { Profile } from '../src/app/shared/data/portfolio.models';
+import type { Profile } from '../src/app/models/portfolio.models';
 
 interface PortfolioOptions {
   profile?: Profile;

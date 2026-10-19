@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { environment } from '../src/app/config/environment';
+import { environment } from '../src/environments/environment';
 
 // Only third-party assets are blocked. Successful API responses come from Django.
 test.beforeEach(async ({ page }) => {

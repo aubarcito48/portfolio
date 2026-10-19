@@ -1,0 +1,75 @@
+{
+  "method": "Local production build served by Playwright route fulfillment under published frontend origin; real Render API requests, no API mocks or deployment",
+  "realApiResponses": [
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/enlaces/",
+      "status": 200
+    },
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/perfil/",
+      "status": 200
+    },
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/experiencias/",
+      "status": 200
+    },
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/formacion/",
+      "status": 200
+    },
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/tecnologias/",
+      "status": 200
+    },
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/proyectos/",
+      "status": 200
+    },
+    {
+      "url": "https://portfolio-backend-6ecn.onrender.com/api/v1/tecnologias/?page=2",
+      "status": 200
+    }
+  ],
+  "projectCards": 2,
+  "technologyLinks": 24,
+  "images": [
+    {
+      "path": "/assets/bandera-argentina.png",
+      "frontendOrigin": true,
+      "loaded": true
+    },
+    {
+      "path": "/assets/morgan.png",
+      "frontendOrigin": true,
+      "loaded": true
+    },
+    {
+      "path": "/assets/nahuel-carrousel.png",
+      "frontendOrigin": true,
+      "loaded": true
+    },
+    {
+      "path": "/assets/nahuel.jpg",
+      "frontendOrigin": true,
+      "loaded": true
+    },
+    {
+      "path": "/assets/pintaebook.png",
+      "frontendOrigin": true,
+      "loaded": true
+    },
+    {
+      "path": "/assets/dges.png",
+      "frontendOrigin": true,
+      "loaded": true
+    }
+  ],
+  "checkedAtUtc": "2026-10-19T16:59:19.187687+00:00",
+  "productionBuild": "passed",
+  "unitTests": {
+    "passed": 17,
+    "failed": 0
+  },
+  "localApiUnchanged": true,
+  "renderDeploymentPerformed": false
+}

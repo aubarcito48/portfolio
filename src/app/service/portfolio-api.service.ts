@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { EMPTY, Observable, catchError, expand, reduce } from 'rxjs';
-import { environment } from '../../config/environment';
+import { environment } from '../../environments/environment';
 import {
   Education,
   Experience,
@@ -11,7 +11,7 @@ import {
   Project,
   ResourceState,
   TechnologyGroup,
-} from './portfolio.models';
+} from '../models/portfolio.models';
 
 @Injectable({ providedIn: 'root' })
 export class PortfolioApiService {

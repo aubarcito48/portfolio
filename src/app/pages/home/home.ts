@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { PortfolioApiService } from '../../shared/data/portfolio-api.service';
+import { PortfolioApiService } from '../../service/portfolio-api.service';
 import { portfolioContent } from '../../shared/data/profile.data';
 
 @Component({

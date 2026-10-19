@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { PortfolioApiService } from '../../data/portfolio-api.service';
+import { PortfolioApiService } from '../../../service/portfolio-api.service';
 import { portfolioContent } from '../../data/profile.data';
 import { focusChillConfig } from '../../data/focus-chill.data';
 

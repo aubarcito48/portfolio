@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { environment } from '../../config/environment';
+import { environment } from '../../environments/environment';
 import { PortfolioApiService } from './portfolio-api.service';
 import {
   testEducation,
@@ -11,7 +11,7 @@ import {
   testProfile,
   testProjects,
   testTechnologyGroups,
-} from './portfolio-test-data';
+} from '../shared/data/portfolio-test-data';
 
 describe('PortfolioApiService', () => {
   let api: PortfolioApiService;

@@ -4,7 +4,7 @@ import { HomeSection } from './pages/home/home';
 import { SiteFooter } from './shared/components/site-footer/site-footer';
 import { SiteHeader } from './shared/components/site-header/site-header';
 import { PortfolioSlider } from './shared/components/portfolio-slider/portfolio-slider';
-import { PortfolioApiService } from './shared/data/portfolio-api.service';
+import { PortfolioApiService } from './service/portfolio-api.service';
 
 @Component({
   selector: 'app-root',

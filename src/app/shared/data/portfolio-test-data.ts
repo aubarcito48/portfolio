@@ -6,7 +6,7 @@ import {
   Profile,
   Project,
   TechnologyGroup,
-} from './portfolio.models';
+} from '../../models/portfolio.models';
 
 export const testProfile: Profile = {
   name: 'Nahuel Argandoña',
