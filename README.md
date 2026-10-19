@@ -6,9 +6,9 @@ El sitio está dirigido a reclutadores, equipos de desarrollo y potenciales clie
 
 ## Estado del proyecto
 
-**Etapa actual:** documentación y planificación del Sprint 1.
+**Etapa actual:** integración del frontend Angular con la API Django (TK14).
 
-La primera entrega será una versión estática con interacciones en el navegador. La incorporación de funcionalidades dinámicas se evaluará en próximas etapas.
+La primera entrega fue una versión estática. Las secciones de perfil, tecnologías, experiencia, formación, proyectos y enlaces ahora se consultan desde la API pública del backend.
 
 **Publicado en Vercel:** [portfolio-nahuel48.vercel.app](https://portfolio-nahuel48.vercel.app/)
 
@@ -20,12 +20,11 @@ Construir una presentación profesional accesible desde computadoras, tablets y 
 
 ## Funcionalidades previstas
 
-- Presentación personal con fotografía.
-- Biografía y tecnologías organizadas por área.
-- Experiencia profesional.
-- Formación académica y certificaciones.
-- Presentación de PintaEbook como proyecto destacado.
-- Enlaces a demos, repositorios, GitHub y LinkedIn.
+- Presentación personal y biografía cargadas desde la API.
+- Tecnologías agrupadas por área, experiencia y formación publicadas.
+- Proyectos con tecnologías, imágenes, demos y repositorios.
+- Enlaces profesionales publicados desde la API.
+- Estados de carga, contenido vacío y error con reintento.
 - Navegación responsive y menú móvil.
 - Temas claro y oscuro con persistencia local cuando esté disponible.
 - Carrusel sobre desarrollo full stack, calidad de software y proyecto destacado.
@@ -33,13 +32,15 @@ Construir una presentación profesional accesible desde computadoras, tablets y 
 - Botón para volver al inicio.
 - Metadatos básicos para buscadores y redes sociales.
 
-Estas funcionalidades corresponden al alcance planificado y se actualizarán conforme avance su implementación.
+El carrusel, el contenido visual y las interacciones de navegación siguen formando parte de la experiencia del portfolio; los datos profesionales enumerados se administran en el backend.
 
 ## Tecnologías previstas
 
 | Área | Tecnología |
 |---|---|
 | Frontend | Angular y TypeScript |
+| Backend | Django y API JSON |
+| Persistencia | PostgreSQL |
 | Estilos | CSS y Tailwind CSS |
 | Control de versiones | Git y GitHub |
 | Despliegue | Vercel |
@@ -47,7 +48,7 @@ Estas funcionalidades corresponden al alcance planificado y se actualizarán con
 
 Tailwind CSS es compatible y está configurado mediante PostCSS. Angular CLI utiliza Vite internamente para el servidor de desarrollo y esbuild para la compilación; no se requiere configurar Vite por separado.
 
-El primer sprint no incluirá backend propio, base de datos ni autenticación.
+La API pública es de solo lectura y no requiere autenticación desde el frontend.
 
 ## Organización del código
 
@@ -130,6 +131,16 @@ npm run build
 
 Los archivos compilados se generan en `dist/cv-proyecto`.
 
+## Integración con la API
+
+En desarrollo, Angular consulta `http://localhost:8000/api/v1`. Iniciá el backend Django en ese origen antes de usar el contenido real. La URL se define en [environment.ts](./src/app/config/environment.ts).
+
+La configuración de producción usa `/api/v1` en el mismo origen del sitio, adecuada cuando el servidor de despliegue enruta esa ruta hacia Django. Si frontend y backend se publican en dominios distintos, actualizá `apiBaseUrl` en [environment.production.ts](./src/app/config/environment.production.ts) con la URL absoluta del backend antes de compilar y permití el dominio del frontend en CORS de Django.
+
+La aplicación consume `perfil/`, `tecnologias/`, `experiencias/`, `formacion/`, `proyectos/` y `enlaces/` bajo `/api/v1/`. Para los listados sigue todos los enlaces `next` de la paginación (20 elementos por defecto, máximo 100) y combina las categorías de tecnologías que puedan aparecer en páginas distintas. La sección de proyectos muestra la lista publicada; el servicio también permite consultar un proyecto individual por slug.
+
+Cada sección presenta su propio estado de carga, vacío o error. Los errores ofrecen reintento; la ausencia de un perfil publicado se muestra como contenido vacío. Un fallo de API no bloquea la navegación, el menú ni el cambio de tema.
+
 ### Ejecutar con Docker
 
 Se requiere Docker Engine con Docker Compose. Desde la raíz del repositorio, construir y ejecutar la imagen de producción:
@@ -148,7 +159,7 @@ La imagen usa un build multi-stage: Node.js compila Angular y Nginx sirve única
 
 ## Pruebas y calidad
 
-La validación del primer sprint incluirá:
+La validación funcional incluye:
 
 - Revisión responsive en anchos de 360, 768 y 1440 píxeles.
 - Navegación por teclado y foco visible.
@@ -162,7 +173,13 @@ Cada ejecución registrará su resultado y evidencia en la planilla de casos de 
 
 ### Pruebas E2E con Playwright
 
-Las pruebas de extremo a extremo usan Playwright con Chromium, Firefox y WebKit; no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
+Las pruebas de extremo a extremo usan Playwright con Chromium, Firefox y WebKit; interceptan los endpoints públicos con datos de prueba y no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
+
+Las pruebas unitarias usan `HttpTestingController` para verificar las rutas, la paginación, la unión de categorías divididas entre páginas, el reintento y la respuesta de perfil ausente. Para ejecutarlas:
+
+```bash
+npm test -- --watch=false
+```
 
 Instalar los navegadores usados por la matriz una vez por entorno:
 
@@ -201,7 +218,7 @@ $env:PLAYWRIGHT_BASE_URL = "http://127.0.0.1:4200"
 npm run test:e2e
 ```
 
-El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. Las pruebas están organizadas por funcionalidad y etiquetadas con los casos manuales CP01, CP02, CP03, CP04, CP05, CP07 y CP09. Cubren presentación, navegación, menú móvil y teclado, temas y persistencia, carrusel, destinos externos y retorno al inicio. Las peticiones a Spotify y Google Fonts se bloquean para no depender de servicios externos; los enlaces de proyectos y contacto se comprueban por su destino y atributos sin abrirlos.
+El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. Las pruebas están organizadas por funcionalidad y etiquetadas con los casos manuales CP01, CP02, CP03, CP04, CP05, CP07 y CP09. Cubren presentación, navegación, menú móvil y teclado, temas y persistencia, carrusel, destinos externos, retorno al inicio e integración API (incluido error y reintento). Las peticiones a Spotify y Google Fonts se bloquean para no depender de servicios externos; los enlaces de proyectos y contacto se comprueban por su destino y atributos sin abrirlos.
 
 ## Proyecto destacado — PintaEbook
 
@@ -215,11 +232,8 @@ La presentación del proyecto distinguirá el trabajo colectivo de las contribuc
 
 ## Próximas etapas
 
-Después de validar la versión estática, se evaluarán:
+La versión inicial estática ya se integró con el backend Django. Las próximas etapas pueden incluir:
 
-- Administración de contenido mediante una fuente dinámica.
-- Backend y persistencia de información.
-- Panel de administración protegido.
 - Formulario de contacto con envío real.
 - CV descargable.
 

@@ -1,49 +1,78 @@
 <section class="hero-section page-width" id="inicio" aria-labelledby="hero-title">
+  @let profileState = profile();
   <div class="hero-layout">
-    <figure class="hero-portrait">
-      <div class="portrait-frame">
-        <img
-          [src]="profile.photo"
-          [alt]="'Retrato de ' + profile.name"
-          width="972"
-          height="1296"
-          fetchpriority="high"
-        />
-      </div>
-      <figcaption>
-        <span class="caption-mark" aria-hidden="true"></span>
-        {{ content.portraitCaption }}
-      </figcaption>
-    </figure>
+    @if (profileState.status === 'success') {
+      <figure class="hero-portrait">
+        <div class="portrait-frame">
+          <img
+            [src]="profileState.data.photo"
+            [alt]="'Retrato de ' + profileState.data.name"
+            width="972"
+            height="1296"
+            fetchpriority="high"
+          />
+        </div>
+        <figcaption>
+          <span class="caption-mark" aria-hidden="true"></span>
+          {{ content.portraitCaption }}
+        </figcaption>
+      </figure>
+    } @else {
+      <div class="hero-portrait profile-placeholder" aria-hidden="true"></div>
+    }
 
     <div class="hero-copy">
       <p class="hero-greeting">{{ content.greeting }}</p>
-      <h1 id="hero-title">
-        <span class="hero-first-name">{{ profile.firstName }}</span>
-        <span class="hero-last-name">{{ profile.lastName }}<span class="name-period">.</span></span>
-      </h1>
-      <p class="hero-specialty">{{ profile.specialty }}</p>
-
-      <p class="hero-summary">{{ content.summary }}</p>
-
-      <p class="hero-location">
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.7"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
-          <circle cx="12" cy="10" r="2.5"></circle>
-        </svg>
-        <span
-          ><span class="visually-hidden">{{ content.locationLabel }}: </span
-          >{{ profile.location }}</span
-        >
-      </p>
+      @switch (profileState.status) {
+        @case ('loading') {
+          <h1 id="hero-title" class="portfolio-status" role="status">Cargando el perfil…</h1>
+        }
+        @case ('error') {
+          <div class="portfolio-status portfolio-status-error" role="alert">
+            <h1 id="hero-title">No se pudo cargar el perfil.</h1>
+            <p>Comprobá la conexión e intentá de nuevo.</p>
+            <button class="retry-button" type="button" (click)="retryProfile()">Reintentar</button>
+          </div>
+        }
+        @case ('empty') {
+          <h1 id="hero-title" class="portfolio-status" role="status">
+            No hay un perfil publicado.
+          </h1>
+        }
+        @case ('success') {
+          @let parts = nameParts();
+          @if (parts) {
+            <h1 id="hero-title">
+              <span class="hero-first-name">{{ parts.firstName }}</span>
+              @if (parts.lastName) {
+                <span class="hero-last-name"
+                  >{{ parts.lastName }}<span class="name-period">.</span></span
+                >
+              }
+            </h1>
+          }
+          <p class="hero-specialty">{{ profileState.data.specialty }}</p>
+          <p class="hero-summary">{{ profileSummary() }}</p>
+          <p class="hero-location">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+            <span
+              ><span class="visually-hidden">{{ content.locationLabel }}: </span
+              >{{ profileState.data.location }}</span
+            >
+          </p>
+        }
+      }
 
       <div class="hero-actions">
         <a class="button button-primary" href="#proyectos">
@@ -55,8 +84,26 @@
 
       <div class="hero-socials">
         <span>{{ content.socialLabel }}</span>
-        <a [href]="profile.links.github" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a [href]="profile.links.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        @let linksState = links();
+        @switch (linksState.status) {
+          @case ('loading') {
+            <span role="status">Cargando enlaces…</span>
+          }
+          @case ('error') {
+            <span role="alert">No se pudieron cargar los enlaces.</span>
+            <button class="retry-button" type="button" (click)="retryLinks()">Reintentar</button>
+          }
+          @case ('success') {
+            @for (link of linksState.data; track link.url) {
+              <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+            } @empty {
+              <span>No hay enlaces publicados.</span>
+            }
+          }
+          @case ('empty') {
+            <span>No hay enlaces publicados.</span>
+          }
+        }
       </div>
     </div>
   </div>

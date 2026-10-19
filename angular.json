@@ -24,12 +24,16 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ]
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/config/environment.ts",
+                  "with": "src/app/config/environment.production.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",

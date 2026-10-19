@@ -21,6 +21,13 @@
   margin: 0;
 }
 
+.profile-placeholder {
+  aspect-ratio: 3 / 4;
+  border-block: 3px solid var(--portrait-line);
+  border-radius: 1.1rem;
+  background: var(--surface);
+}
+
 .portrait-frame {
   overflow: hidden;
   border-block: 3px solid var(--portrait-line);

@@ -1,0 +1,128 @@
+{
+  "planHash": "fc27fc818e54ece953fe1517aa0c2c187ca9b89acfcfb6678f99c14e4ee7a406",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-10-19T15:08:19.8059868Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 0,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E cv-proyecto@0.0.0 build\r\n\u003E ng build\r\n\r\n\u001B[33m\u003E\u001B[39m Building...\r\n\u001B[32m\u221A\u001B[39m Building...\r\n\u001B[1mInitial chunk files\u001B[22m\u001B[2m | \u001B[22m\u001B[1mNames\u001B[22m        \u001B[2m | \u001B[22m \u001B[1mRaw size\u001B[22m\u001B[2m | \u001B[22m\u001B[1mEstimated transfer size\u001B[22m\r\n\u001B[32mmain-BPUGWT4O.js\u001B[39m   \u001B[2m | \u001B[22m\u001B[2mmain\u001B[22m         \u001B[2m | \u001B[22m\u001B[36m303.66 kB\u001B[39m\u001B[2m | \u001B[22m               \u001B[36m79.91 kB\u001B[39m\r\n\u001B[32mstyles-BVP36WFD.css\u001B[39m\u001B[2m | \u001B[22m\u001B[2mstyles\u001B[22m       \u001B[2m | \u001B[22m \u001B[36m13.27 kB\u001B[39m\u001B[2m | \u001B[22m                \u001B[36m3.16 kB\u001B[39m\r\n\r\n\u001B[1m \u001B[22m                  \u001B[2m | \u001B[22m\u001B[1mInitial total\u001B[22m\u001B[2m | \u001B[22m\u001B[1m316.93 kB\u001B[22m\u001B[2m | \u001B[22m               \u001B[1m83.07 kB\u001B[22m\r\n\r\nApplication bundle generation complete. [2.513 seconds] - 2026-10-19T15:06:44.526Z\r\n\r\nOutput location: C:\\Users\\rocii\\Desktop\\script\\nahuel\\cv-proyecto\\dist\\cv-proyecto\r\n\r\n",
+        "durationMs": 3891
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E cv-proyecto@0.0.0 test\r\n\u003E ng test --watch=false\r\n\r\n\u001B[32m\u2714\u001B[0m \u001B[33mConsole Ninja\u001B[0m extension is connected to \u001B[33mAngular\u001B[0m, see \u001B[36mhttps://tinyurl.com/2vt8jxzw\u001B[0m\r\n\u001B[33m\u003E\u001B[39m Building...\r\n\u001B[32m\u221A\u001B[39m Building...\r\n\u001B[1mInitial chunk files\u001B[22m                                  \u001B[2m | \u001B[22m\u001B[1mNames\u001B[22m                                             \u001B[2m | \u001B[22m \u001B[1mRaw size\u001B[22m\r\n\u001B[32mchunk-3DVTWR6C.js\u001B[39m                                    \u001B[2m | \u001B[22m\u001B[2m-\u001B[22m                                                 \u001B[2m | \u001B[22m\u001B[36m142.20 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mstyles.css\u001B[39m                                           \u001B[2m | \u001B[22m\u001B[2mstyles\u001B[22m                                            \u001B[2m | \u001B[22m \u001B[36m16.55 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mchunk-HMII5LOE.js\u001B[39m                                    \u001B[2m | \u001B[22m\u001B[2m-\u001B[22m                                                 \u001B[2m | \u001B[22m \u001B[36m16.28 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mspec-app-app.js\u001B[39m                                      \u001B[2m | \u001B[22m\u001B[2mspec-app-app\u001B[22m                                      \u001B[2m | \u001B[22m \u001B[36m12.96 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mchunk-GLSN545I.js\u001B[39m                                    \u001B[2m | \u001B[22m\u001B[2m-\u001B[22m                                                 \u001B[2m | \u001B[22m \u001B[36m10.05 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mspec-app-shared-data-portfolio-api.service.js\u001B[39m        \u001B[2m | \u001B[22m\u001B[2mspec-app-shared-data-portfolio-api.service\u001B[22m        \u001B[2m | \u001B[22m  \u001B[36m5.40 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mchunk-CGZBV6BD.js\u001B[39m                                    \u001B[2m | \u001B[22m\u001B[2m-\u001B[22m                                                 \u001B[2m | \u001B[22m  \u001B[36m4.07 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mspec-app-shared-components-site-header-site-header.js\u001B[39m\u001B[2m | \u001B[22m\u001B[2mspec-app-shared-components-site-header-site-header\u001B[22m\u001B[2m | \u001B[22m  \u001B[36m1.94 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mspec-app-accessibility.js\u001B[39m                            \u001B[2m | \u001B[22m\u001B[2mspec-app-accessibility\u001B[22m                            \u001B[2m | \u001B[22m  \u001B[36m1.47 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32minit-testbed.js\u001B[39m                                      \u001B[2m | \u001B[22m\u001B[2minit-testbed\u001B[22m                                      \u001B[2m | \u001B[22m  \u001B[36m1.21 kB\u001B[39m\u001B[2m | \u001B[22m\r\n\u001B[32mvitest-mock-patch.js\u001B[39m                                 \u001B[2m | \u001B[22m\u001B[2mvitest-mock-patch\u001B[22m                                 \u001B[2m | \u001B[22m\u001B[36m974 bytes\u001B[39m\u001B[2m | \u001B[22m\r\n\r\n\u001B[1m \u001B[22m                                                    \u001B[2m | \u001B[22m\u001B[1mInitial total\u001B[22m                                     \u001B[2m | \u001B[22m\u001B[1m213.11 kB\u001B[22m\r\n\r\nApplication bundle generation complete. [1.827 seconds] - 2026-10-19T15:06:48.344Z\r\n\r\n\r\n\u001B[1m\u001B[30m\u001B[46m RUN \u001B[49m\u001B[39m\u001B[22m \u001B[36mv4.1.12 \u001B[39m\u001B[90mC:/Users/rocii/Desktop/script/nahuel/cv-proyecto\u001B[39m\r\n\r\nNot implemented: HTMLCanvasElement\u0027s getContext() method: without installing the canvas npm package\r\nNot implemented: HTMLCanvasElement\u0027s getContext() method: without installing the canvas npm package\r\n\r\n\u001B[2m Test Files \u001B[22m \u001B[1m\u001B[32m4 passed\u001B[39m\u001B[22m\u001B[90m (4)\u001B[39m\r\n\u001B[2m      Tests \u001B[22m \u001B[1m\u001B[32m17 passed\u001B[39m\u001B[22m\u001B[90m (17)\u001B[39m\r\n\u001B[2m   Start at \u001B[22m 12:06:48\r\n\u001B[2m   Duration \u001B[22m 4.52s\u001B[2m (transform 416ms, setup 1.32s, import 550ms, tests 2.45s, environment 8.53s)\u001B[22m\r\n\r\n",
+        "durationMs": 8699,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 17,
+          "testsPassed": 17,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      },
+      {
+        "name": "playwright-regression",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E cv-proyecto@0.0.0 test:e2e\r\n\u003E playwright test\r\n\r\n\r\nRunning 108 tests using 8 workers\r\n\r\n  ok   3 [chromium-mobile-360] \u203A e2e\\api-integration.spec.ts:5:5 \u203A [TK14] renders profile and project content supplied by the API (1.3s)\r\n  ok   2 [chromium-mobile-360] \u203A e2e\\api-integration.spec.ts:24:5 \u203A [TK14] shows an API error and recovers when the user retries (1.6s)\r\n  ok   4 [chromium-mobile-360] \u203A e2e\\back-to-top.spec.ts:4:5 \u203A [CP09] returns to the beginning from the scrolled page (1.6s)\r\n  ok   7 [chromium-mobile-360] \u203A e2e\\homepage.spec.ts:4:5 \u203A [CP01] loads the portfolio introduction (1.8s)\r\n  ok   5 [chromium-mobile-360] \u203A e2e\\mobile-menu.spec.ts:14:7 \u203A [CP03] mobile navigation menu \u203A opens, follows a section link, and closes the menu (2.1s)\r\n  ok   1 [chromium-mobile-360] \u203A e2e\\carousel.spec.ts:5:7 \u203A [CP05] presentation carousel \u203A changes slide content and active indicator with controls and arrow keys (2.2s)\r\n  ok   8 [chromium-mobile-360] \u203A e2e\\mobile-menu.spec.ts:33:7 \u203A [CP03] mobile navigation menu \u203A closes with Escape, restores focus, and skips hidden links in tab order (1.9s)\r\n  ok   6 [chromium-mobile-360] \u203A e2e\\external-links.spec.ts:9:7 \u203A [CP07] external project and contact destinations \u203A exposes the configured destinations without requesting external services (2.4s)\r\n  ok  10 [chromium-mobile-360] \u203A e2e\\responsive.spec.ts:4:5 \u203A [CP10] keeps layout and primary controls usable at the configured viewport (1.7s)\r\n  ok  12 [chromium-mobile-360] \u203A e2e\\theme.spec.ts:32:7 \u203A [CP04] color theme \u203A remains usable when browser storage is unavailable (1.3s)\r\n  ok   9 [chromium-mobile-360] \u203A e2e\\navigation.spec.ts:10:7 \u203A [CP02] internal navigation \u203A navigates to every section without hiding its heading under the sticky header (2.6s)\r\n  ok  11 [chromium-mobile-360] \u203A e2e\\theme.spec.ts:5:7 \u203A [CP04] color theme \u203A uses the system preference when unset, then persists the selected theme (2.5s)\r\n  ok  14 [chromium-tablet-768] \u203A e2e\\api-integration.spec.ts:5:5 \u203A [TK14] renders profile and project content supplied by the API (1.6s)\r\n  ok  13 [chromium-tablet-768] \u203A e2e\\back-to-top.spec.ts:4:5 \u203A [CP09] returns to the beginning from the scrolled page (1.6s)\r\n  ok  16 [chromium-tablet-768] \u203A e2e\\api-integration.spec.ts:24:5 \u203A [TK14] shows an API error and recovers when the user retries (1.5s)\r\n  ok  15 [chromium-tablet-768] \u203A e2e\\carousel.spec.ts:5:7 \u203A [CP05] presentation carousel \u203A changes slide content and active indicator with controls and arrow keys (1.9s)\r\n  ok  19 [chromium-tablet-768] \u203A e2e\\responsive.spec.ts:4:5 \u203A [CP10] keeps layout and primary controls usable at the configured viewport (2.1s)\r\n  ok  17 [chromium-tablet-768] \u203A e2e\\navigation.spec.ts:10:7 \u203A [CP02] internal navigation \u203A navigates to every section without hiding its heading under the sticky header (2.4s)\r\n  ok  23 [chromium-tablet-768] \u203A e2e\\theme.spec.ts:32:7 \u203A [CP04] color theme \u203A remains usable when browser storage is unavailable (2.1s)\r\n  ok  20 [chromium-tablet-768] \u203A e2e\\homepage.spec.ts:4:5 \u203A [CP01] loads the portfolio introduction (2.5s)\r\n  ok  22 [chromium-tablet-768] \u203A e2e\\mobile-menu.spec.ts:14:7 \u203A [CP03] mobile navigation menu \u203A opens, follows a section link, and closes the menu (2.1s)\r\n  ok  21 [chromium-tablet-768] \u203A e2e\\theme.spec.ts:5:7 \u203A [CP04] color theme \u203A uses the system preference when unset, then persists the selected theme (3.2s)\r\n  ok  18 [chromium-tablet-768] \u203A e2e\\external-links.spec.ts:9:7 \u203A [CP07] external project and contact destinations \u203A exposes the configured destinations without requesting external services (3.0s)\r\n  ok  24 [chromium-tablet-768] \u203A e2e\\mobile-menu.spec.ts:33:7 \u203A [CP03] mobile navigation menu \u203A closes with Escape, restores focus, and skips hidden links in tab order (2.5s)\r\n  ok  25 [chromium-desktop-1440] \u203A e2e\\api-integration.spec.ts:24:5 \u203A [TK14] shows an API error and recovers when the user retries (1.6s)\r\n  ok  26 [chromium-desktop-1440] \u203A e2e\\back-to-top.spec.ts:4:5 \u203A [CP09] returns to the beginning from the scrolled page (1.7s)\r\n  -   30 [chromium-desktop-1440] \u203A e2e\\mobile-menu.spec.ts:14:7 \u203A [CP03] mobile n\n\u2026[truncated]",
+        "durationMs": 73012
+      },
+      {
+        "name": "development-server-home",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!doctype html\u003E\r\n\u003Chtml lang=\u0022es\u0022\u003E\r\n  \u003Chead\u003E\n    \u003Cscript type=\u0022module\u0022 src=\u0022/@vite/client\u0022\u003E\u003C/script\u003E\n\u003Cscript\u003Etry{(0,eval)(\u0022globalThis._triedToInstallGlobalErrorHandler\u0022) || (0,eval)(\u0022/* https://github.com/wallabyjs/console-ninja#how-does-it-work */\u0027use strict\u0027;const _0x3bf6f4=_0x240c;function _0x17f1(){const _0x1e6dd7=[\u0027\u0027,\u0027includes\u0027,\u0027send\u0027,\u0027parse\u0027,\u0027close\u0027,\u0027_webSocketErrorDocsLink\u0027,\u0027path\u0027,\u0027string\u0027,\u0027_ninjaInstallGlobalErrorHandler\u0027,\u0027_connectToHostNow\u0027,\u0027addEventListener\u0027,\u0027remix\u0027,\u0027error\u0027,\u0027TURBOPACK\u0027,\u0027ExpoDevice\u0027,\u0027_connecting\u0027,\u0027toUpperCase\u0027,\u0027modules\u0027,\u0027_connectAttemptCount\u0027,\u0027dockerizedApp\u0027,\u0027151010xeXdTg\u0027,\u0027replace\u0027,\u0027123300GICzKm\u0027,\u0027gateway.docker.internal\u0027,\u0027background:\\\\x20rgb(30,30,30);\\\\x20color:\\\\x20rgb(255,213,92)\u0027,\u0027versions\u0027,\u0027onopen\u0027,\u0027_extendedWarning\u0027,\u0027_WebSocket\u0027,\u0027onerror\u0027,{\\\u0022resolveGetters\\\u0022:false,\\\u0022defaultLimits\\\u0022:{\\\u0022props\\\u0022:100,\\\u0022elements\\\u0022:100,\\\u0022strLength\\\u0022:51200,\\\u0022totalStrLength\\\u0022:51200,\\\u0022autoExpandLimit\\\u0022:5000,\\\u0022autoExpandMaxDepth\\\u0022:10},\\\u0022reducedLimits\\\u0022:{\\\u0022props\\\u0022:5,\\\u0022elements\\\u0022:5,\\\u0022strLength\\\u0022:256,\\\u0022totalStrLength\\\u0022:768,\\\u0022autoExpandLimit\\\u0022:30,\\\u0022autoExpandMaxDepth\\\u0022:2},\\\u0022reducePolicy\\\u0022:{\\\u0022perLogpoint\\\u0022:{\\\u0022reduceOnCount\\\u0022:50,\\\u0022reduceOnAccumulatedProcessingTimeMs\\\u0022:100,\\\u0022resetWhenQuietMs\\\u0022:500,\\\u0022resetOnProcessingTimeAverageMs\\\u0022:100},\\\u0022global\\\u0022:{\\\u0022reduceOnCount\\\u0022:1000,\\\u0022reduceOnAccumulatedProcessingTimeMs\\\u0022:300,\\\u0022resetWhenQuietMs\\\u0022:50,\\\u0022resetOnProcessingTimeAverageMs\\\u0022:100}}},\u0027_ninjaIgnoreError\u0027,\u0027url\u0027,\u0027join\u0027,\u0027_ninjaIgnoreNextError\u0027,\u0027reason\u0027,\u0027ws://\u0027,\u0027_socket\u0027,\u0027194497hZHHkQ\u0027,\u0027expo\u0027,\u0027unhandledrejection\u0027,\u0027now\u0027,\u0027unhandledRejection\u0027,\u0027reload\u0027,\u0027forEach\u0027,\u0027logger\\\\x20websocket\\\\x20error\u0027,\u0027failed\\\\x20to\\\\x20connect\\\\x20to\\\\x20host:\\\\x20\u0027,\u0027angular\u0027,\u0027android\u0027,\u0027port\u0027,\u0027_attemptToReconnectShortly\u0027,\u0027data\u0027,\u0027getWebSocketClass\u0027,\u0027stack\u0027,\u0027test\u0027,\u0027next.js\u0027,\u0027prototype\u0027,\u0027hostname\u0027,\u0027fromCharCode\u0027,\u0027Console\\\\x20Ninja\\\\x20extension\\\\x20is\\\\x20connected\\\\x20to\\\\x20\u0027,\u0027endsWith\u0027,\u0027edge\u0027,\u0027emulator\u0027,\u0027_reconnectTimeout\u0027,\u0027default\u0027,\u0027bind\u0027,\u0027_triedToInstallGlobalErrorHandler\u0027,\u0027log\u0027,\u0027_ws\u0027,\u0027_inNextEdge\u0027,\u0027osName\u0027,\u0027then\u0027,\u0027max\u0027,\u00272WYfRxS\u0027,\u0027uncaughtException\u0027,\u0027node\u0027,\u0027host\u0027,\u0027env\u0027,\u0027substr\u0027,\u0027_connected\u0027,\u0027warn\u0027,\u0027951363EMqTeD\u0027,\u0027import(\\\\x27path\\\\x27)\u0027,\u0027,\\\\x20see\\\\x20https://tinyurl.com/2vt8jxzw\\\\x20for\\\\x20more\\\\x20info.\u0027,\u0027origin\u0027,\u002724Gzzwmz\u0027,\u0027\\\\x20server\u0027,\u0027176LKPouw\u0027,\u0027_disposeWebsocket\u0027,\u0027_WebSocketClass\u0027,\u0027readyState\u0027,\u0027onclose\u0027,\u0027react-native\u0027,\u0027425456ihwKEg\u0027,\u0027console\u0027,\u0027charAt\u0027,\u0027nextJsDistDir\u0027,\u0027location\u0027,\u0027method\u0027,\u002752644\u0027,\u0027message\u0027,\u0027NEXT_RUNTIME\u0027,\u0027global\u0027,\u0027_inBrowser\u0027,\u0027https://tinyurl.com/37x8b79t\u0027,\u0027_maxConnectAttemptCount\u0027,\u0027unref\u0027,\u00271734145dGUaZc\u0027,\u0027WebSocket\u0027,\u0027map\u0027,\u0027Unknown\\\\x20error\u0027,\u0027eventReceivedCallback\u0027,\u00271\u0027,\u0027_console_ninja_session\u0027,\u0027_allowedToSend\u0027,\\\u0022c:\\\\\\\\Users\\\\\\\\rocii\\\\\\\\.vscode\\\\\\\\extensions\\\\\\\\wallabyjs.console-ninja-1.0.544\\\\\\\\node_modules\\\u0022,\u0027slice\u0027,\u0027Console\\\\x20Ninja\\\\x20failed\\\\x20to\\\\x20send\\\\x20logs,\\\\x20refreshing\\\\x20the\\\\x20page\\\\x20may\\\\x20help;\\\\x20also\\\\x20see\\\\x20\u0027,\u0027split\u0027,\u00279033090LdBVgP\u0027,\u0027nodeModules\u0027,\u0027stackTraceLimit\u0027,\u0027_consoleNinjaAllowedToStart\u0027,{},\u0027Console\\\\x20Ninja\\\\x20failed\\\\x20to\\\\x20send\\\\x20logs,\\\\x20restarting\\\\x20the\\\\x20process\\\\x20may\\\\x20help;\\\\x20also\\\\x20see\\\\x20\u0027,\u0027failed\\\\x20to\\\\x20find\\\\x20and\\\\x20load\\\\x20WebSocket\u0027,\u0027toLowerCase\u0027,\u0027logger\\\\x20failed\\\\x20to\\\\x20connect\\\\x20to\\\\x20host,\\\\x20see\\\\x20\u0027,\u0027_allowedToConnectOnSend\u0027,\u0027%c\\\\x20Console\\\\x20Ninja\\\\x20extension\\\\x20is\\\\x20connected\\\\x20to\\\\x20\u0027,\u0027_sendErrorMessage\u0027,\u00271792422487625\u0027,\u0027process\u0027,\u0027astro\u0027,\u0027import(\\\\x27url\\\\x27)\u0027];_0x17f1=function(){return _0x1e6dd7;};return _0x17f1();}(function(_0x2fee2d,_0x389790){const _0x15b9a8=_0x240c,_0xba6063=_0x2fee2d();while(!![]){try{const _0x1b4a54=parseInt(_0x15b9a8(0x249))/0x1\u002B-parseInt(_0x15b9a8(0x1e5))/0x2*(-parseInt(_0x15b9a8(0x1ed))/0x3)\u002B-parseInt(_0x15b9a8(0x1f9))/0x4\u002BparseInt(_0x15b9a8(0x237))/0x5\u002B-parseInt(_0x15b9a8(0x1f1))/0x6*(parseInt(_0x15b9a8(0x207))/0x7)\u002BparseInt(_0x15b9a8(0x1f3))/0x8*(parseInt(_0x15b9a8(0x239))/0x9)\u002BparseInt(_0x15b9a8(0x213))/0xa;if(_0x1b4a54===_0x389790)break;else _0xba6063[\u0027push\u0027](_0xba6063[\u0027shift\u0027]());}catch(_0x214d35){_0xba6063[\u0027push\u0027](_0xba6063[\u0027shift\u0027]());}}}(_0x17f1,0x9e809));function k(_0x43e688,_\n\u2026[truncated]",
+        "durationMs": 13314
+      }
+    ],
+    "executions": [
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "C:\\Users\\rocii\\Desktop\\script\\nahuel\\cv-proyecto",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "test",
+          "--",
+          "--watch=false"
+        ],
+        "cwd": "C:\\Users\\rocii\\Desktop\\script\\nahuel\\cv-proyecto",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "playwright-regression",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "test:e2e"
+        ],
+        "cwd": "C:\\Users\\rocii\\Desktop\\script\\nahuel\\cv-proyecto",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "development-server-home",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "start",
+          "--",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "4214"
+        ],
+        "cwd": "C:\\Users\\rocii\\Desktop\\script\\nahuel\\cv-proyecto",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      }
+    ]
+  }
+}

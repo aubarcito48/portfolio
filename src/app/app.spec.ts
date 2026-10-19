@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { App } from './app';
+import { createLoadedApp } from './shared/data/portfolio-app-test-helpers';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -25,17 +28,18 @@ describe('App', () => {
 
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
+  it('should create the app', async () => {
+    const fixture = await createLoadedApp();
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it('should render the profile introduction and accessible portrait', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelectorAll('h1')).toHaveLength(1);
@@ -52,7 +56,7 @@ describe('App', () => {
   });
 
   it('should provide a skip link and a coherent heading order', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const skipLink = compiled.querySelector<HTMLAnchorElement>('.skip-link');
@@ -63,13 +67,13 @@ describe('App', () => {
     expect(main?.tabIndex).toBe(-1);
     expect(headings[0]?.tagName).toBe('H1');
     expect(headings.filter((heading) => heading.tagName === 'H1')).toHaveLength(1);
-    expect(Array.from(compiled.querySelectorAll('img')).every((image) => image.alt.length > 0)).toBe(
-      true,
-    );
+    expect(
+      Array.from(compiled.querySelectorAll('img')).every((image) => image.alt.length > 0),
+    ).toBe(true);
   });
 
   it('should provide the optional Spotify track player in the footer without autoplay', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const section = compiled.querySelector('.focus-chill-section');
@@ -96,7 +100,7 @@ describe('App', () => {
   });
 
   it('should render the photo slider before the profile introduction', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const slider = compiled.querySelector('app-portfolio-slider');
@@ -120,9 +124,7 @@ describe('App', () => {
     const slides = slider?.querySelectorAll<HTMLElement>('.slider-slide');
     expect(slides?.[1].querySelector('.slide-title')?.textContent).toContain('PintaEbook');
     expect(slides?.[1].querySelector('img')?.getAttribute('src')).toBe('/assets/morgan.png');
-    expect(slides?.[2].querySelector('.slide-title')?.textContent).toContain(
-      'Calidad de software',
-    );
+    expect(slides?.[2].querySelector('.slide-title')?.textContent).toContain('Calidad de software');
     expect(slides?.[2].querySelector('img')?.getAttribute('src')).toBe(
       '/assets/nahuel-carrousel.png',
     );
@@ -137,7 +139,7 @@ describe('App', () => {
   });
 
   it('should navigate slider slides with buttons, indicators, and arrow keys', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const slider = compiled.querySelector<HTMLElement>('.slider-section');
@@ -168,7 +170,7 @@ describe('App', () => {
   });
 
   it('should let users pause and resume automatic slider movement', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const toggle = compiled.querySelector<HTMLButtonElement>('.slider-autoplay-toggle');
@@ -186,7 +188,7 @@ describe('App', () => {
   });
 
   it('should provide the requested technology groups and section links', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
@@ -232,7 +234,7 @@ describe('App', () => {
   });
 
   it('should toggle between dark and light themes', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const toggle = compiled.querySelector<HTMLButtonElement>('.theme-toggle');
@@ -245,8 +247,8 @@ describe('App', () => {
     expect(toggle?.getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('should open and close the Junior Full Stack certificate PDF modal', async () => {
-    const fixture = TestBed.createComponent(App);
+  it('should open and close the published certification dialog', async () => {
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
@@ -258,12 +260,9 @@ describe('App', () => {
     const dialog = compiled.querySelector('[role="dialog"]');
     expect(dialog).toBeTruthy();
     expect(document.activeElement).toBe(
-      compiled.querySelector('a[href="/assets/certificado-ispc-nahuel.pdf"]'),
+      compiled.querySelector('a[href="https://example.com/certificate.pdf"]'),
     );
-    expect(dialog?.querySelector('iframe')?.getAttribute('src')).toBe(
-      '/assets/certificado-ispc-nahuel.pdf',
-    );
-    expect(dialog?.querySelector('a[href="/assets/certificado-ispc-nahuel.pdf"]')).toBeTruthy();
+    expect(dialog?.querySelector('a[href="https://example.com/certificate.pdf"]')).toBeTruthy();
 
     dialog?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();

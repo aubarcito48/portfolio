@@ -7,12 +7,28 @@
       </div>
 
       <nav class="contact-links" aria-label="Perfiles de contacto">
-        <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer">
-          LinkedIn <span aria-hidden="true">↗</span>
-        </a>
-        <a [href]="links.github" target="_blank" rel="noopener noreferrer">
-          GitHub <span aria-hidden="true">↗</span>
-        </a>
+        @let linkState = links();
+        @switch (linkState.status) {
+          @case ('loading') {
+            <span role="status">Cargando enlaces…</span>
+          }
+          @case ('error') {
+            <span role="alert">No se pudieron cargar los enlaces.</span>
+            <button class="retry-button" type="button" (click)="retryLinks()">Reintentar</button>
+          }
+          @case ('success') {
+            @for (link of linkState.data; track link.url) {
+              <a [href]="link.url" target="_blank" rel="noopener noreferrer">
+                {{ link.label }} <span aria-hidden="true">↗</span>
+              </a>
+            } @empty {
+              <span>No hay enlaces publicados.</span>
+            }
+          }
+          @case ('empty') {
+            <span>No hay enlaces publicados.</span>
+          }
+        }
       </nav>
     </section>
 

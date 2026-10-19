@@ -1,14 +1,18 @@
 import axe from 'axe-core';
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { App } from './app';
+import { createLoadedApp } from './shared/data/portfolio-app-test-helpers';
 
 describe('Accessibility audit', () => {
   it('has no axe WCAG A/AA structural violations in either color theme', async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(App);
+    const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const shell = compiled.querySelector<HTMLElement>('.site-shell');

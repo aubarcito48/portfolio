@@ -43,6 +43,45 @@ button:focus-visible {
   clip-path: inset(50%);
 }
 
+.portfolio-status {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.experience-dates {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.portfolio-status-error {
+  color: var(--text);
+}
+
+.portfolio-status-error p {
+  margin: 0;
+}
+
+.retry-button {
+  min-height: 2.5rem;
+  margin-top: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.45rem;
+  background: var(--surface);
+  color: var(--accent-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.retry-button:hover {
+  border-color: var(--accent-ink);
+}
+
 .certificate-dialog {
   display: flex;
   width: min(calc(100vw - 1.5rem), 70rem);
@@ -78,6 +117,12 @@ button:focus-visible {
   font-family: var(--font-heading);
   font-size: clamp(0.95rem, 2.5vw, 1.2rem);
   font-weight: 600;
+}
+
+.certificate-description {
+  margin: 1rem 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.65;
 }
 
 .certificate-dialog-actions {
@@ -117,14 +162,6 @@ button:focus-visible {
 .certificate-close svg {
   width: 1.1rem;
   height: 1.1rem;
-}
-
-.certificate-viewer {
-  width: 100%;
-  min-height: 0;
-  flex: 1 1 auto;
-  border: 0;
-  background: white;
 }
 
 .technology-group li a {

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { portfolioContent, profile } from '../../data/profile.data';
+import { PortfolioApiService } from '../../data/portfolio-api.service';
+import { portfolioContent } from '../../data/profile.data';
 import { focusChillConfig } from '../../data/focus-chill.data';
 
 @Component({
@@ -10,12 +11,17 @@ import { focusChillConfig } from '../../data/focus-chill.data';
 })
 export class SiteFooter {
   protected readonly content = portfolioContent.about;
-  protected readonly links = profile.links;
+  private readonly portfolioApi = inject(PortfolioApiService);
+  protected readonly links = this.portfolioApi.links;
   protected readonly focusChill = focusChillConfig;
   private readonly sanitizer = inject(DomSanitizer);
   protected readonly spotifyEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
     this.createSpotifyEmbedUrl(focusChillConfig.spotifyUrl),
   );
+
+  protected retryLinks(): void {
+    this.portfolioApi.loadLinks();
+  }
 
   private createSpotifyEmbedUrl(spotifyUrl: string): string {
     const url = new URL(spotifyUrl);

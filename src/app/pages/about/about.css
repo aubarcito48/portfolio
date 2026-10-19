@@ -70,6 +70,37 @@
   color: var(--accent-secondary-ink);
 }
 
+.experience-section {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.experience-item {
+  padding: 1.35rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.experience-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.experience-heading h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.experience-description {
+  max-width: 60rem;
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
 .certificate-button {
   display: inline-flex;
   min-height: 2.75rem;
@@ -228,6 +259,11 @@
 
   .education {
     padding-block: 0.8rem;
+  }
+
+  .experience-heading {
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
   .technology-grid {

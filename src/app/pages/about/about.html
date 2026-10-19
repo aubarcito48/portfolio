@@ -6,31 +6,118 @@
 
   <div class="about-intro">
     <div class="biography">
-      @for (paragraph of content.paragraphs; track paragraph) {
+      @for (paragraph of biographyParagraphs(); track paragraph) {
         <p>{{ paragraph }}</p>
+      } @empty {
+        @if (profile().status === 'loading') {
+          <p class="portfolio-status" role="status">Cargando la biografía…</p>
+        } @else if (profile().status === 'error') {
+          <div class="portfolio-status portfolio-status-error" role="alert">
+            <p>No se pudo cargar la biografía.</p>
+            <button class="retry-button" type="button" (click)="retryProfile()">Reintentar</button>
+          </div>
+        } @else if (profile().status === 'empty') {
+          <p class="portfolio-status" role="status">No hay un perfil publicado.</p>
+        }
       }
     </div>
 
     <aside class="education" aria-labelledby="education-title">
       <h3 id="education-title">{{ content.educationTitle }}</h3>
-      @for (item of content.education; track item.name) {
-        <div class="education-item">
-          <p class="education-name">{{ item.name }}</p>
-          <p class="education-institution">{{ item.institution }}</p>
-          <p class="education-detail">{{ item.detail }}</p>
-          <button
-            #certificateTrigger
-            class="certificate-button"
-            type="button"
-            aria-haspopup="dialog"
-            (click)="openCertificate()"
-          >
-            Ver certificado <span aria-hidden="true">↗</span>
-          </button>
-        </div>
+      @let educationState = education();
+      @switch (educationState.status) {
+        @case ('loading') {
+          <p class="portfolio-status" role="status">Cargando formación…</p>
+        }
+        @case ('error') {
+          <div class="portfolio-status portfolio-status-error" role="alert">
+            <p>No se pudo cargar la formación.</p>
+            <button class="retry-button" type="button" (click)="retryEducation()">
+              Reintentar
+            </button>
+          </div>
+        }
+        @case ('success') {
+          @for (item of educationState.data; track item.name) {
+            <div class="education-item">
+              <p class="education-name">{{ item.name }}</p>
+              <p class="education-institution">{{ item.institution }}</p>
+              <p class="education-detail">
+                {{ item.status === 'in_progress' ? 'En curso' : 'Finalizada' }}
+                · {{ formatDate(item.startDate) }}
+                @if (item.endDate) {
+                  – {{ formatDate(item.endDate) }}
+                }
+              </p>
+              @if (item.type === 'certification' && item.url) {
+                <button
+                  #certificateTrigger
+                  class="certificate-button"
+                  type="button"
+                  aria-haspopup="dialog"
+                  (click)="openCertificate(item.url, item.name)"
+                >
+                  Ver certificado <span aria-hidden="true">↗</span>
+                </button>
+              }
+            </div>
+          } @empty {
+            <p class="portfolio-status" role="status">Todavía no hay formación publicada.</p>
+          }
+        }
+        @case ('empty') {
+          <p class="portfolio-status" role="status">Todavía no hay formación publicada.</p>
+        }
       }
     </aside>
   </div>
+
+  <section class="experience-section" aria-labelledby="experience-title">
+    <div class="section-heading compact-heading">
+      <p class="section-eyebrow">Trayectoria</p>
+      <h2 id="experience-title">Experiencia</h2>
+    </div>
+    @let experienceState = experiences();
+    @switch (experienceState.status) {
+      @case ('loading') {
+        <p class="portfolio-status" role="status">Cargando experiencia…</p>
+      }
+      @case ('error') {
+        <div class="portfolio-status portfolio-status-error" role="alert">
+          <p>No se pudo cargar la experiencia.</p>
+          <button class="retry-button" type="button" (click)="retryExperiences()">
+            Reintentar
+          </button>
+        </div>
+      }
+      @case ('success') {
+        @for (item of experienceState.data; track item.title + item.organization) {
+          <article class="experience-item">
+            <div class="experience-heading">
+              <div>
+                <h3>{{ item.title }}</h3>
+                <p class="education-institution">{{ item.organization }}</p>
+              </div>
+              <p class="experience-dates">
+                {{ formatDate(item.startDate) }}
+                @if (item.isCurrent) {
+                  – Actualidad
+                } @else if (item.endDate) {
+                  – {{ formatDate(item.endDate) }}
+                }
+              </p>
+            </div>
+            <p class="experience-description">{{ item.description }}</p>
+          </article>
+        } @empty {
+          <p class="portfolio-status" role="status">Todavía no hay experiencia publicada.</p>
+        }
+      }
+      @case ('empty') {
+        <p class="portfolio-status" role="status">Todavía no hay experiencia publicada.</p>
+      }
+    }
+  </section>
 
   @if (certificateOpen()) {
     <dialog
@@ -45,15 +132,15 @@
       (click)="closeCertificateOnBackdrop($event)"
     >
       <div class="certificate-dialog-header">
-        <h2 id="certificate-title">Certificado Junior Full Stack Developer</h2>
+        <h2 id="certificate-title">Certificado: {{ certificateTitle() }}</h2>
         <div class="certificate-dialog-actions">
           <a
             class="certificate-open-link"
-            href="/assets/certificado-ispc-nahuel.pdf"
+            [href]="certificateUrl()"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Abrir PDF
+            Abrir certificado
           </a>
           <button
             #certificateClose
@@ -75,12 +162,9 @@
           </button>
         </div>
       </div>
-      <iframe
-        class="certificate-viewer"
-        src="/assets/certificado-ispc-nahuel.pdf"
-        title="Certificado Junior Full Stack Developer en formato PDF"
-        tabindex="-1"
-      ></iframe>
+      <p class="certificate-description">
+        El certificado se abrirá en una pestaña nueva para conservar la navegación del portfolio.
+      </p>
     </dialog>
   }
 
@@ -90,27 +174,50 @@
       <h2 id="technology-title">{{ content.technologyTitle }}</h2>
     </div>
 
-    <div class="technology-grid">
-      @for (group of content.technologyGroups; track group.name) {
-        <section class="technology-group" [attr.aria-label]="group.name">
-          <h3>{{ group.name }}</h3>
-          <ul>
-            @for (technology of group.technologies; track technology.name) {
-              <li>
-                <a
-                  [href]="technology.url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  [attr.aria-label]="'Documentación oficial de ' + technology.name"
-                >
-                  {{ technology.name }}
-                </a>
-              </li>
-            }
-          </ul>
-        </section>
+    @let technologyState = technologies();
+    @switch (technologyState.status) {
+      @case ('loading') {
+        <p class="portfolio-status" role="status">Cargando tecnologías…</p>
       }
-    </div>
+      @case ('error') {
+        <div class="portfolio-status portfolio-status-error" role="alert">
+          <p>No se pudieron cargar las tecnologías.</p>
+          <button class="retry-button" type="button" (click)="retryTechnologies()">
+            Reintentar
+          </button>
+        </div>
+      }
+      @case ('success') {
+        @if (technologyState.data.length) {
+          <div class="technology-grid">
+            @for (group of technologyState.data; track group.name) {
+              <section class="technology-group" [attr.aria-label]="group.name">
+                <h3>{{ group.name }}</h3>
+                <ul>
+                  @for (technology of group.technologies; track technology.name) {
+                    <li>
+                      <a
+                        [href]="technology.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        [attr.aria-label]="'Documentación oficial de ' + technology.name"
+                      >
+                        {{ technology.name }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </section>
+            }
+          </div>
+        } @else {
+          <p class="portfolio-status" role="status">Todavía no hay tecnologías publicadas.</p>
+        }
+      }
+      @case ('empty') {
+        <p class="portfolio-status" role="status">Todavía no hay tecnologías publicadas.</p>
+      }
+    }
   </section>
 
   <section class="featured-project" id="proyectos" aria-labelledby="projects-title">
@@ -119,46 +226,73 @@
       <h2 id="projects-title">{{ content.projectsTitle }}</h2>
     </div>
 
-    <div class="project-grid">
-      @for (project of content.projects; track project.name; let index = $index) {
-        <article class="project-card" [attr.aria-labelledby]="'project-title-' + index">
-          <div class="project-image">
-            <img [src]="project.image" [alt]="project.imageAlt" loading="lazy" />
-          </div>
-
-          <div class="project-card-body">
-            <div class="project-title-row">
-              <h3 [id]="'project-title-' + index">{{ project.name }}</h3>
-              <span class="project-type">{{ project.type }}</span>
-            </div>
-
-            <p class="project-description">{{ project.description }}</p>
-
-            @if (project.technologies.length) {
-              <ul class="project-technologies" aria-label="Tecnologías utilizadas">
-                @for (technology of project.technologies; track technology) {
-                  <li>{{ technology }}</li>
-                }
-              </ul>
-            }
-
-            <div class="project-links">
-              @for (link of project.links; track link.url) {
-                <a
-                  class="button"
-                  [class.button-primary]="link.label === 'Ver demo' || link.label === 'Ver sitio'"
-                  [class.button-secondary]="link.label !== 'Ver demo' && link.label !== 'Ver sitio'"
-                  [href]="link.url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ link.label }} <span aria-hidden="true">↗</span>
-                </a>
-              }
-            </div>
-          </div>
-        </article>
+    @let projectState = projects();
+    @switch (projectState.status) {
+      @case ('loading') {
+        <p class="portfolio-status" role="status">Cargando proyectos…</p>
       }
-    </div>
+      @case ('error') {
+        <div class="portfolio-status portfolio-status-error" role="alert">
+          <p>No se pudieron cargar los proyectos.</p>
+          <button class="retry-button" type="button" (click)="retryProjects()">Reintentar</button>
+        </div>
+      }
+      @case ('success') {
+        @if (projectState.data.length) {
+          <div class="project-grid">
+            @for (project of projectState.data; track project.slug; let index = $index) {
+              <article class="project-card" [attr.aria-labelledby]="'project-title-' + index">
+                @if (project.image) {
+                  <div class="project-image">
+                    <img [src]="project.image" [alt]="project.imageAlt" loading="lazy" />
+                  </div>
+                }
+
+                <div class="project-card-body">
+                  <div class="project-title-row">
+                    <h3 [id]="'project-title-' + index">{{ project.name }}</h3>
+                    <span class="project-type">{{ project.type }}</span>
+                  </div>
+
+                  <p class="project-description">{{ project.description }}</p>
+
+                  @if (project.technologies.length) {
+                    <ul class="project-technologies" aria-label="Tecnologías utilizadas">
+                      @for (technology of project.technologies; track technology) {
+                        <li>{{ technology }}</li>
+                      }
+                    </ul>
+                  }
+
+                  <div class="project-links">
+                    @for (link of project.links; track link.url) {
+                      <a
+                        class="button"
+                        [class.button-primary]="
+                          link.label === 'Ver demo' || link.label === 'Ver sitio'
+                        "
+                        [class.button-secondary]="
+                          link.label !== 'Ver demo' && link.label !== 'Ver sitio'
+                        "
+                        [href]="link.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ link.label }} <span aria-hidden="true">↗</span>
+                      </a>
+                    }
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        } @else {
+          <p class="portfolio-status" role="status">Todavía no hay proyectos publicados.</p>
+        }
+      }
+      @case ('empty') {
+        <p class="portfolio-status" role="status">Todavía no hay proyectos publicados.</p>
+      }
+    }
   </section>
 </section>
