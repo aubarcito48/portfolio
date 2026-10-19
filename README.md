@@ -175,6 +175,26 @@ Cada ejecución registrará su resultado y evidencia en la planilla de casos de 
 
 Las pruebas de extremo a extremo usan Playwright con Chromium, Firefox y WebKit; interceptan los endpoints públicos con datos de prueba y no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
 
+La regresión integrada TK15 se ejecuta desde `portfolio_backend` mediante
+`.\.venv\Scripts\python.exe scripts\run_regression.py`. Requiere los dos
+repositorios como carpetas hermanas, PostgreSQL con `CREATEDB`, `.env` del
+backend, dependencias de ambos proyectos y los tres navegadores instalados.
+El runner crea bases descartables, ejecuta Django, unitarias Angular y build,
+inicia ambos servidores y agrega `e2e/real-api.spec.ts` a la matriz completa.
+Estos recorridos usan Django real para comprobar contenido publicado,
+paginación, borradores, navegación, enlaces, tema y recuperación tras un fallo
+de red controlado. Las pruebas aisladas verifican estados vacíos y errores.
+
+Sin `PORTFOLIO_REAL_API=1`, `npm run test:e2e` excluye `real-api.spec.ts` y no
+requiere backend. El runner configura esa variable y la URL del frontend
+`http://127.0.0.1:4301`; Angular consulta la API en el puerto 8000.
+
+El resumen queda en `portfolio_backend/reports/TK15-regression-latest.json`.
+Cada ejecución conserva su JSON histórico y una carpeta con reporte HTML,
+JSON por caso, capturas, trazas de fallos y logs de servidores. Los comandos
+para abrirlos se documentan en el README del backend; el estado de BE-CP22 y
+los defectos se registran en `portfolio_backend/reports/BE-CP22.md`.
+
 Las pruebas unitarias usan `HttpTestingController` para verificar las rutas, la paginación, la unión de categorías divididas entre páginas, el reintento y la respuesta de perfil ausente. Para ejecutarlas:
 
 ```bash
@@ -218,7 +238,7 @@ $env:PLAYWRIGHT_BASE_URL = "http://127.0.0.1:4200"
 npm run test:e2e
 ```
 
-El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. Las pruebas están organizadas por funcionalidad y etiquetadas con los casos manuales CP01, CP02, CP03, CP04, CP05, CP07 y CP09. Cubren presentación, navegación, menú móvil y teclado, temas y persistencia, carrusel, destinos externos, retorno al inicio e integración API (incluido error y reintento). Las peticiones a Spotify y Google Fonts se bloquean para no depender de servicios externos; los enlaces de proyectos y contacto se comprueban por su destino y atributos sin abrirlos.
+El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. Las pruebas están organizadas por funcionalidad y etiquetadas con los casos manuales CP01, CP02, CP03, CP04, CP05, CP07 y CP09. Cubren presentación, navegación, menú móvil y teclado, temas y persistencia, carrusel, destinos externos, retorno al inicio e integración API (incluidos carga, vacío, error y reintento). Las peticiones a Spotify y Google Fonts se bloquean para no depender de servicios externos; los enlaces de proyectos y contacto se comprueban por su destino y atributos sin abrirlos.
 
 ## Proyecto destacado — PintaEbook
 

@@ -14,6 +14,9 @@ import type { Profile } from '../src/app/shared/data/portfolio.models';
 interface PortfolioOptions {
   profile?: Profile;
   profileFailures?: number;
+  profileDelayMs?: number;
+  emptyResources?: boolean;
+  missingProfile?: boolean;
 }
 
 export async function openPortfolio(page: Page, options: PortfolioOptions = {}): Promise<void> {
@@ -23,13 +26,34 @@ export async function openPortfolio(page: Page, options: PortfolioOptions = {}):
   );
   const apiBase = new URL(environment.apiBaseUrl);
   let profileFailures = options.profileFailures ?? 0;
-  const responses = new Map<string, unknown>([
-    ['/perfil/', options.profile ?? testProfile],
-    ['/tecnologias/', testPage(testTechnologyGroups)],
-    ['/experiencias/', testPage(testExperiences)],
-    ['/formacion/', testPage(testEducation)],
-    ['/proyectos/', testPage(testProjects)],
-    ['/enlaces/', testPage(testLinks)],
+  const emptyPage = testPage<unknown>([]);
+  const responses = new Map<string, { status: number; body: unknown }>([
+    [
+      '/perfil/',
+      options.missingProfile
+        ? { status: 404, body: { detail: 'No hay un perfil publicado.' } }
+        : { status: 200, body: options.profile ?? testProfile },
+    ],
+    [
+      '/tecnologias/',
+      {
+        status: 200,
+        body: options.emptyResources ? emptyPage : testPage(testTechnologyGroups),
+      },
+    ],
+    [
+      '/experiencias/',
+      { status: 200, body: options.emptyResources ? emptyPage : testPage(testExperiences) },
+    ],
+    [
+      '/formacion/',
+      { status: 200, body: options.emptyResources ? emptyPage : testPage(testEducation) },
+    ],
+    [
+      '/proyectos/',
+      { status: 200, body: options.emptyResources ? emptyPage : testPage(testProjects) },
+    ],
+    ['/enlaces/', { status: 200, body: options.emptyResources ? emptyPage : testPage(testLinks) }],
   ]);
 
   await page.route(`${environment.apiBaseUrl}/**`, async (route) => {
@@ -47,8 +71,8 @@ export async function openPortfolio(page: Page, options: PortfolioOptions = {}):
       return;
     }
 
-    const body = responses.get(path);
-    if (body === undefined) {
+    const response = responses.get(path);
+    if (response === undefined) {
       await route.fulfill({
         status: 404,
         contentType: 'application/json',
@@ -58,11 +82,15 @@ export async function openPortfolio(page: Page, options: PortfolioOptions = {}):
       return;
     }
 
+    if (path === '/perfil/' && options.profileDelayMs) {
+      await new Promise((resolve) => setTimeout(resolve, options.profileDelayMs));
+    }
+
     await route.fulfill({
-      status: 200,
+      status: response.status,
       contentType: 'application/json',
       headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify(body),
+      body: JSON.stringify(response.body),
     });
   });
 

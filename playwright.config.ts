@@ -11,10 +11,24 @@ const viewports = [
 
 export default defineConfig({
   testDir: './e2e',
+  testIgnore: process.env.PORTFOLIO_REAL_API === '1' ? [] : ['**/real-api.spec.ts'],
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
-  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+  reporter: [
+    ['list'],
+    [
+      'html',
+      {
+        outputFolder: process.env.PLAYWRIGHT_HTML_OUTPUT_DIR || 'playwright-report',
+        open: 'never',
+      },
+    ],
+    [
+      'json',
+      { outputFile: process.env.PLAYWRIGHT_JSON_OUTPUT_FILE || 'test-results/results.json' },
+    ],
+  ],
   outputDir: 'test-results',
   use: {
     baseURL,
