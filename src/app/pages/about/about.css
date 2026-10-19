@@ -115,6 +115,7 @@
   font: inherit;
   font-size: 0.85rem;
   font-weight: 600;
+  text-decoration: none;
 }
 
 .certificate-button:hover {
@@ -271,8 +272,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .certificate-button,
-    .certificate-close {
+    .certificate-button {
       transition: none;
     }
   }

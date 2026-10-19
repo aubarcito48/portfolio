@@ -8,24 +8,6 @@ describe('App', () => {
   beforeEach(async () => {
     localStorage.clear();
 
-    if (typeof HTMLDialogElement.prototype.showModal !== 'function') {
-      Object.defineProperty(HTMLDialogElement.prototype, 'showModal', {
-        configurable: true,
-        value(this: HTMLDialogElement) {
-          this.setAttribute('open', '');
-          this.querySelector<HTMLElement>('a[href], button:not([disabled])')?.focus();
-        },
-      });
-    }
-    if (typeof HTMLDialogElement.prototype.close !== 'function') {
-      Object.defineProperty(HTMLDialogElement.prototype, 'close', {
-        configurable: true,
-        value(this: HTMLDialogElement) {
-          this.removeAttribute('open');
-        },
-      });
-    }
-
     await TestBed.configureTestingModule({
       imports: [App],
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -247,43 +229,17 @@ describe('App', () => {
     expect(toggle?.getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('should open and close the published certification dialog', async () => {
+  it('should link directly to the published certificate in a new tab', async () => {
     const fixture = await createLoadedApp();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    const trigger = compiled.querySelector<HTMLButtonElement>('.certificate-button');
-    trigger?.click();
-    await fixture.whenStable();
-    fixture.detectChanges();
-
-    const dialog = compiled.querySelector('[role="dialog"]');
-    expect(dialog).toBeTruthy();
-    expect(document.activeElement).toBe(
-      compiled.querySelector('a[href="https://example.com/certificate.pdf"]'),
-    );
-    expect(dialog?.querySelector('a[href="https://example.com/certificate.pdf"]')).toBeTruthy();
-
-    dialog?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-    fixture.detectChanges();
-    expect(compiled.querySelector('[role="dialog"]')).toBeNull();
-    expect(document.activeElement).toBe(trigger);
-
-    compiled.querySelector<HTMLButtonElement>('.certificate-button')?.click();
-    await fixture.whenStable();
-    fixture.detectChanges();
-    const reopenedDialog = compiled.querySelector<HTMLDialogElement>('dialog');
-    const cancelEvent = new Event('cancel', { cancelable: true });
-    reopenedDialog?.dispatchEvent(cancelEvent);
-    fixture.detectChanges();
-    expect(cancelEvent.defaultPrevented).toBe(true);
+    const link = compiled.querySelector<HTMLAnchorElement>('a.certificate-button');
+    expect(link?.getAttribute('href')).toBe('https://example.com/certificate.pdf');
+    expect(link?.target).toBe('_blank');
+    expect(link?.relList.contains('noopener')).toBe(true);
+    expect(link?.relList.contains('noreferrer')).toBe(true);
+    expect(link?.textContent).toContain('Ver certificado');
     expect(compiled.querySelector('dialog')).toBeNull();
-
-    compiled.querySelector<HTMLButtonElement>('.certificate-button')?.click();
-    await fixture.whenStable();
-    fixture.detectChanges();
-    compiled.querySelector<HTMLButtonElement>('.certificate-close')?.click();
-    fixture.detectChanges();
-    expect(compiled.querySelector('[role="dialog"]')).toBeNull();
   });
 });

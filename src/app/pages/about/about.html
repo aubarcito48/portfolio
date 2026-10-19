@@ -50,15 +50,14 @@
                 }
               </p>
               @if (item.type === 'certification' && item.url) {
-                <button
-                  #certificateTrigger
+                <a
                   class="certificate-button"
-                  type="button"
-                  aria-haspopup="dialog"
-                  (click)="openCertificate(item.url, item.name)"
+                  [href]="item.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Ver certificado <span aria-hidden="true">↗</span>
-                </button>
+                </a>
               }
             </div>
           } @empty {
@@ -118,55 +117,6 @@
       }
     }
   </section>
-
-  @if (certificateOpen()) {
-    <dialog
-      #certificateDialog
-      class="certificate-dialog"
-      id="certificate-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="certificate-title"
-      (keydown.escape)="closeCertificate()"
-      (cancel)="closeCertificateOnCancel($event)"
-      (click)="closeCertificateOnBackdrop($event)"
-    >
-      <div class="certificate-dialog-header">
-        <h2 id="certificate-title">Certificado: {{ certificateTitle() }}</h2>
-        <div class="certificate-dialog-actions">
-          <a
-            class="certificate-open-link"
-            [href]="certificateUrl()"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Abrir certificado
-          </a>
-          <button
-            #certificateClose
-            class="certificate-close"
-            type="button"
-            aria-label="Cerrar certificado"
-            (click)="closeCertificate()"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            >
-              <path d="m6 6 12 12M18 6 6 18"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <p class="certificate-description">
-        El certificado se abrirá en una pestaña nueva para conservar la navegación del portfolio.
-      </p>
-    </dialog>
-  }
 
   <section class="technology-section" aria-labelledby="technology-title">
     <div class="section-heading compact-heading">
