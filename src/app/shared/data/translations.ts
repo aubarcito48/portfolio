@@ -18,7 +18,6 @@ export const messages = {
   socials: ['También podés encontrarme en', 'You can also find me on'],
   portraitCaption: ['Desarrollo de software · Córdoba, AR', 'Software development · Córdoba, AR'],
   portrait: ['Retrato de ', 'Portrait of '],
-  aboutEyebrow: ['Un poco sobre mi recorrido', 'A little about my background'],
   education: ['Formación', 'Education'],
   experience: ['Experiencia', 'Experience'],
   technologies: ['Tecnologías', 'Technologies'],

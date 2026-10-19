@@ -8,7 +8,6 @@ export const portfolioContent = {
     portraitCaption: 'Desarrollo de software · Córdoba, AR',
   },
   about: {
-    eyebrow: 'Un poco sobre mi recorrido',
     title: 'Sobre mí',
     educationTitle: 'Formación',
     technologyTitle: 'Tecnologías',
