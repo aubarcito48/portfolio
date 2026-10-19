@@ -1,3 +1,4 @@
+import { providePortfolioTranslations } from './service/language.service';
 import axe from 'axe-core';
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
@@ -7,9 +8,10 @@ import { createLoadedApp } from './shared/data/portfolio-app-test-helpers';
 
 describe('Accessibility audit', () => {
   it('has no axe WCAG A/AA structural violations in either color theme', async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [providePortfolioTranslations(), provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     const fixture = await createLoadedApp();

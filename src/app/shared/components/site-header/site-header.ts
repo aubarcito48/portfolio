@@ -1,4 +1,5 @@
-import { Component, ElementRef, input, output, signal, viewChild } from '@angular/core';
+import { LanguageService } from '../../../service/language.service';
+import { Component, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-site-header',
@@ -6,6 +7,7 @@ import { Component, ElementRef, input, output, signal, viewChild } from '@angula
   styleUrl: './site-header.css',
 })
 export class SiteHeader {
+  protected readonly i18n = inject(LanguageService);
   readonly theme = input.required<'dark' | 'light'>();
   readonly themeToggle = output<void>();
   readonly menuOpen = signal(false);

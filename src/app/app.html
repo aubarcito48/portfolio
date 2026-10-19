@@ -1,5 +1,5 @@
 <div class="site-shell" [attr.data-theme]="theme()">
-  <a class="skip-link" href="#contenido">Ir al contenido</a>
+  <a class="skip-link" href="#contenido">{{ i18n.text('Ir al contenido') }}</a>
 
   <app-site-header [theme]="theme()" (themeToggle)="toggleTheme()" />
 

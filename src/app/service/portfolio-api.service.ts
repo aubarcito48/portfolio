@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { LanguageService } from './language.service';
 import { EMPTY, Observable, catchError, expand, reduce } from 'rxjs';
 import { environment } from '../../environments/environment';
 import {
@@ -23,10 +24,22 @@ export class PortfolioApiService {
   readonly links = signal<ResourceState<ProfessionalLink[]>>({ status: 'loading' });
 
   private readonly http = inject(HttpClient);
+  private readonly i18n = inject(LanguageService);
   private readonly apiBaseUrl = new URL(environment.apiBaseUrl, window.location.origin)
     .toString()
     .replace(/\/+$/, '');
   private readonly requests = new Map<string, { unsubscribe(): void }>();
+
+  constructor() {
+    let previousLanguage = this.i18n.language();
+    effect(() => {
+      const language = this.i18n.language();
+      if (language !== previousLanguage) {
+        previousLanguage = language;
+        this.loadAll();
+      }
+    });
+  }
 
   loadAll(): void {
     this.loadProfile();
@@ -81,7 +94,8 @@ export class PortfolioApiService {
   }
 
   private endpoint(path: string): string {
-    return `${this.apiBaseUrl}/${path}`;
+    const url = `${this.apiBaseUrl}/${path}`;
+    return this.i18n.language() === 'en' ? `${url}?lang=en` : url;
   }
 
   private getAllResults<T>(path: string): Observable<T[]> {

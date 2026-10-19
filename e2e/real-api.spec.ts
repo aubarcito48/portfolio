@@ -14,6 +14,61 @@ async function expectProfile(page: Page) {
   await expect(page.getByRole('heading', { level: 1, name: 'Nahuel Argandoña.' })).toBeVisible();
 }
 
+test('[i18n] switches real API content and dates, persists English and returns to Spanish', async ({ page }, testInfo) => {
+  await page.goto('/');
+  await expectProfile(page);
+  const photo = await page.locator('.hero-portrait img').getAttribute('src');
+  const demoUrl = await page.locator('.project-links a').first().getAttribute('href');
+  const englishProfile = page.waitForResponse((response) => {
+    const url = new URL(response.url());
+    return url.pathname.endsWith('/perfil/') && url.searchParams.get('lang') === 'en';
+  });
+  await page.getByRole('button', { name: 'Cambiar a inglés' }).click();
+  expect((await englishProfile).status()).toBe(200);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.getByRole('heading', { name: 'Experience', exact: true })).toBeVisible();
+  await expect(page.locator('.biography')).toContainText('I am a software developer');
+  await expect(page.locator('.experience-dates').first()).toContainText('January 2025');
+  await expect(page.locator('.experience-dates').first()).toContainText('Present');
+  await expect(page.locator('.project-description').first()).toContainText('Book and ebook platform');
+  await expect(page.locator('.technology-group').filter({ hasText: 'Databases and tools' })).toBeVisible();
+  await expect(page.locator('.technology-grid a')).toHaveCount(24);
+  await expect(page.locator('.hero-portrait img')).toHaveAttribute('src', photo!);
+  await expect(page.locator('.project-links a').first()).toHaveAttribute('href', demoUrl!);
+  await expect(page.locator('body')).not.toContainText('TK15 Draft');
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('.biography')).toContainText('I am a software developer');
+  await testInfo.attach('portfolio-english', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+  await page.getByRole('button', { name: 'Switch to Spanish' }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  await expect(page.locator('.biography')).toContainText('Soy desarrollador de software');
+  await expect(page.locator('.experience-dates').first()).toContainText('enero de 2025');
+  await expect(page.getByRole('heading', { name: 'Experiencia', exact: true })).toBeVisible();
+  await expect(page.locator('.site-shell')).toHaveJSProperty('scrollWidth', await page.locator('.site-shell').evaluate((el) => el.clientWidth));
+});
+
+test('[i18n] shows an English API error and recovers through the translated retry button', async ({ page }) => {
+  await page.goto('/');
+  await expectProfile(page);
+  let failOnce = true;
+  await page.route(/\/api\/v1\/proyectos\/\?lang=en$/, async (route) => {
+    if (failOnce) {
+      failOnce = false;
+      await route.fulfill({ status: 503, contentType: 'application/json',
+        headers: { 'Access-Control-Allow-Origin': '*' }, body: '{"detail":"Temporarily unavailable."}' });
+    } else {
+      await route.continue();
+    }
+  });
+  await page.getByRole('button', { name: 'Cambiar a inglés' }).click();
+  const projects = page.locator('#proyectos');
+  await expect(projects.getByRole('alert')).toContainText('Could not load projects.');
+  await projects.getByRole('button', { name: 'Try again' }).click();
+  await expect(projects.locator('.project-description').first()).toContainText('Book and ebook platform');
+  await expect(projects.getByRole('alert')).toHaveCount(0);
+});
+
 test('[BE-CP22] renders real published data, follows pagination and excludes drafts', async ({
   page,
 }, testInfo) => {

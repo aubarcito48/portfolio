@@ -1,3 +1,4 @@
+import { LanguageService } from '../../../service/language.service';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PortfolioApiService } from '../../../service/portfolio-api.service';
@@ -10,6 +11,7 @@ import { focusChillConfig } from '../../data/focus-chill.data';
   styleUrl: './site-footer.css',
 })
 export class SiteFooter {
+  protected readonly i18n = inject(LanguageService);
   protected readonly content = portfolioContent.about;
   private readonly portfolioApi = inject(PortfolioApiService);
   protected readonly links = this.portfolioApi.links;

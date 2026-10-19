@@ -1,3 +1,4 @@
+import { providePortfolioTranslations } from './service/language.service';
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
@@ -10,7 +11,7 @@ describe('App', () => {
 
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [providePortfolioTranslations(), provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
   });
 

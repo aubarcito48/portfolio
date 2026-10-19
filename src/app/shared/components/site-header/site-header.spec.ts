@@ -1,10 +1,13 @@
+import { providePortfolioTranslations } from '../../../service/language.service';
 import { TestBed } from '@angular/core/testing';
 import { SiteHeader } from './site-header';
 
 describe('SiteHeader', () => {
   it('opens and closes the mobile navigation accessibly', async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [SiteHeader],
+      providers: [providePortfolioTranslations()],
     }).compileComponents();
 
     const fixture = TestBed.createComponent(SiteHeader);

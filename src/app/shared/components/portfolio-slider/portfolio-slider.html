@@ -1,6 +1,6 @@
 <section
   class="slider-section page-width"
-  aria-label="Slider de presentación"
+  [attr.aria-label]="i18n.text('Slider de presentación')"
   tabindex="0"
   (keydown)="handleKeydown($event)"
   (mouseenter)="setPointerInteraction(true)"
@@ -21,8 +21,8 @@
         <article
           class="slider-slide"
           role="group"
-          aria-roledescription="diapositiva"
-          [attr.aria-label]="index + 1 + ' de ' + slides.length"
+          [attr.aria-roledescription]="i18n.text('diapositiva')"
+          [attr.aria-label]="index + 1 + i18n.text(' de ') + slides.length"
           [attr.aria-hidden]="index !== activeIndex()"
           [attr.inert]="index !== activeIndex() ? '' : null"
         >
@@ -31,11 +31,11 @@
             [ngSrc]="slide.image"
             sizes="(max-width: 640px) 100vw, 100vw"
             [priority]="index === 0"
-            [alt]="slide.imageAlt"
+            [alt]="i18n.text(slide.imageAlt)"
           />
           <div class="slide-content">
-            <p class="slide-title">{{ slide.title }}</p>
-            <p class="slide-description">{{ slide.description }}</p>
+            <p class="slide-title">{{ i18n.text(slide.title) }}</p>
+            <p class="slide-description">{{ i18n.text(slide.description) }}</p>
             @if (slide.link) {
               <a
                 class="slide-link"
@@ -43,7 +43,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {{ slide.link.label }} <span aria-hidden="true">↗</span>
+                {{ i18n.text(slide.link.label) }} <span aria-hidden="true">↗</span>
               </a>
             }
           </div>
@@ -51,24 +51,24 @@
       }
     </div>
 
-    <div class="slider-controls" role="group" aria-label="Controles del slider">
+    <div class="slider-controls" role="group" [attr.aria-label]="i18n.text('Controles del slider')">
       @if (!prefersReducedMotion()) {
         <button
           class="slider-autoplay-toggle"
           type="button"
-          [attr.aria-label]="autoplayPaused() ? 'Reanudar avance automático' : 'Pausar avance automático'"
+          [attr.aria-label]="autoplayPaused() ? i18n.text('Reanudar avance automático') : i18n.text('Pausar avance automático')"
           [attr.aria-pressed]="autoplayPaused()"
           (click)="toggleAutoplay()"
         >
           <span aria-hidden="true">{{ autoplayPaused() ? '▶' : 'Ⅱ' }}</span>
-          <span>{{ autoplayPaused() ? 'Continuar' : 'Pausar' }}</span>
+          <span>{{ autoplayPaused() ? i18n.text('Continuar') : i18n.text('Pausar') }}</span>
         </button>
       }
 
       <button
         class="slider-arrow slider-arrow-previous"
         type="button"
-        aria-label="Diapositiva anterior"
+        [attr.aria-label]="i18n.text('Diapositiva anterior')"
         (click)="showPrevious()"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
@@ -76,13 +76,13 @@
         </svg>
       </button>
 
-      <div class="slider-dots" role="group" aria-label="Seleccionar diapositiva">
+      <div class="slider-dots" role="group" [attr.aria-label]="i18n.text('Seleccionar diapositiva')">
         @for (slide of slides; track slide.title; let index = $index) {
           <button
             class="slider-dot"
             type="button"
             [class.active]="index === activeIndex()"
-            [attr.aria-label]="'Mostrar diapositiva ' + (index + 1) + ': ' + slide.title"
+            [attr.aria-label]="i18n.text('Mostrar diapositiva ') + (index + 1) + ': ' + i18n.text(slide.title)"
             [attr.aria-current]="index === activeIndex() ? 'true' : null"
             (click)="selectSlide(index)"
           ></button>
@@ -92,7 +92,7 @@
       <button
         class="slider-arrow slider-arrow-next"
         type="button"
-        aria-label="Diapositiva siguiente"
+        [attr.aria-label]="i18n.text('Diapositiva siguiente')"
         (click)="showNext()"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">

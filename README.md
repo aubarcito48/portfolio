@@ -27,12 +27,16 @@ Construir una presentación profesional accesible desde computadoras, tablets y 
 - Estados de carga, contenido vacío y error con reintento.
 - Navegación responsive y menú móvil.
 - Temas claro y oscuro con persistencia local cuando esté disponible.
+- Selector ES/EN para interfaz, contenido de la API y fechas, con preferencia guardada.
 - Carrusel sobre desarrollo full stack, calidad de software y proyecto destacado.
 - Reproductor de Spotify sin reproducción automática, sujeto a confirmar la playlist.
 - Botón para volver al inicio.
 - Metadatos básicos para buscadores y redes sociales.
 
 El carrusel, el contenido visual y las interacciones de navegación siguen formando parte de la experiencia del portfolio; los datos profesionales enumerados se administran en el backend.
+
+Ver [configuración de idiomas y orden de despliegue](docs/I18N.md). El backend
+debe desplegarse antes que el frontend para servir también el contenido en inglés.
 
 ## Tecnologías previstas
 

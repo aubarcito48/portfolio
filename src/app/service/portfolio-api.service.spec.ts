@@ -1,3 +1,4 @@
+import { LanguageService, providePortfolioTranslations } from './language.service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
@@ -18,14 +19,39 @@ describe('PortfolioApiService', () => {
   let http: HttpTestingController;
 
   beforeEach(() => {
+    localStorage.clear();
     TestBed.configureTestingModule({
-      providers: [PortfolioApiService, provideHttpClient(), provideHttpClientTesting()],
+      providers: [providePortfolioTranslations(), PortfolioApiService, provideHttpClient(), provideHttpClientTesting()],
     });
     api = TestBed.inject(PortfolioApiService);
     http = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => http.verify());
+
+  it('cancels stale responses on a language change and preserves language across pages', () => {
+    api.loadProfile();
+    const spanish = http.expectOne(`${environment.apiBaseUrl}/perfil/`);
+    TestBed.inject(LanguageService).setLanguage('en');
+    TestBed.tick();
+    expect(spanish.cancelled).toBe(true);
+    const requests = http.match((request) => request.url.includes('?lang=en'));
+    expect(requests).toHaveLength(6);
+    for (const request of requests) {
+      if (request.request.url.includes('/perfil/')) {
+        request.flush({ ...testProfile, biography: 'English biography.' });
+      } else if (request.request.url.includes('/tecnologias/')) {
+        request.flush({ count: 1, previous: null,
+          next: `${environment.apiBaseUrl}/tecnologias/?lang=en&page=2`, results: [] });
+      } else {
+        request.flush(testPage([]));
+      }
+    }
+    http.expectOne(`${environment.apiBaseUrl}/tecnologias/?lang=en&page=2`)
+      .flush(testPage(testTechnologyGroups));
+    expect(api.profile()).toEqual({ status: 'success', data: { ...testProfile, biography: 'English biography.' } });
+    expect(api.technologies()).toEqual({ status: 'success', data: testTechnologyGroups });
+  });
 
   it('loads every public resource from the versioned API endpoints', () => {
     api.loadAll();

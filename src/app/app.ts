@@ -1,3 +1,4 @@
+import { LanguageService } from './service/language.service';
 import { Component, inject, signal } from '@angular/core';
 import { AboutSection } from './pages/about/about';
 import { HomeSection } from './pages/home/home';
@@ -13,6 +14,7 @@ import { PortfolioApiService } from './service/portfolio-api.service';
   styleUrl: './app.css',
 })
 export class App {
+  protected readonly i18n = inject(LanguageService);
   protected readonly theme = signal<'dark' | 'light'>('dark');
   private readonly portfolioApi = inject(PortfolioApiService);
 

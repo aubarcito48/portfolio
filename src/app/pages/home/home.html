@@ -6,7 +6,7 @@
         <div class="portrait-frame">
           <img
             [src]="profileState.data.photo"
-            [alt]="'Retrato de ' + profileState.data.name"
+            [alt]="i18n.text('Retrato de ') + profileState.data.name"
             width="972"
             height="1296"
             fetchpriority="high"
@@ -14,7 +14,7 @@
         </div>
         <figcaption>
           <span class="caption-mark" aria-hidden="true"></span>
-          {{ content.portraitCaption }}
+          {{ i18n.text(content.portraitCaption) }}
         </figcaption>
       </figure>
     } @else {
@@ -22,21 +22,21 @@
     }
 
     <div class="hero-copy">
-      <p class="hero-greeting">{{ content.greeting }}</p>
+      <p class="hero-greeting">{{ i18n.text(content.greeting) }}</p>
       @switch (profileState.status) {
         @case ('loading') {
-          <h1 id="hero-title" class="portfolio-status" role="status">Cargando el perfil…</h1>
+          <h1 id="hero-title" class="portfolio-status" role="status">{{ i18n.text('Cargando el perfil…') }}</h1>
         }
         @case ('error') {
           <div class="portfolio-status portfolio-status-error" role="alert">
-            <h1 id="hero-title">No se pudo cargar el perfil.</h1>
-            <p>Comprobá la conexión e intentá de nuevo.</p>
-            <button class="retry-button" type="button" (click)="retryProfile()">Reintentar</button>
+            <h1 id="hero-title">{{ i18n.text('No se pudo cargar el perfil.') }}</h1>
+            <p>{{ i18n.text('Comprobá la conexión e intentá de nuevo.') }}</p>
+            <button class="retry-button" type="button" (click)="retryProfile()">{{ i18n.text('Reintentar') }}</button>
           </div>
         }
         @case ('empty') {
           <h1 id="hero-title" class="portfolio-status" role="status">
-            No hay un perfil publicado.
+            {{ i18n.text('No hay un perfil publicado.') }}
           </h1>
         }
         @case ('success') {
@@ -67,7 +67,7 @@
               <circle cx="12" cy="10" r="2.5"></circle>
             </svg>
             <span
-              ><span class="visually-hidden">{{ content.locationLabel }}: </span
+              ><span class="visually-hidden">{{ i18n.text(content.locationLabel) }}: </span
               >{{ profileState.data.location }}</span
             >
           </p>
@@ -76,32 +76,32 @@
 
       <div class="hero-actions">
         <a class="button button-primary" href="#proyectos">
-          {{ content.projectsLink }}
+          {{ i18n.text(content.projectsLink) }}
           <span aria-hidden="true">↗</span>
         </a>
-        <a class="button button-secondary" href="#contacto">{{ content.contactLink }}</a>
+        <a class="button button-secondary" href="#contacto">{{ i18n.text(content.contactLink) }}</a>
       </div>
 
       <div class="hero-socials">
-        <span>{{ content.socialLabel }}</span>
+        <span>{{ i18n.text(content.socialLabel) }}</span>
         @let linksState = links();
         @switch (linksState.status) {
           @case ('loading') {
-            <span role="status">Cargando enlaces…</span>
+            <span role="status">{{ i18n.text('Cargando enlaces…') }}</span>
           }
           @case ('error') {
-            <span role="alert">No se pudieron cargar los enlaces.</span>
-            <button class="retry-button" type="button" (click)="retryLinks()">Reintentar</button>
+            <span role="alert">{{ i18n.text('No se pudieron cargar los enlaces.') }}</span>
+            <button class="retry-button" type="button" (click)="retryLinks()">{{ i18n.text('Reintentar') }}</button>
           }
           @case ('success') {
             @for (link of linksState.data; track link.url) {
               <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
             } @empty {
-              <span>No hay enlaces publicados.</span>
+              <span>{{ i18n.text('No hay enlaces publicados.') }}</span>
             }
           }
           @case ('empty') {
-            <span>No hay enlaces publicados.</span>
+            <span>{{ i18n.text('No hay enlaces publicados.') }}</span>
           }
         }
       </div>

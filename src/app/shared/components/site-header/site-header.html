@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="header-inner" (keydown.escape)="closeMenuOnEscape()">
-    <a class="wordmark" href="#inicio" aria-label="NA, Nahuel Argandoña, inicio">
+    <a class="wordmark" href="#inicio" [attr.aria-label]="i18n.text('NA, Nahuel Argandoña, inicio')">
       NA<span>.</span>
     </a>
 
@@ -8,14 +8,25 @@
       id="primary-navigation"
       class="primary-nav"
       [class.is-open]="menuOpen()"
-      aria-label="Navegación principal"
+      [attr.aria-label]="i18n.text('Navegación principal')"
       (click)="closeMenu()"
     >
-      <a href="#inicio">Inicio</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#inicio">{{ i18n.text('Inicio') }}</a>
+      <a href="#sobre-mi">{{ i18n.text('Sobre mí') }}</a>
+      <a href="#proyectos">{{ i18n.text('Proyectos') }}</a>
+      <a href="#contacto">{{ i18n.text('Contacto') }}</a>
     </nav>
+
+    <button
+      class="language-toggle"
+      type="button"
+      [attr.aria-label]="i18n.text('Cambiar a inglés')"
+      (click)="i18n.toggle()"
+    >
+      <span lang="es" [class.active]="i18n.language() === 'es'">ES</span>
+      <span aria-hidden="true">/</span>
+      <span lang="en" [class.active]="i18n.language() === 'en'">EN</span>
+    </button>
 
     <button
       class="theme-toggle"
@@ -41,14 +52,14 @@
           <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path>
         }
       </svg>
-      <span>Tema</span>
+      <span>{{ i18n.text('Tema') }}</span>
     </button>
 
     <button
       #menuToggleButton
       class="menu-toggle"
       type="button"
-      [attr.aria-label]="menuOpen() ? 'Cerrar menú' : 'Abrir menú'"
+      [attr.aria-label]="menuOpen() ? i18n.text('Cerrar menú') : i18n.text('Abrir menú')"
       aria-controls="primary-navigation"
       [attr.aria-expanded]="menuOpen()"
       (click)="toggleMenu()"

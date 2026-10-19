@@ -1,7 +1,7 @@
 <section class="about-section page-width" id="sobre-mi" aria-labelledby="about-title">
   <div class="section-heading">
-    <p class="section-eyebrow">{{ content.eyebrow }}</p>
-    <h2 id="about-title">{{ content.title }}</h2>
+    <p class="section-eyebrow">{{ i18n.text(content.eyebrow) }}</p>
+    <h2 id="about-title">{{ i18n.text(content.title) }}</h2>
   </div>
 
   <div class="about-intro">
@@ -10,30 +10,30 @@
         <p>{{ paragraph }}</p>
       } @empty {
         @if (profile().status === 'loading') {
-          <p class="portfolio-status" role="status">Cargando la biografía…</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('Cargando la biografía…') }}</p>
         } @else if (profile().status === 'error') {
           <div class="portfolio-status portfolio-status-error" role="alert">
-            <p>No se pudo cargar la biografía.</p>
-            <button class="retry-button" type="button" (click)="retryProfile()">Reintentar</button>
+            <p>{{ i18n.text('No se pudo cargar la biografía.') }}</p>
+            <button class="retry-button" type="button" (click)="retryProfile()">{{ i18n.text('Reintentar') }}</button>
           </div>
         } @else if (profile().status === 'empty') {
-          <p class="portfolio-status" role="status">No hay un perfil publicado.</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('No hay un perfil publicado.') }}</p>
         }
       }
     </div>
 
     <aside class="education" aria-labelledby="education-title">
-      <h3 id="education-title">{{ content.educationTitle }}</h3>
+      <h3 id="education-title">{{ i18n.text(content.educationTitle) }}</h3>
       @let educationState = education();
       @switch (educationState.status) {
         @case ('loading') {
-          <p class="portfolio-status" role="status">Cargando formación…</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('Cargando formación…') }}</p>
         }
         @case ('error') {
           <div class="portfolio-status portfolio-status-error" role="alert">
-            <p>No se pudo cargar la formación.</p>
+            <p>{{ i18n.text('No se pudo cargar la formación.') }}</p>
             <button class="retry-button" type="button" (click)="retryEducation()">
-              Reintentar
+              {{ i18n.text('Reintentar') }}
             </button>
           </div>
         }
@@ -43,7 +43,7 @@
               <p class="education-name">{{ item.name }}</p>
               <p class="education-institution">{{ item.institution }}</p>
               <p class="education-detail">
-                {{ item.status === 'in_progress' ? 'En curso' : 'Finalizada' }}
+                {{ item.status === 'in_progress' ? i18n.text('En curso') : i18n.text('Finalizada') }}
                 · {{ formatDate(item.startDate) }}
                 @if (item.endDate) {
                   – {{ formatDate(item.endDate) }}
@@ -56,16 +56,16 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ver certificado <span aria-hidden="true">↗</span>
+                  {{ i18n.text('Ver certificado') }} <span aria-hidden="true">↗</span>
                 </a>
               }
             </div>
           } @empty {
-            <p class="portfolio-status" role="status">Todavía no hay formación publicada.</p>
+            <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay formación publicada.') }}</p>
           }
         }
         @case ('empty') {
-          <p class="portfolio-status" role="status">Todavía no hay formación publicada.</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay formación publicada.') }}</p>
         }
       }
     </aside>
@@ -73,18 +73,18 @@
 
   <section class="experience-section" aria-labelledby="experience-title">
     <div class="section-heading compact-heading">
-      <h2 id="experience-title">Experiencia</h2>
+      <h2 id="experience-title">{{ i18n.text('Experiencia') }}</h2>
     </div>
     @let experienceState = experiences();
     @switch (experienceState.status) {
       @case ('loading') {
-        <p class="portfolio-status" role="status">Cargando experiencia…</p>
+        <p class="portfolio-status" role="status">{{ i18n.text('Cargando experiencia…') }}</p>
       }
       @case ('error') {
         <div class="portfolio-status portfolio-status-error" role="alert">
-          <p>No se pudo cargar la experiencia.</p>
+          <p>{{ i18n.text('No se pudo cargar la experiencia.') }}</p>
           <button class="retry-button" type="button" (click)="retryExperiences()">
-            Reintentar
+            {{ i18n.text('Reintentar') }}
           </button>
         </div>
       }
@@ -99,7 +99,7 @@
               <p class="experience-dates">
                 {{ formatDate(item.startDate) }}
                 @if (item.isCurrent) {
-                  – Actualidad
+                  – {{ i18n.text('Actualidad') }}
                 } @else if (item.endDate) {
                   – {{ formatDate(item.endDate) }}
                 }
@@ -108,30 +108,30 @@
             <p class="experience-description">{{ item.description }}</p>
           </article>
         } @empty {
-          <p class="portfolio-status" role="status">Todavía no hay experiencia publicada.</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay experiencia publicada.') }}</p>
         }
       }
       @case ('empty') {
-        <p class="portfolio-status" role="status">Todavía no hay experiencia publicada.</p>
+        <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay experiencia publicada.') }}</p>
       }
     }
   </section>
 
   <section class="technology-section" aria-labelledby="technology-title">
     <div class="section-heading compact-heading">
-      <h2 id="technology-title">{{ content.technologyTitle }}</h2>
+      <h2 id="technology-title">{{ i18n.text(content.technologyTitle) }}</h2>
     </div>
 
     @let technologyState = technologies();
     @switch (technologyState.status) {
       @case ('loading') {
-        <p class="portfolio-status" role="status">Cargando tecnologías…</p>
+        <p class="portfolio-status" role="status">{{ i18n.text('Cargando tecnologías…') }}</p>
       }
       @case ('error') {
         <div class="portfolio-status portfolio-status-error" role="alert">
-          <p>No se pudieron cargar las tecnologías.</p>
+          <p>{{ i18n.text('No se pudieron cargar las tecnologías.') }}</p>
           <button class="retry-button" type="button" (click)="retryTechnologies()">
-            Reintentar
+            {{ i18n.text('Reintentar') }}
           </button>
         </div>
       }
@@ -148,7 +148,7 @@
                         [href]="technology.url"
                         target="_blank"
                         rel="noopener noreferrer"
-                        [attr.aria-label]="'Documentación oficial de ' + technology.name"
+                        [attr.aria-label]="i18n.text('Documentación oficial de ') + technology.name"
                       >
                         {{ technology.name }}
                       </a>
@@ -159,29 +159,29 @@
             }
           </div>
         } @else {
-          <p class="portfolio-status" role="status">Todavía no hay tecnologías publicadas.</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay tecnologías publicadas.') }}</p>
         }
       }
       @case ('empty') {
-        <p class="portfolio-status" role="status">Todavía no hay tecnologías publicadas.</p>
+        <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay tecnologías publicadas.') }}</p>
       }
     }
   </section>
 
   <section class="featured-project" id="proyectos" aria-labelledby="projects-title">
     <div class="section-heading compact-heading">
-      <h2 id="projects-title">{{ content.projectsTitle }}</h2>
+      <h2 id="projects-title">{{ i18n.text(content.projectsTitle) }}</h2>
     </div>
 
     @let projectState = projects();
     @switch (projectState.status) {
       @case ('loading') {
-        <p class="portfolio-status" role="status">Cargando proyectos…</p>
+        <p class="portfolio-status" role="status">{{ i18n.text('Cargando proyectos…') }}</p>
       }
       @case ('error') {
         <div class="portfolio-status portfolio-status-error" role="alert">
-          <p>No se pudieron cargar los proyectos.</p>
-          <button class="retry-button" type="button" (click)="retryProjects()">Reintentar</button>
+          <p>{{ i18n.text('No se pudieron cargar los proyectos.') }}</p>
+          <button class="retry-button" type="button" (click)="retryProjects()">{{ i18n.text('Reintentar') }}</button>
         </div>
       }
       @case ('success') {
@@ -204,7 +204,7 @@
                   <p class="project-description">{{ project.description }}</p>
 
                   @if (project.technologies.length) {
-                    <ul class="project-technologies" aria-label="Tecnologías utilizadas">
+                    <ul class="project-technologies" [attr.aria-label]="i18n.text('Tecnologías utilizadas')">
                       @for (technology of project.technologies; track technology) {
                         <li>{{ technology }}</li>
                       }
@@ -216,10 +216,10 @@
                       <a
                         class="button"
                         [class.button-primary]="
-                          link.label === 'Ver demo' || link.label === 'Ver sitio'
+                          ['Ver demo', 'Ver sitio', 'View demo', 'View website'].includes(link.label)
                         "
                         [class.button-secondary]="
-                          link.label !== 'Ver demo' && link.label !== 'Ver sitio'
+                          !['Ver demo', 'Ver sitio', 'View demo', 'View website'].includes(link.label)
                         "
                         [href]="link.url"
                         target="_blank"
@@ -234,11 +234,11 @@
             }
           </div>
         } @else {
-          <p class="portfolio-status" role="status">Todavía no hay proyectos publicados.</p>
+          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay proyectos publicados.') }}</p>
         }
       }
       @case ('empty') {
-        <p class="portfolio-status" role="status">Todavía no hay proyectos publicados.</p>
+        <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay proyectos publicados.') }}</p>
       }
     }
   </section>

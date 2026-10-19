@@ -1,3 +1,4 @@
+import { LanguageService } from '../../service/language.service';
 import { Component, computed, inject } from '@angular/core';
 import { PortfolioApiService } from '../../service/portfolio-api.service';
 import { portfolioContent } from '../../shared/data/profile.data';
@@ -8,6 +9,7 @@ import { portfolioContent } from '../../shared/data/profile.data';
   styleUrl: './home.css',
 })
 export class HomeSection {
+  protected readonly i18n = inject(LanguageService);
   protected readonly content = portfolioContent.home;
   private readonly portfolioApi = inject(PortfolioApiService);
   protected readonly profile = this.portfolioApi.profile;

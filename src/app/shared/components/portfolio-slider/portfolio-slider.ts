@@ -1,3 +1,4 @@
+import { LanguageService } from '../../../service/language.service';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,6 +18,7 @@ import { sliderSlides } from '../../data/slider-slides.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PortfolioSlider {
+  protected readonly i18n = inject(LanguageService);
   protected readonly slides = sliderSlides;
   protected readonly activeIndex = signal(0);
   protected readonly pointerInteraction = signal(false);
