@@ -74,9 +74,45 @@
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
+.experience-timeline {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.experience-timeline:has(.experience-item)::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: calc(1.25rem - 0.5px);
+  top: 1.25rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--accent-ink);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
 .experience-item {
-  padding: 1.35rem 0;
-  border-top: 1px solid var(--line);
+  position: relative;
+  min-height: 8rem;
+  padding: 0.5rem 0 2.5rem 4.5rem;
+}
+
+.experience-item:last-child {
+  padding-bottom: 1.5rem;
+}
+
+.experience-number {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--background);
+  color: var(--accent-ink);
+  font: 500 0.75rem var(--font-heading);
 }
 
 .experience-heading {
@@ -265,6 +301,10 @@
   .experience-heading {
     flex-direction: column;
     gap: 0.35rem;
+  }
+
+  .experience-item {
+    padding-inline-start: 3.5rem;
   }
 
   .technology-grid {

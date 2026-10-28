@@ -13,10 +13,14 @@
         } @else if (profile().status === 'error') {
           <div class="portfolio-status portfolio-status-error" role="alert">
             <p>{{ i18n.text('No se pudo cargar la biografía.') }}</p>
-            <button class="retry-button" type="button" (click)="retryProfile()">{{ i18n.text('Reintentar') }}</button>
+            <button class="retry-button" type="button" (click)="retryProfile()">
+              {{ i18n.text('Reintentar') }}
+            </button>
           </div>
         } @else if (profile().status === 'empty') {
-          <p class="portfolio-status" role="status">{{ i18n.text('No hay un perfil publicado.') }}</p>
+          <p class="portfolio-status" role="status">
+            {{ i18n.text('No hay un perfil publicado.') }}
+          </p>
         }
       }
     </div>
@@ -42,7 +46,9 @@
               <p class="education-name">{{ item.name }}</p>
               <p class="education-institution">{{ item.institution }}</p>
               <p class="education-detail">
-                {{ item.status === 'in_progress' ? i18n.text('En curso') : i18n.text('Finalizada') }}
+                {{
+                  item.status === 'in_progress' ? i18n.text('En curso') : i18n.text('Finalizada')
+                }}
                 · {{ formatDate(item.startDate) }}
                 @if (item.endDate) {
                   – {{ formatDate(item.endDate) }}
@@ -60,11 +66,15 @@
               }
             </div>
           } @empty {
-            <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay formación publicada.') }}</p>
+            <p class="portfolio-status" role="status">
+              {{ i18n.text('Todavía no hay formación publicada.') }}
+            </p>
           }
         }
         @case ('empty') {
-          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay formación publicada.') }}</p>
+          <p class="portfolio-status" role="status">
+            {{ i18n.text('Todavía no hay formación publicada.') }}
+          </p>
         }
       }
     </aside>
@@ -88,30 +98,43 @@
         </div>
       }
       @case ('success') {
-        @for (item of experienceState.data; track item.title + item.organization) {
-          <article class="experience-item">
-            <div class="experience-heading">
-              <div>
-                <h3>{{ item.title }}</h3>
-                <p class="education-institution">{{ item.organization }}</p>
+        <div class="experience-timeline">
+          @for (
+            item of experienceState.data;
+            track item.title + item.organization;
+            let index = $index
+          ) {
+            <article class="experience-item">
+              <span class="experience-number" aria-hidden="true">{{
+                (index + 1).toString().padStart(2, '0')
+              }}</span>
+              <div class="experience-heading">
+                <div>
+                  <h3>{{ item.title }}</h3>
+                  <p class="education-institution">{{ item.organization }}</p>
+                </div>
+                <p class="experience-dates">
+                  {{ formatDate(item.startDate) }}
+                  @if (item.isCurrent) {
+                    – {{ i18n.text('Actualidad') }}
+                  } @else if (item.endDate) {
+                    – {{ formatDate(item.endDate) }}
+                  }
+                </p>
               </div>
-              <p class="experience-dates">
-                {{ formatDate(item.startDate) }}
-                @if (item.isCurrent) {
-                  – {{ i18n.text('Actualidad') }}
-                } @else if (item.endDate) {
-                  – {{ formatDate(item.endDate) }}
-                }
-              </p>
-            </div>
-            <p class="experience-description">{{ item.description }}</p>
-          </article>
-        } @empty {
-          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay experiencia publicada.') }}</p>
-        }
+              <p class="experience-description">{{ item.description }}</p>
+            </article>
+          } @empty {
+            <p class="portfolio-status" role="status">
+              {{ i18n.text('Todavía no hay experiencia publicada.') }}
+            </p>
+          }
+        </div>
       }
       @case ('empty') {
-        <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay experiencia publicada.') }}</p>
+        <p class="portfolio-status" role="status">
+          {{ i18n.text('Todavía no hay experiencia publicada.') }}
+        </p>
       }
     }
   </section>
@@ -158,11 +181,15 @@
             }
           </div>
         } @else {
-          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay tecnologías publicadas.') }}</p>
+          <p class="portfolio-status" role="status">
+            {{ i18n.text('Todavía no hay tecnologías publicadas.') }}
+          </p>
         }
       }
       @case ('empty') {
-        <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay tecnologías publicadas.') }}</p>
+        <p class="portfolio-status" role="status">
+          {{ i18n.text('Todavía no hay tecnologías publicadas.') }}
+        </p>
       }
     }
   </section>
@@ -180,7 +207,9 @@
       @case ('error') {
         <div class="portfolio-status portfolio-status-error" role="alert">
           <p>{{ i18n.text('No se pudieron cargar los proyectos.') }}</p>
-          <button class="retry-button" type="button" (click)="retryProjects()">{{ i18n.text('Reintentar') }}</button>
+          <button class="retry-button" type="button" (click)="retryProjects()">
+            {{ i18n.text('Reintentar') }}
+          </button>
         </div>
       }
       @case ('success') {
@@ -203,7 +232,10 @@
                   <p class="project-description">{{ project.description }}</p>
 
                   @if (project.technologies.length) {
-                    <ul class="project-technologies" [attr.aria-label]="i18n.text('Tecnologías utilizadas')">
+                    <ul
+                      class="project-technologies"
+                      [attr.aria-label]="i18n.text('Tecnologías utilizadas')"
+                    >
                       @for (technology of project.technologies; track technology) {
                         <li>{{ technology }}</li>
                       }
@@ -215,10 +247,14 @@
                       <a
                         class="button"
                         [class.button-primary]="
-                          ['Ver demo', 'Ver sitio', 'View demo', 'View website'].includes(link.label)
+                          ['Ver demo', 'Ver sitio', 'View demo', 'View website'].includes(
+                            link.label
+                          )
                         "
                         [class.button-secondary]="
-                          !['Ver demo', 'Ver sitio', 'View demo', 'View website'].includes(link.label)
+                          !['Ver demo', 'Ver sitio', 'View demo', 'View website'].includes(
+                            link.label
+                          )
                         "
                         [href]="link.url"
                         target="_blank"
@@ -233,11 +269,15 @@
             }
           </div>
         } @else {
-          <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay proyectos publicados.') }}</p>
+          <p class="portfolio-status" role="status">
+            {{ i18n.text('Todavía no hay proyectos publicados.') }}
+          </p>
         }
       }
       @case ('empty') {
-        <p class="portfolio-status" role="status">{{ i18n.text('Todavía no hay proyectos publicados.') }}</p>
+        <p class="portfolio-status" role="status">
+          {{ i18n.text('Todavía no hay proyectos publicados.') }}
+        </p>
       }
     }
   </section>

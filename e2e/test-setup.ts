@@ -9,10 +9,11 @@ import {
   testProjects,
   testTechnologyGroups,
 } from '../src/app/shared/data/portfolio-test-data';
-import type { Profile } from '../src/app/models/portfolio.models';
+import type { Experience, Profile } from '../src/app/models/portfolio.models';
 
 interface PortfolioOptions {
   firstVisit?: boolean;
+  experiences?: Experience[];
   profile?: Profile;
   profileFailures?: number;
   profileDelayMs?: number;
@@ -48,7 +49,10 @@ export async function openPortfolio(page: Page, options: PortfolioOptions = {}):
     ],
     [
       '/experiencias/',
-      { status: 200, body: options.emptyResources ? emptyPage : testPage(testExperiences) },
+      {
+        status: 200,
+        body: options.emptyResources ? emptyPage : testPage(options.experiences ?? testExperiences),
+      },
     ],
     [
       '/formacion/',
