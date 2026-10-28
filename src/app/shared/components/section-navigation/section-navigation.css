@@ -1,0 +1,87 @@
+:host {
+  display: none;
+}
+
+@media (min-width: 1280px) and (min-height: 520px) {
+  :host {
+    display: block;
+    position: fixed;
+    z-index: 8;
+    inset-inline-end: 2rem;
+    top: 50%;
+    width: 8.5rem;
+    transform: translateY(-50%);
+  }
+}
+
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  --marker: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  min-height: 2.75rem;
+  padding-inline-end: 1.8rem;
+  color: var(--marker);
+  text-decoration: none;
+  border-radius: 0.35rem;
+}
+a.is-violet {
+  --marker: var(--accent-secondary-ink);
+}
+.section-dot {
+  flex: 0 0 auto;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.5;
+  transition:
+    background-color 250ms ease,
+    box-shadow 250ms ease,
+    transform 250ms ease,
+    opacity 250ms ease;
+}
+.section-label {
+  opacity: 0;
+  transform: translateX(0.3rem);
+  font-family: var(--font-heading);
+  font-size: 0.61rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+.is-active .section-dot {
+  background: var(--marker);
+  box-shadow:
+    0 0 6px var(--marker),
+    0 0 16px color-mix(in srgb, var(--marker) 45%, transparent);
+  opacity: 1;
+  transform: scale(1.7);
+}
+.is-active .section-label,
+a:hover .section-label,
+a:focus-visible .section-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+a:hover .section-dot,
+a:focus-visible .section-dot {
+  background: var(--marker);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-dot,
+  .section-label {
+    transition: none;
+  }
+}

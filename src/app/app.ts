@@ -6,10 +6,11 @@ import { SiteFooter } from './shared/components/site-footer/site-footer';
 import { SiteHeader } from './shared/components/site-header/site-header';
 import { PortfolioSlider } from './shared/components/portfolio-slider/portfolio-slider';
 import { PortfolioApiService } from './service/portfolio-api.service';
+import { SectionNavigation } from './shared/components/section-navigation/section-navigation';
 
 @Component({
   selector: 'app-root',
-  imports: [AboutSection, HomeSection, PortfolioSlider, SiteFooter, SiteHeader],
+  imports: [AboutSection, HomeSection, PortfolioSlider, SiteFooter, SiteHeader, SectionNavigation],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

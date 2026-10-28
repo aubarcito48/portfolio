@@ -62,6 +62,13 @@
   transform: translateY(0);
 }
 
+@media (min-width: 1280px) and (min-height: 520px) {
+  main,
+  app-site-footer {
+    padding-inline-end: 9.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-shell {
     transition: none;

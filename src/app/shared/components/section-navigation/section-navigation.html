@@ -1,0 +1,18 @@
+<nav [attr.aria-label]="i18n.text('Navegación por secciones')">
+  <ol>
+    @for (section of sections; track section.id; let index = $index) {
+      <li>
+        <a
+          [href]="'#' + section.id"
+          [class.is-active]="activeIndex() === index"
+          [class.is-violet]="section.violet"
+          [attr.aria-current]="activeIndex() === index ? 'location' : null"
+          [attr.aria-label]="i18n.text(section.label)"
+        >
+          <span class="section-label" aria-hidden="true">{{ i18n.text(section.label) }}</span>
+          <span class="section-dot" aria-hidden="true"></span>
+        </a>
+      </li>
+    }
+  </ol>
+</nav>
