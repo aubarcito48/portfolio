@@ -50,7 +50,7 @@ a.is-violet {
 .section-label {
   opacity: 0;
   transform: translateX(0.3rem);
-  font-family: var(--font-heading);
+  font-family: var(--font-mono);
   font-size: 0.61rem;
   font-weight: 600;
   letter-spacing: 0.12em;

@@ -42,6 +42,7 @@
 }
 
 .primary-nav a {
+  font-family: var(--font-mono);
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;

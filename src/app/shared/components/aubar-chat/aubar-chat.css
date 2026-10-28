@@ -65,7 +65,7 @@
   min-width: 0;
 }
 .chat-heading h2 {
-  font: 600 1rem var(--font-heading);
+  font: 600 1rem var(--font-body);
   margin: 0;
 }
 .chat-heading p {

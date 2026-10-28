@@ -11,7 +11,7 @@
   font-family: var(--font-heading);
   font-size: clamp(2.15rem, 4.3vw, 3.7rem);
   font-weight: 600;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.02em;
   line-height: 1.08;
 }
 
@@ -112,7 +112,7 @@
   border-radius: 50%;
   background: var(--background);
   color: var(--accent-ink);
-  font: 500 0.75rem var(--font-heading);
+  font: 500 0.75rem var(--font-mono);
 }
 
 .experience-heading {
@@ -244,7 +244,7 @@
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
 }
 
 .project-type {

@@ -52,6 +52,10 @@ debe desplegarse antes que el frontend para servir también el contenido en ingl
 
 Tailwind CSS es compatible y está configurado mediante PostCSS. Angular CLI utiliza Vite internamente para el servidor de desarrollo y esbuild para la compilación; no se requiere configurar Vite por separado.
 
+Tipografía: Fraunces para títulos, Geist para texto y JetBrains Mono para etiquetas
+y números. Las fuentes WOFF2 se sirven desde `public/fonts`, con sus licencias;
+ver [fuentes y procedencia](public/fonts/README.md).
+
 Los endpoints de contenido son de solo lectura y no requieren autenticación desde el frontend.
 El chat agrega un endpoint POST público, acotado y sin operaciones de escritura.
 
