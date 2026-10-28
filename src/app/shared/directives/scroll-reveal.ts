@@ -6,11 +6,13 @@ import { afterNextRender, DestroyRef, Directive, ElementRef, inject, input, sign
     class: 'scroll-reveal',
     '[class.reveal-ready]': 'enabled()',
     '[class.reveal-pending]': 'pending()',
+    '[class.reveal-from-left]': 'direction() === "left"',
     '[style.--reveal-delay]': 'delay() + "ms"',
     '(focusin)': 'reveal()',
   },
 })
 export class ScrollReveal {
+  readonly direction = input<'bottom' | 'left'>('bottom', { alias: 'revealFrom' });
   readonly delay = input(0, { alias: 'revealDelay', transform: (value: number) => Math.max(0, Math.min(160, value)) });
   protected readonly enabled = signal(false);
   protected readonly pending = signal(false);
@@ -34,7 +36,7 @@ export class ScrollReveal {
       try {
         this.observer = new IntersectionObserver((entries) => {
           if (entries.some((entry) => entry.isIntersecting)) this.reveal();
-        }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+        }, { threshold: 0, rootMargin: '0px 0px -48px 0px' });
         this.observer.observe(this.element.nativeElement);
         motion.addEventListener('change', stopMotion);
         this.enabled.set(true);

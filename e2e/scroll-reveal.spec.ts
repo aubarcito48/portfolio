@@ -3,10 +3,21 @@ import { openPortfolio } from './test-setup';
 
 test('sections reveal on entry once and project hover keeps working', async ({ page }, info) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await openPortfolio(page);
+  await openPortfolio(page, { experiences: [{
+    title: 'Desarrollador', organization: 'Freelance',
+    description: 'Desarrollo de aplicaciones web.', startDate: '2023-01-01',
+    endDate: null, isCurrent: true,
+  }] });
+  const experience = page.locator('.experience-item').first();
+  await expect(experience).toHaveClass(/reveal-pending/);
+  await expect(experience).toHaveCSS('translate', '-28px');
+  await experience.scrollIntoViewIfNeeded();
+  await expect(experience).toHaveCSS('opacity', '1');
+  await expect(experience).toHaveCSS('translate', 'none');
   const project = page.locator('.project-card').first();
   await expect(project).toHaveClass(/reveal-pending/);
   await expect(project).toHaveCSS('opacity', '0');
+  await expect(project).toHaveCSS('translate', '0px 32px');
   await project.scrollIntoViewIfNeeded();
   await expect(project).not.toHaveClass(/reveal-pending/);
   await expect(project).toHaveCSS('opacity', '1');

@@ -104,7 +104,7 @@
             track item.title + item.organization;
             let index = $index
           ) {
-            <article class="experience-item" appScrollReveal [revealDelay]="index % 2 * 80">
+            <article class="experience-item" appScrollReveal revealFrom="left" [revealDelay]="index % 2 * 100">
               <span class="experience-number" aria-hidden="true">{{
                 (index + 1).toString().padStart(2, '0')
               }}</span>
@@ -216,7 +216,7 @@
         @if (projectState.data.length) {
           <div class="project-grid">
             @for (project of projectState.data; track project.slug; let index = $index) {
-              <article class="project-card" appScrollReveal [revealDelay]="index % 2 * 80" [attr.aria-labelledby]="'project-title-' + index">
+              <article class="project-card" appScrollReveal [revealDelay]="index % 2 * 100" [attr.aria-labelledby]="'project-title-' + index">
                 @if (project.image) {
                   <div class="project-image">
                     <img [src]="project.image" [alt]="project.imageAlt" loading="lazy" />
