@@ -23,6 +23,17 @@ test('Aubar welcomes visitors, keeps their conversation and supports both langua
     });
   });
   const launcher = page.getByRole('button', { name: 'Hablar con Aubar', exact: true });
+  const whatsapp = page.getByRole('link', { name: 'Contactar por WhatsApp', exact: true });
+  await expect(whatsapp).toBeVisible();
+  const contactUrl = new URL((await whatsapp.getAttribute('href'))!);
+  expect(contactUrl.origin + contactUrl.pathname).toBe('https://wa.me/5493517587047');
+  expect(contactUrl.searchParams.get('text')).toContain('Hola Nahuel');
+  await expect(whatsapp).toHaveAttribute('target', '_blank');
+  await expect(whatsapp).toHaveAttribute('rel', 'noopener noreferrer');
+  const contactBounds = await whatsapp.boundingBox();
+  const launcherBounds = await launcher.boundingBox();
+  expect(contactBounds!.x + contactBounds!.width).toBeLessThan(launcherBounds!.x);
+  expect(contactBounds!.y).toBe(launcherBounds!.y);
   await launcher.click();
   const panel = page.locator('#aubar-panel');
   await expect(panel).toBeVisible();

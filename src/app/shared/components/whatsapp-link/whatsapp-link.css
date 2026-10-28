@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+a {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--whatsapp-ink);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--whatsapp-ink);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+a:hover {
+  background: #25d366;
+  color: #071421;
+}
+svg {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
+}

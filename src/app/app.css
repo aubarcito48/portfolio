@@ -20,6 +20,7 @@
   --portrait-line: #38bdf8;
   --accent-secondary: #a78bfa;
   --accent-secondary-ink: #a78bfa;
+  --whatsapp-ink: #25d366;
   min-height: 100vh;
   background:
     radial-gradient(ellipse at 82% 11%, rgb(56 189 248 / 6%), transparent 27rem), var(--background);
@@ -43,6 +44,7 @@
   --portrait-line: #102b4a;
   --accent-secondary: #a78bfa;
   --accent-secondary-ink: #7150b3;
+  --whatsapp-ink: #128c4a;
   background:
     radial-gradient(ellipse at 82% 11%, rgb(56 189 248 / 9%), transparent 30rem), var(--background);
   color-scheme: light;

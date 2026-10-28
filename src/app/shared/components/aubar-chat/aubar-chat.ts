@@ -13,10 +13,11 @@ import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AubarChatService, ChatMessage } from '../../../service/aubar-chat.service';
 import { LanguageService } from '../../../service/language.service';
+import { WhatsappLink } from '../whatsapp-link/whatsapp-link';
 
 @Component({
   selector: 'app-aubar-chat',
-  imports: [FormsModule],
+  imports: [FormsModule, WhatsappLink],
   templateUrl: './aubar-chat.html',
   styleUrl: './aubar-chat.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

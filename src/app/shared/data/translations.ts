@@ -1,5 +1,7 @@
 /** Interface copy only. Public portfolio content is translated by Django. */
 export const messages = {
+  whatsappContact: ['Contactar por WhatsApp', 'Contact via WhatsApp'],
+  whatsappMessage: ['Hola Nahuel, vi tu portfolio y me gustaría contactarte.', 'Hi Nahuel, I saw your portfolio and would like to get in touch.'],
   aubarOpen: ['Hablar con Aubar', 'Chat with Aubar'],
   aubarClose: ['Cerrar chat', 'Close chat'],
   aubarChat: ['Chat con Aubar', 'Chat with Aubar'],
