@@ -52,7 +52,26 @@ debe desplegarse antes que el frontend para servir también el contenido en ingl
 
 Tailwind CSS es compatible y está configurado mediante PostCSS. Angular CLI utiliza Vite internamente para el servidor de desarrollo y esbuild para la compilación; no se requiere configurar Vite por separado.
 
-La API pública es de solo lectura y no requiere autenticación desde el frontend.
+Los endpoints de contenido son de solo lectura y no requieren autenticación desde el frontend.
+El chat agrega un endpoint POST público, acotado y sin operaciones de escritura.
+
+## Aubar · Asistente del portfolio
+
+Aubar es el chat flotante del sitio. Saluda, usa el nombre que el visitante
+proporcione y responde en español o inglés sobre el contenido publicado.
+Incluye preguntas sugeridas sobre Angular, Django y contacto, historial temporal,
+reintento y nueva conversación. Los mensajes se muestran como texto, sin ejecutar HTML.
+
+El frontend envía `mensaje`, `historial` e `idioma` a `/api/v1/chat/`. Django
+recupera el contenido público mediante MCP y consulta Groq. No se envían claves
+al navegador. Las conversaciones no se guardan en localStorage ni en la base de
+datos; el contexto acotado sí se envía a Groq para generar cada respuesta.
+
+Configurar `GROQ_API_KEY` y `GROQ_MODEL` únicamente en el `.env` del backend y
+en Render. Publicar primero el backend y después el frontend. Ver
+[guía de Aubar del backend](https://github.com/aubarcito48/portfolio_backend/blob/main/docs/AUBAR.md).
+
+Pruebas del chat: `npx playwright test e2e/aubar-chat.spec.ts`.
 
 ## Organización del código
 

@@ -7,10 +7,11 @@ import { SiteHeader } from './shared/components/site-header/site-header';
 import { PortfolioSlider } from './shared/components/portfolio-slider/portfolio-slider';
 import { PortfolioApiService } from './service/portfolio-api.service';
 import { SectionNavigation } from './shared/components/section-navigation/section-navigation';
+import { AubarChat } from './shared/components/aubar-chat/aubar-chat';
 
 @Component({
   selector: 'app-root',
-  imports: [AboutSection, HomeSection, PortfolioSlider, SiteFooter, SiteHeader, SectionNavigation],
+  imports: [AboutSection, HomeSection, PortfolioSlider, SiteFooter, SiteHeader, SectionNavigation, AubarChat],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -3,6 +3,10 @@
   min-height: 100%;
 }
 
+.site-shell:has(app-aubar-chat.is-open) app-section-navigation {
+  visibility: hidden;
+}
+
 .site-shell {
   --background: #0b1020;
   --surface: #151d32;

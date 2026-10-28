@@ -1,0 +1,140 @@
+@if (open()) {
+  <section
+    class="chat-panel"
+    id="aubar-panel"
+    [attr.aria-label]="i18n.text('Chat con Aubar')"
+    (keydown.escape)="close()"
+  >
+    <header class="chat-header">
+      <span class="aubar-mark" aria-hidden="true">A</span>
+      <div class="chat-heading">
+        <h2>Aubar</h2>
+        <p>{{ i18n.text('Tu guía en este portfolio') }}</p>
+      </div>
+      <button
+        class="icon-button"
+        type="button"
+        (click)="reset()"
+        [disabled]="loading()"
+        [attr.aria-label]="i18n.text('Nueva conversación')"
+        [title]="i18n.text('Nueva conversación')"
+      >
+        ↺
+      </button>
+      <button
+        class="icon-button"
+        type="button"
+        (click)="close()"
+        [attr.aria-label]="i18n.text('Cerrar chat')"
+      >
+        ×
+      </button>
+    </header>
+    <div
+      #messageLog
+      class="chat-log"
+      role="log"
+      aria-live="polite"
+      [attr.aria-label]="i18n.text('Conversación')"
+    >
+      <div class="chat-welcome">
+        <p>
+          {{
+            i18n.text(
+              '¡Hola! Soy Aubar, el asistente de Nahuel. ¿Cómo te llamás? Puedo ayudarte a conocer sus proyectos, experiencia y tecnologías.'
+            )
+          }}
+        </p>
+      </div>
+      @if (messages().length === 0) {
+        <div class="chat-suggestions" [attr.aria-label]="i18n.text('Preguntas sugeridas')">
+          @for (question of suggestions; track question) {
+            <button type="button" (click)="send(i18n.text(question))">
+              {{ i18n.text(question) }}<span aria-hidden="true">↗</span>
+            </button>
+          }
+        </div>
+      }
+      @for (message of messages(); track message.id) {
+        <div class="chat-message" [class.from-user]="message.role === 'user'">
+          <span class="message-author">{{
+            message.role === 'user' ? i18n.text('Vos') : 'Aubar'
+          }}</span>
+          <p>{{ message.content }}</p>
+        </div>
+      }
+      @if (loading()) {
+        <p class="chat-loading" role="status">
+          <span aria-hidden="true">•••</span>{{ i18n.text('Aubar está pensando…') }}
+        </p>
+      }
+    </div>
+    @if (error()) {
+      <div class="chat-error" role="alert">
+        <p>{{ i18n.text(error()) }}</p>
+        <button type="button" (click)="retry()">{{ i18n.text('Reintentar') }}</button>
+      </div>
+    }
+    <nav class="chat-shortcuts" [attr.aria-label]="i18n.text('Explorar el portfolio')">
+      <a href="#proyectos" (click)="close()"
+        >{{ i18n.text('Ver proyectos') }} <span aria-hidden="true">↗</span></a
+      >
+      <a href="#contacto" (click)="close()"
+        >{{ i18n.text('Contacto') }} <span aria-hidden="true">↗</span></a
+      >
+    </nav>
+    <form class="chat-composer" (ngSubmit)="send()">
+      <label class="visually-hidden" for="aubar-message">{{
+        i18n.text('Mensaje para Aubar')
+      }}</label>
+      <textarea
+        #messageInput
+        id="aubar-message"
+        name="message"
+        [(ngModel)]="draft"
+        rows="2"
+        maxlength="1200"
+        [placeholder]="i18n.text('Escribí tu mensaje…')"
+        (keydown)="onKeydown($event)"
+        [readOnly]="loading()"
+      ></textarea>
+      <button
+        type="submit"
+        [disabled]="loading() || !draft.trim()"
+        [attr.aria-label]="i18n.text('Enviar mensaje')"
+      >
+        <span aria-hidden="true">↑</span>
+      </button>
+    </form>
+    <p class="chat-note">
+      {{ i18n.text('Asistente con IA. Verificá los detalles en el portfolio.') }}
+    </p>
+  </section>
+}
+<button
+  #launcher
+  class="chat-launcher"
+  type="button"
+  (click)="open() ? close() : open.set(true)"
+  aria-controls="aubar-panel"
+  [attr.aria-expanded]="open()"
+  [attr.aria-label]="i18n.text(open() ? 'Cerrar chat' : 'Hablar con Aubar')"
+>
+  @if (open()) {
+    <span aria-hidden="true">×</span>
+  } @else {
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2 1.5-5A8.5 8.5 0 1 1 21 11.5Z" />
+      <path d="M7 11h.01M11 11h.01M15 11h.01" />
+    </svg>
+    <span>Aubar</span>
+  }
+</button>
