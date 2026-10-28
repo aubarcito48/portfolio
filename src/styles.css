@@ -119,6 +119,17 @@ button:focus-visible {
   font-size: 0.82rem;
 }
 
+@media (min-width: 1280px) {
+  .experience-dates {
+    margin-inline-end: 2rem;
+  }
+
+  :root:has(app-aubar-chat.is-open) .experience-dates {
+    /* Match the chat's reserved space without moving the rest of the timeline. */
+    margin-inline-end: clamp(2rem, calc(61rem - 50vw), 15.5rem);
+  }
+}
+
 .portfolio-status-error {
   color: var(--text);
 }

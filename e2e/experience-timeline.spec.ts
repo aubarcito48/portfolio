@@ -48,4 +48,18 @@ test('experience timeline numbers published jobs and fits both themes', async ({
   await page.evaluate(() => (document.querySelector('.theme-toggle') as HTMLButtonElement).click());
   await expect(page.locator('.site-shell')).toHaveAttribute('data-theme', 'light');
   await timeline.screenshot({ path: info.outputPath('timeline-light.png') });
+  if (page.viewportSize()!.width >= 1280) {
+    const originalViewport = page.viewportSize()!;
+    await page.getByRole('button', { name: 'Hablar con Aubar', exact: true }).click();
+    await expect(page.locator('#aubar-panel')).toBeVisible();
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: originalViewport.height });
+      const chat = (await page.locator('#aubar-panel').boundingBox())!;
+      for (const date of await page.locator('.experience-dates').all()) {
+        const bounds = (await date.boundingBox())!;
+        expect(bounds.x + bounds.width).toBeLessThan(chat.x - 8);
+      }
+    }
+    await page.setViewportSize(originalViewport);
+  }
 });
