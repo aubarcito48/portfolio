@@ -95,9 +95,22 @@
           }
           @case ('success') {
             @for (link of linksState.data; track link.url) {
+              @if (link.type !== 'cv' && link.type !== 'cv_en') {
               <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+              }
             } @empty {
               <span>{{ i18n.text('No hay enlaces publicados.') }}</span>
+            }
+            @if (cvLinks().length) {
+              <span class="cv-links">
+                <span>Curriculum Vitae:</span>
+                @for (link of cvLinks(); track link.url; let last = $last) {
+                  <a [href]="link.url" target="_blank" rel="noopener noreferrer"
+                    [attr.aria-label]="'Curriculum Vitae: ' + i18n.text(link.type === 'cv_en' ? 'Inglés' : 'Español')"
+                  >{{ i18n.text(link.type === 'cv_en' ? 'Inglés' : 'Español') }}</a>
+                  @if (!last) { <span aria-hidden="true">|</span> }
+                }
+              </span>
             }
           }
           @case ('empty') {

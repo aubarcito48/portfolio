@@ -23,6 +23,8 @@ export const messages = {
   aubarSend: ['Enviar mensaje', 'Send message'],
   aubarNote: ['Asistente con IA. Verificá los detalles en el portfolio.', 'AI assistant. Check the details in the portfolio.'],
   home: ['Inicio', 'Home'],
+  spanish: ['Español', 'Spanish'],
+  english: ['Inglés', 'English'],
   about: ['Sobre mí', 'About me'],
   projects: ['Proyectos', 'Projects'],
   contact: ['Contacto', 'Contact'],

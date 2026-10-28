@@ -14,6 +14,12 @@ export class HomeSection {
   private readonly portfolioApi = inject(PortfolioApiService);
   protected readonly profile = this.portfolioApi.profile;
   protected readonly links = this.portfolioApi.links;
+  protected readonly cvLinks = computed(() => {
+    const state = this.links();
+    return state.status === 'success'
+      ? state.data.filter((link) => link.type === 'cv' || link.type === 'cv_en')
+      : [];
+  });
   protected readonly profileSummary = computed(() => {
     const profile = this.profile();
     return profile.status === 'success' ? (profile.data.biography.split(/\n\s*\n/)[0] ?? '') : '';

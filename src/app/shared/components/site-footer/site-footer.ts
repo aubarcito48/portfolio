@@ -1,5 +1,5 @@
 import { LanguageService } from '../../../service/language.service';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PortfolioApiService } from '../../../service/portfolio-api.service';
 import { portfolioContent } from '../../data/profile.data';
@@ -15,6 +15,12 @@ export class SiteFooter {
   protected readonly content = portfolioContent.about;
   private readonly portfolioApi = inject(PortfolioApiService);
   protected readonly links = this.portfolioApi.links;
+  protected readonly cvLinks = computed(() => {
+    const state = this.links();
+    return state.status === 'success'
+      ? state.data.filter((link) => link.type === 'cv' || link.type === 'cv_en')
+      : [];
+  });
   protected readonly focusChill = focusChillConfig;
   private readonly sanitizer = inject(DomSanitizer);
   protected readonly spotifyEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(

@@ -9,9 +9,10 @@ import {
   testProjects,
   testTechnologyGroups,
 } from '../src/app/shared/data/portfolio-test-data';
-import type { Experience, Profile } from '../src/app/models/portfolio.models';
+import type { Experience, Profile, ProfessionalLink } from '../src/app/models/portfolio.models';
 
 interface PortfolioOptions {
+  links?: ProfessionalLink[];
   firstVisit?: boolean;
   experiences?: Experience[];
   profile?: Profile;
@@ -62,7 +63,7 @@ export async function openPortfolio(page: Page, options: PortfolioOptions = {}):
       '/proyectos/',
       { status: 200, body: options.emptyResources ? emptyPage : testPage(testProjects) },
     ],
-    ['/enlaces/', { status: 200, body: options.emptyResources ? emptyPage : testPage(testLinks) }],
+    ['/enlaces/', { status: 200, body: options.emptyResources ? emptyPage : testPage(options.links ?? testLinks) }],
   ]);
 
   await page.route(`${environment.apiBaseUrl}/**`, async (route) => {
