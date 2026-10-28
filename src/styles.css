@@ -3,11 +3,45 @@
 :root {
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
+  --scrollbar-thumb: #38bdf8;
+  --scrollbar-track: #0b1020;
+}
+
+:root:has(.site-shell[data-theme='light']) {
+  --scrollbar-thumb: #0875a1;
+  --scrollbar-track: #edf1f7;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Fallback for browsers using the WebKit scrollbar pseudo-elements. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+@media (forced-colors: active) {
+  html {
+    scrollbar-color: auto;
+  }
 }
 
 body {
