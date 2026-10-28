@@ -1,6 +1,31 @@
 import { expect, test } from '@playwright/test';
 import { openPortfolio } from './test-setup';
 
+test('Aubar welcomes first-time desktop visitors only and does not reopen after reload', async ({
+  page,
+}) => {
+  let requests = 0;
+  page.on('request', (request) => {
+    if (request.url().includes('/api/v1/chat/')) requests++;
+  });
+  await openPortfolio(page, { firstVisit: true });
+  const panel = page.locator('#aubar-panel');
+  if (page.viewportSize()!.width >= 1280) {
+    await expect(panel).toBeVisible();
+    await expect(panel.getByRole('textbox', { name: 'Mensaje para Aubar' })).toBeFocused();
+    await panel.getByRole('button', { name: 'Cerrar chat', exact: true }).click();
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Hablar con Aubar', exact: true })).toBeVisible();
+    await expect(panel).toHaveCount(0);
+  } else {
+    await expect(panel).toHaveCount(0);
+    expect(await page.evaluate(() => localStorage.getItem('portfolio-aubar-welcomed'))).toBeNull();
+  }
+  expect(requests).toBe(0); // Opening a welcome never spends a Groq request.
+  await page.getByRole('button', { name: 'Hablar con Aubar', exact: true }).click();
+  await expect(panel).toBeVisible();
+});
+
 test('Aubar welcomes visitors, keeps their conversation and supports both languages', async ({
   page,
 }, info) => {

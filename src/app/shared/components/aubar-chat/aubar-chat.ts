@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  afterNextRender,
   afterRenderEffect,
   inject,
   signal,
@@ -45,6 +46,16 @@ export class AubarChat {
 
   constructor() {
     inject(DestroyRef).onDestroy(() => this.subscription?.unsubscribe());
+    afterNextRender(() => {
+      if (!window.matchMedia('(min-width: 1280px)').matches) return;
+      try {
+        if (window.localStorage.getItem('portfolio-aubar-welcomed') === '1') return;
+        window.localStorage.setItem('portfolio-aubar-welcomed', '1');
+      } catch {
+        // When storage is blocked, the welcome is limited to this page load.
+      }
+      this.open.set(true);
+    });
     afterRenderEffect(() => {
       if (this.open()) this.input()?.nativeElement.focus();
     });

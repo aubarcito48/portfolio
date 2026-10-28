@@ -12,6 +12,7 @@ import {
 import type { Profile } from '../src/app/models/portfolio.models';
 
 interface PortfolioOptions {
+  firstVisit?: boolean;
   profile?: Profile;
   profileFailures?: number;
   profileDelayMs?: number;
@@ -20,6 +21,10 @@ interface PortfolioOptions {
 }
 
 export async function openPortfolio(page: Page, options: PortfolioOptions = {}): Promise<void> {
+  // Other regressions exercise returning visitors; welcome behavior has its own test.
+  if (!options.firstVisit) {
+    await page.addInitScript(() => localStorage.setItem('portfolio-aubar-welcomed', '1'));
+  }
   await page.route(
     /^https:\/\/(open\.spotify\.com|fonts\.googleapis\.com|fonts\.gstatic\.com)\//,
     (route) => route.abort(),

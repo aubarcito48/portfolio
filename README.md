@@ -59,6 +59,9 @@ El chat agrega un endpoint POST público, acotado y sin operaciones de escritura
 
 Aubar es el chat flotante del sitio. Saluda, usa el nombre que el visitante
 proporcione y responde en español o inglés sobre el contenido publicado.
+Se abre automáticamente una sola vez por navegador en desktop (desde 1280 px).
+En tablet y celular permanece cerrado hasta que el visitante lo abre.
+Si el almacenamiento está bloqueado, no puede recordar la primera apertura entre recargas.
 Incluye preguntas sugeridas sobre Angular, Django y contacto, historial temporal,
 reintento y nueva conversación. Los mensajes se muestran como texto, sin ejecutar HTML.
 
