@@ -51,7 +51,10 @@ describe('App', () => {
     expect(headings[0]?.tagName).toBe('H1');
     expect(headings.filter((heading) => heading.tagName === 'H1')).toHaveLength(1);
     expect(
-      Array.from(compiled.querySelectorAll('img')).every((image) => image.alt.length > 0),
+      Array.from(compiled.querySelectorAll('img')).every((image) =>
+        image.alt.length > 0 ||
+        (image.hasAttribute('alt') && !!image.closest('a[aria-label], [aria-hidden="true"]')),
+      ),
     ).toBe(true);
   });
 

@@ -4,9 +4,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PortfolioApiService } from '../../../service/portfolio-api.service';
 import { portfolioContent } from '../../data/profile.data';
 import { focusChillConfig } from '../../data/focus-chill.data';
+import { ScrollReveal } from '../../directives/scroll-reveal';
 
 @Component({
   selector: 'app-site-footer',
+  imports: [ScrollReveal],
   templateUrl: './site-footer.html',
   styleUrl: './site-footer.css',
 })

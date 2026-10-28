@@ -2,9 +2,11 @@ import { LanguageService } from '../../service/language.service';
 import { Component, computed, inject } from '@angular/core';
 import { portfolioContent } from '../../shared/data/profile.data';
 import { PortfolioApiService } from '../../service/portfolio-api.service';
+import { ScrollReveal } from '../../shared/directives/scroll-reveal';
 
 @Component({
   selector: 'app-about-section',
+  imports: [ScrollReveal],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
