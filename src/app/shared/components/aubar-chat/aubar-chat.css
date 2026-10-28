@@ -49,16 +49,21 @@
   border-bottom: 1px solid var(--line);
 }
 .aubar-mark {
-  display: grid;
-  place-items: center;
-  flex: 0 0 2.5rem;
+  position: relative;
+  flex: 0 0 4rem;
   height: 2.5rem;
-  border: 1px solid var(--accent-secondary-ink);
+  overflow: hidden;
+  background: #f1f5f9;
   border-radius: 0.8rem;
-  color: var(--accent-secondary-ink);
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 700;
+}
+.aubar-mark img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6.5rem;
+  height: 6.5rem;
+  max-width: none;
+  transform: translate(-50%, -50%);
 }
 .chat-heading {
   flex: 1;

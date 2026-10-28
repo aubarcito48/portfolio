@@ -123,19 +123,6 @@
   margin-inline: auto;
 }
 
-.wordmark {
-  color: var(--text);
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.08em;
-  text-decoration: none;
-}
-
-.wordmark span {
-  color: var(--accent);
-}
-
 .footer-inner p {
   margin: 0;
   color: var(--text-muted);
