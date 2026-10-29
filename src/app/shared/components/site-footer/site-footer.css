@@ -149,6 +149,18 @@
   color: var(--accent);
 }
 
+@media (max-width: 1279px) {
+  .footer-inner {
+    grid-template-columns: auto 1fr;
+    row-gap: 0.5rem;
+  }
+
+  .back-to-top {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
 @media (max-width: 760px) {
   .footer-content {
     width: min(100% - 2rem, 78rem);
@@ -171,11 +183,6 @@
 
   .footer-inner p {
     text-align: right;
-  }
-
-  .back-to-top {
-    grid-column: 1 / -1;
-    justify-self: center;
   }
 }
 
