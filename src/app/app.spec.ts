@@ -104,7 +104,7 @@ describe('App', () => {
       '/assets/morgan.png',
       '/assets/nahuel-carrousel.png',
     ]);
-    expect(slider?.textContent).toContain('Desarrollo Full Stack');
+    expect(slider?.textContent).toContain('Desarrollador Full Stack');
     expect(slider?.textContent).toContain('Calidad de software');
     expect(slider?.querySelector('a[href="https://pinta-ebook-eta.vercel.app/"]')).toBeTruthy();
     const slides = slider?.querySelectorAll<HTMLElement>('.slider-slide');

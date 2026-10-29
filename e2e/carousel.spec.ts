@@ -13,10 +13,10 @@ test.describe('[CP05] presentation carousel', () => {
     const activeIndicator = page.locator('.slider-dot[aria-current="true"]');
 
     await expect(page.locator('.slider-autoplay-toggle')).toHaveCount(0);
-    await expect(activeSlide).toContainText('Desarrollo Full Stack');
+    await expect(activeSlide).toContainText('Desarrollador Full Stack');
     await expect(activeIndicator).toHaveAttribute(
       'aria-label',
-      'Mostrar diapositiva 1: Desarrollo Full Stack',
+      'Mostrar diapositiva 1: Desarrollador Full Stack',
     );
 
     await page.getByRole('button', { name: 'Diapositiva siguiente' }).click();
@@ -36,10 +36,10 @@ test.describe('[CP05] presentation carousel', () => {
     await page.getByRole('button', { name: 'Diapositiva anterior' }).click();
     await expect(activeSlide).toContainText('PintaEbook');
     await slider.press('ArrowLeft');
-    await expect(activeSlide).toContainText('Desarrollo Full Stack');
+    await expect(activeSlide).toContainText('Desarrollador Full Stack');
     await expect(activeIndicator).toHaveAttribute(
       'aria-label',
-      'Mostrar diapositiva 1: Desarrollo Full Stack',
+      'Mostrar diapositiva 1: Desarrollador Full Stack',
     );
   });
 });

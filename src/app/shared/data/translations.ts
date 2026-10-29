@@ -97,7 +97,7 @@ export const messages = {
   nextSlide: ['Diapositiva siguiente', 'Next slide'],
   selectSlide: ['Seleccionar diapositiva', 'Select slide'],
   showSlide: ['Mostrar diapositiva ', 'Show slide '],
-  fullStack: ['Desarrollo Full Stack', 'Full-Stack Development'],
+  fullStack: ['Desarrollador Full Stack', 'Full-Stack Developer'],
   fullStackDescription: ['Me interesa crear aplicaciones web y trabajar tanto en el frontend como en el backend.', 'I am interested in creating web applications and working on both frontend and backend development.'],
   argentinaFlag: ['Bandera argentina con el Sol de Mayo', 'Argentinian flag with the Sun of May'],
   pintaDescription: ['Proyecto grupal de una plataforma de libros y ebooks, desarrollado junto al equipo ISPC / ProCoders.', 'Team project for a book and ebook platform, developed with the ISPC / ProCoders team.'],

@@ -1,6 +1,6 @@
 export const sliderSlides = [
   {
-    title: 'Desarrollo Full Stack',
+    title: 'Desarrollador Full Stack',
     description:
       'Me interesa crear aplicaciones web y trabajar tanto en el frontend como en el backend.',
     image: '/assets/bandera-argentina.png',
