@@ -21,9 +21,12 @@
   cursor: pointer;
   margin-inline-start: auto;
 }
-.chat-launcher svg {
-  width: 1.4rem;
-  height: 1.4rem;
+.chat-launcher-icon {
+  display: block;
+  flex: 0 0 1.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
 }
 .chat-panel {
   position: absolute;
@@ -231,6 +234,10 @@ button:disabled {
   color: var(--text-muted);
   font-size: 0.6rem;
   text-align: center;
+}
+.chat-note a {
+  margin-inline-start: 0.35rem;
+  color: inherit;
 }
 @media (max-width: 600px) {
   :host {

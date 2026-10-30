@@ -110,6 +110,7 @@
     </form>
     <p class="chat-note">
       {{ i18n.text('Asistente con IA. Verificá los detalles en el portfolio.') }}
+      <a href="https://icons8.com/icons/set/chatbot--style-fluency" target="_blank" rel="noopener noreferrer">Icons8</a>
     </p>
   </section>
 }
@@ -126,18 +127,14 @@
   @if (open()) {
     <span aria-hidden="true">×</span>
   } @else {
-    <svg
+    <img
+      class="chat-launcher-icon"
+      src="icons/icons8-chatbot-fluent-96.png"
+      alt=""
       aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.7"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2 1.5-5A8.5 8.5 0 1 1 21 11.5Z" />
-      <path d="M7 11h.01M11 11h.01M15 11h.01" />
-    </svg>
+      width="96"
+      height="96"
+    />
     <span>Aubar</span>
   }
 </button>
