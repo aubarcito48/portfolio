@@ -50,7 +50,7 @@ describe('Portfolio languages', () => {
     expect(element.querySelector('.experience-item')?.textContent).toContain('Web Development Intern');
     expect(element.querySelector('.experience-dates')?.textContent).toContain('June 2025');
     expect(element.querySelector('.experience-dates')?.textContent).toContain('Present');
-    expect(element.querySelector('.slide-title')?.textContent).toBe('Full-Stack Development');
+    expect(element.querySelector('.slide-title')?.textContent).toBe('Full-Stack Developer');
     expect(element.querySelector('.menu-toggle')?.getAttribute('aria-label')).toBe('Open menu');
     expect(element.querySelector('.hero-portrait img')?.getAttribute('src')).toBe('/assets/nahuel.jpg');
     expect(element.querySelector('.certificate-button')?.getAttribute('target')).toBe('_blank');

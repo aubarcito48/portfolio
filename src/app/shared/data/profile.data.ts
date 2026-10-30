@@ -14,6 +14,6 @@ export const portfolioContent = {
     projectsTitle: 'Proyectos destacados',
     contactEyebrow: 'Contacto',
     contactTitle: '¿Conectamos?',
-    contactDescription: 'Podés conocer más sobre mi trabajo y escribirme a través de mis perfiles.',
+    contactDescription: 'Podés conocer más sobre mi trabajo y escribirme a través de mis perfiles o enviando el formulario.',
   },
 } as const;

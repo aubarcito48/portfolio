@@ -52,7 +52,7 @@
         <div class="chat-suggestions" [attr.aria-label]="i18n.text('Preguntas sugeridas')">
           @for (question of suggestions; track question) {
             <button type="button" (click)="send(i18n.text(question))">
-              {{ i18n.text(question) }}<span aria-hidden="true">↗</span>
+              {{ i18n.text(question) }}
             </button>
           }
         </div>
@@ -79,10 +79,10 @@
     }
     <nav class="chat-shortcuts" [attr.aria-label]="i18n.text('Explorar el portfolio')">
       <a href="#proyectos" (click)="close()"
-        >{{ i18n.text('Ver proyectos') }} <span aria-hidden="true">↗</span></a
+        >{{ i18n.text('Ver proyectos') }}</a
       >
       <a href="#contacto" (click)="close()"
-        >{{ i18n.text('Contacto') }} <span aria-hidden="true">↗</span></a
+        >{{ i18n.text('Contacto') }}</a
       >
     </nav>
     <form class="chat-composer" (ngSubmit)="send()">

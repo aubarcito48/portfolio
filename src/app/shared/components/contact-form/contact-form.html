@@ -1,0 +1,71 @@
+<section class="contact-form-section" [attr.aria-label]="i18n.text('Formulario de contacto')">
+  <form [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="sending()" novalidate>
+    <fieldset [disabled]="sending()">
+      <legend class="visually-hidden">{{ i18n.text('Formulario de contacto') }}</legend>
+      <div class="fields-grid">
+        @for (field of fields; track field.key) {
+          <div class="field">
+            <label [for]="'contact-' + field.key">{{ i18n.text(field.label) }}</label>
+            <input
+              [id]="'contact-' + field.key"
+              [formControlName]="field.key"
+              [type]="field.type"
+              [autocomplete]="field.autocomplete"
+              [maxlength]="field.max"
+              required
+              [placeholder]="i18n.text(field.placeholder)"
+              [attr.aria-invalid]="invalid(field.key)"
+              [attr.aria-describedby]="
+                invalid(field.key) ? 'contact-' + field.key + '-error' : null
+              "
+            />
+            @if (invalid(field.key)) {
+              <p class="field-error" [id]="'contact-' + field.key + '-error'">
+                {{ i18n.text(validationMessage(field.key)) }}
+              </p>
+            }
+          </div>
+        }
+        <div class="field message-field">
+          <label for="contact-mensaje">{{ i18n.text('Mensaje') }}</label>
+          <textarea
+            id="contact-mensaje"
+            formControlName="mensaje"
+            rows="4"
+            maxlength="3000"
+            required
+            [placeholder]="i18n.text('Contame un poco sobre tu propuesta…')"
+            [attr.aria-invalid]="invalid('mensaje')"
+            [attr.aria-describedby]="invalid('mensaje') ? 'contact-mensaje-error' : null"
+          ></textarea>
+          @if (invalid('mensaje')) {
+            <p class="field-error" id="contact-mensaje-error">
+              {{ i18n.text(validationMessage('mensaje')) }}
+            </p>
+          }
+        </div>
+      </div>
+      <div class="contact-trap" aria-hidden="true" inert>
+        <label for="contact-website">Website</label>
+        <input id="contact-website" formControlName="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="form-actions">
+        <p>{{ i18n.text('Usaré tus datos para responder a tu consulta.') }}</p>
+        <button type="submit" [disabled]="sending()">
+          {{ i18n.text(sending() ? 'Enviando…' : 'Enviar mensaje') }}
+        </button>
+      </div>
+    </fieldset>
+    @if (status() === 'success') {
+      <p class="feedback success" role="status">
+        {{ i18n.text('Mensaje enviado. ¡Gracias por escribirme!') }}
+      </p>
+    }
+    @if (status() === 'error') {
+      <p class="feedback error" role="alert">
+        {{ i18n.text(error()) }}
+        <a href="mailto:nahuel.cba.48@gmail.com">nahuel.cba.48&#64;gmail.com</a>
+      </p>
+    }
+  </form>
+</section>

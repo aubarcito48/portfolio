@@ -5,10 +5,11 @@ import { PortfolioApiService } from '../../../service/portfolio-api.service';
 import { portfolioContent } from '../../data/profile.data';
 import { focusChillConfig } from '../../data/focus-chill.data';
 import { ScrollReveal } from '../../directives/scroll-reveal';
+import { ContactForm } from '../contact-form/contact-form';
 
 @Component({
   selector: 'app-site-footer',
-  imports: [ScrollReveal],
+  imports: [ScrollReveal, ContactForm],
   templateUrl: './site-footer.html',
   styleUrl: './site-footer.css',
 })
