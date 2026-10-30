@@ -6,13 +6,12 @@
     (keydown.escape)="close()"
   >
     <header class="chat-header">
-      <span class="aubar-mark" aria-hidden="true">
-        <img src="aubar-logo-sin-fondo.webp" alt="" width="512" height="512" />
+      <span class="aubar-mark">
+        <img src="aubar-logo-sin-fondo.webp" alt="Aubar" width="512" height="512" />
       </span>
-      <div class="chat-heading">
-        <h2>Aubar</h2>
-        <p>{{ i18n.text('Tu guía en este portfolio') }}</p>
-      </div>
+      <span class="chat-robot" aria-hidden="true">
+        <img src="icons/icons8-chatbot-fluent-96.png" alt="" width="96" height="96" />
+      </span>
       <button
         class="icon-button"
         type="button"
@@ -77,14 +76,6 @@
         <button type="button" (click)="retry()">{{ i18n.text('Reintentar') }}</button>
       </div>
     }
-    <nav class="chat-shortcuts" [attr.aria-label]="i18n.text('Explorar el portfolio')">
-      <a href="#proyectos" (click)="close()"
-        >{{ i18n.text('Ver proyectos') }}</a
-      >
-      <a href="#contacto" (click)="close()"
-        >{{ i18n.text('Contacto') }}</a
-      >
-    </nav>
     <form class="chat-composer" (ngSubmit)="send()">
       <label class="visually-hidden" for="aubar-message">{{
         i18n.text('Mensaje para Aubar')
@@ -110,7 +101,6 @@
     </form>
     <p class="chat-note">
       {{ i18n.text('Asistente con IA. Verificá los detalles en el portfolio.') }}
-      <a href="https://icons8.com/icons/set/chatbot--style-fluency" target="_blank" rel="noopener noreferrer">Icons8</a>
     </p>
   </section>
 }

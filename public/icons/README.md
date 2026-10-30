@@ -6,5 +6,5 @@
 - Icon collection: https://icons8.com/icons/set/chatbot--style-fluency
 - License: https://icons8.com/license
 
-The chat panel includes a visible Icons8 attribution link. The PNG is served locally
+The PNG is served locally
 to avoid requiring a third-party image request when opening the portfolio.

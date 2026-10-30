@@ -33,7 +33,7 @@ export const messages = {
   aubarSuggestions: ['Preguntas sugeridas', 'Suggested questions'],
   aubarWelcome: ['¡Hola! Soy Aubar, el asistente de Nahuel. ¿Cómo te llamás? Puedo ayudarte a conocer sus proyectos, experiencia y tecnologías.', 'Hi! I’m Aubar, Nahuel’s assistant. What’s your name? I can help you explore his projects, experience and technologies.'],
   aubarAngular: ['¿Qué proyectos hizo Nahuel con Angular?', 'What projects has Nahuel built with Angular?'],
-  aubarDjango: ['¿Tiene experiencia con Django?', 'Does he have experience with Django?'],
+  aubarExperience: ['¿Qué experiencia laboral tiene Nahuel?', 'What work experience does Nahuel have?'],
   aubarContact: ['¿Dónde puedo contactarlo?', 'How can I contact him?'],
   aubarYou: ['Vos', 'You'],
   aubarThinking: ['Aubar está pensando…', 'Aubar is thinking…'],

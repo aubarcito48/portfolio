@@ -117,7 +117,7 @@ test('Aubar retries failed messages once and renders replies as text', async ({ 
   });
   await page.getByRole('button', { name: 'Hablar con Aubar', exact: true }).click();
   const panel = page.locator('#aubar-panel');
-  await panel.getByRole('button', { name: '¿Tiene experiencia con Django?' }).click();
+  await panel.getByRole('button', { name: '¿Qué experiencia laboral tiene Nahuel?' }).click();
   await expect(panel.getByRole('alert')).toContainText('No pude responder');
   await panel.getByRole('button', { name: 'Reintentar', exact: true }).click();
   await expect(panel.locator('.chat-message:not(.from-user)')).toContainText(attack);

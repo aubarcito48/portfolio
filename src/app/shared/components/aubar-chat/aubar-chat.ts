@@ -32,7 +32,7 @@ export class AubarChat {
   protected readonly error = signal('');
   protected readonly suggestions = [
     '¿Qué proyectos hizo Nahuel con Angular?',
-    '¿Tiene experiencia con Django?',
+    '¿Qué experiencia laboral tiene Nahuel?',
     '¿Dónde puedo contactarlo?',
   ];
   protected draft = '';
