@@ -27,7 +27,7 @@ test('[i18n] switches real API content and dates, persists English and returns t
   expect((await englishProfile).status()).toBe(200);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.getByRole('heading', { name: 'Experience', exact: true })).toBeVisible();
-  await expect(page.locator('.biography')).toContainText('I am a software developer');
+  await expect(page.locator('.biography')).toContainText('I enjoy building web applications');
   await expect(page.locator('.experience-dates').first()).toContainText('January 2025');
   await expect(page.locator('.experience-dates').first()).toContainText('Present');
   await expect(page.locator('.project-description').first()).toContainText('Book and ebook platform');
@@ -38,11 +38,11 @@ test('[i18n] switches real API content and dates, persists English and returns t
   await expect(page.locator('body')).not.toContainText('TK15 Draft');
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.locator('.biography')).toContainText('I am a software developer');
+  await expect(page.locator('.biography')).toContainText('I enjoy building web applications');
   await testInfo.attach('portfolio-english', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
   await page.getByRole('button', { name: 'Switch to Spanish' }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(page.locator('.biography')).toContainText('Soy desarrollador de software');
+  await expect(page.locator('.biography')).toContainText('Me gusta crear aplicaciones web');
   await expect(page.locator('.experience-dates').first()).toContainText('enero de 2025');
   await expect(page.getByRole('heading', { name: 'Experiencia', exact: true })).toBeVisible();
   await expect(page.locator('.site-shell')).toHaveJSProperty('scrollWidth', await page.locator('.site-shell').evaluate((el) => el.clientWidth));

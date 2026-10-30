@@ -12,7 +12,7 @@ export const testProfile: Profile = {
   name: 'Nahuel Argandoña',
   specialty: 'Full-Stack Developer | Software Development | QA & Testing',
   biography:
-    'Soy desarrollador de software de Córdoba, Argentina, y actualmente curso la Tecnicatura Superior en Desarrollo de Software en el Instituto Superior Politécnico de Córdoba (ISPC).\n\nMe interesa construir aplicaciones web, resolver problemas técnicos, integrar APIs y profundizar en la calidad del software y las pruebas automatizadas. Mi recorrido incluye tecnologías frontend y backend, desarrollo con WordPress y soporte técnico informático.\n\nHoy estoy enfocado en seguir creciendo como desarrollador y contribuir a proyectos reales.',
+    "Me gusta crear aplicaciones web y encontrar soluciones a problemas técnicos. En mis proyectos combino frontend y backend, integro APIs e inteligencia artificial, desarrollo chatbots para WhatsApp con la API de Meta y conecto formularios con servicios de correo. También exploro soluciones IoT con ESP32 y cuento con experiencia en WordPress y soporte técnico informático.\n\nHoy busco seguir creciendo como desarrollador, mejorar la calidad de lo que construyo con pruebas automatizadas y aportar a proyectos reales.\n\nTeléfono: 3517587047\n\nCorreo: nahuel.cba.48@gmail.com",
   location: 'Córdoba, Argentina',
   photo: '/assets/nahuel.jpg',
 };
