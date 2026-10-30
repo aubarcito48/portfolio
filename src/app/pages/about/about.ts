@@ -22,7 +22,11 @@ export class AboutSection {
   protected readonly biographyParagraphs = computed(() => {
     const profile = this.profile();
     return profile.status === 'success'
-      ? profile.data.biography.split(/\n\s*\n/).filter((paragraph) => paragraph.trim())
+      ? profile.data.biography.split(/\n\s*\n/).filter((paragraph) => {
+          const text = paragraph.trim();
+          return text && !text.startsWith('Soy desarrollador de software de Córdoba, Argentina, y actualmente curso')
+            && !text.startsWith('I am a software developer from Córdoba, Argentina, currently studying');
+        })
       : [];
   });
   protected retryProfile(): void {
