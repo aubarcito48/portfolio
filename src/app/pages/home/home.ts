@@ -22,7 +22,7 @@ export class HomeSection {
   });
   protected readonly profileSummary = computed(() => {
     const profile = this.profile();
-    return profile.status === 'success' ? (profile.data.biography.split(/\n\s*\n/)[0] ?? '') : '';
+    return profile.status === 'success' ? (profile.data.introduction ?? '') : '';
   });
   protected readonly nameParts = computed(() => {
     const profile = this.profile();

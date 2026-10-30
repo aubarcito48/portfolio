@@ -1,6 +1,7 @@
 export interface Profile {
   name: string;
   specialty: string;
+  introduction: string;
   biography: string;
   location: string;
   photo: string;

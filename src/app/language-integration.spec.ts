@@ -15,6 +15,16 @@ describe('Portfolio languages', () => {
     }).compileComponents();
   });
 
+  it('keeps the home introduction separate from the about biography', async () => {
+    const fixture = await createLoadedApp();
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('.hero-summary')?.textContent).toContain(testProfile.introduction);
+    expect(element.querySelector('.hero-summary')?.textContent).not.toContain('Me gusta crear aplicaciones web');
+    expect(element.querySelector('.biography')?.textContent).toContain('Me gusta crear aplicaciones web');
+    expect(element.querySelector('.biography')?.textContent).not.toContain(testProfile.introduction);
+    fixture.destroy();
+  });
+
   it('switches interface, API content and dates together, keeping asset paths and links', async () => {
     const fixture = await createLoadedApp();
     const element = fixture.nativeElement as HTMLElement;
