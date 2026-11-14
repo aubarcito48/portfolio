@@ -52,19 +52,6 @@
     </div>
 
     <div class="slider-controls" role="group" [attr.aria-label]="i18n.text('Controles del slider')">
-      @if (!prefersReducedMotion()) {
-        <button
-          class="slider-autoplay-toggle"
-          type="button"
-          [attr.aria-label]="autoplayPaused() ? i18n.text('Reanudar avance automático') : i18n.text('Pausar avance automático')"
-          [attr.aria-pressed]="autoplayPaused()"
-          (click)="toggleAutoplay()"
-        >
-          <span aria-hidden="true">{{ autoplayPaused() ? '▶' : 'Ⅱ' }}</span>
-          <span>{{ autoplayPaused() ? i18n.text('Continuar') : i18n.text('Pausar') }}</span>
-        </button>
-      }
-
       <button
         class="slider-arrow slider-arrow-previous"
         type="button"

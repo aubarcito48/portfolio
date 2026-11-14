@@ -26,7 +26,6 @@ export class PortfolioSlider {
   protected readonly interactionPaused = computed(
     () => this.pointerInteraction() || this.focusInteraction(),
   );
-  protected readonly autoplayPaused = signal(false);
   protected readonly prefersReducedMotion = signal(false);
   private readonly motionPreference: MediaQueryList | null =
     typeof window.matchMedia === 'function'
@@ -45,7 +44,6 @@ export class PortfolioSlider {
     const autoplayTimer = window.setInterval(() => {
       if (
         !this.interactionPaused() &&
-        !this.autoplayPaused() &&
         !this.prefersReducedMotion()
       ) {
         this.showNext();
@@ -68,10 +66,6 @@ export class PortfolioSlider {
 
   protected selectSlide(index: number): void {
     this.activeIndex.set(index);
-  }
-
-  protected toggleAutoplay(): void {
-    this.autoplayPaused.update((isPaused) => !isPaused);
   }
 
   protected handleKeydown(event: KeyboardEvent): void {

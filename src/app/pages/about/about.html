@@ -218,7 +218,7 @@
             @for (project of projectState.data; track project.slug; let index = $index) {
               <article class="project-card" appScrollReveal [revealDelay]="index % 2 * 100" [attr.aria-labelledby]="'project-title-' + index">
                 @if (project.image) {
-                  <div class="project-image">
+                  <div class="project-image" [class.project-image--aubar]="project.slug === 'aubar-bot'">
                     <img [src]="project.image" [alt]="project.imageAlt" loading="lazy" />
                   </div>
                 }

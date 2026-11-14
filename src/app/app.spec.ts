@@ -119,9 +119,7 @@ describe('App', () => {
     expect(compiled.querySelector('footer .footer-watermark')).toBeNull();
     expect(slider?.querySelector('.slider-window .slider-track')).toBeTruthy();
     expect(slider?.querySelector('.slider-window .slider-controls')).toBeTruthy();
-    expect(slider?.querySelector('.slider-autoplay-toggle')?.getAttribute('aria-pressed')).toBe(
-      'false',
-    );
+    expect(slider?.querySelector('.slider-autoplay-toggle')).toBeNull();
   });
 
   it('should navigate slider slides with buttons, indicators, and arrow keys', async () => {
@@ -153,24 +151,6 @@ describe('App', () => {
     expect(slider?.querySelector('[aria-current="true"]')?.getAttribute('aria-label')).toContain(
       'diapositiva 1',
     );
-  });
-
-  it('should let users pause and resume automatic slider movement', async () => {
-    const fixture = await createLoadedApp();
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    const toggle = compiled.querySelector<HTMLButtonElement>('.slider-autoplay-toggle');
-
-    expect(toggle?.getAttribute('aria-label')).toBe('Pausar avance automático');
-    toggle?.click();
-    fixture.detectChanges();
-    expect(toggle?.getAttribute('aria-pressed')).toBe('true');
-    expect(toggle?.getAttribute('aria-label')).toBe('Reanudar avance automático');
-
-    toggle?.click();
-    fixture.detectChanges();
-    expect(toggle?.getAttribute('aria-pressed')).toBe('false');
-    expect(toggle?.getAttribute('aria-label')).toBe('Pausar avance automático');
   });
 
   it('should provide the requested technology groups and section links', async () => {
