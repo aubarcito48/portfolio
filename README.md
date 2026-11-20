@@ -1,310 +1,118 @@
-# CV y Portfolio Web — Nahuel Argandoña
-
-Portfolio personal desarrollado para presentar mi perfil profesional, experiencia, formación y proyectos de desarrollo de software.
-
-El sitio está dirigido a reclutadores, equipos de desarrollo y potenciales clientes que quieran conocer mi trabajo y conectar conmigo.
-
-## Estado del proyecto
-
-**Etapa actual:** integración del frontend Angular con la API Django (TK14).
-
-La primera entrega fue una versión estática. Las secciones de perfil, tecnologías, experiencia, formación, proyectos y enlaces ahora se consultan desde la API pública del backend.
-
-**Publicado en Vercel:** [portfolio-nahuel48.vercel.app](https://portfolio-nahuel48.vercel.app/)
+# Portfolio · Nahuel Argandoña
 
 [![Vista previa del portfolio](public/assets/img-readme.png)](https://portfolio-nahuel48.vercel.app/)
 
-## Objetivo
-
-Construir una presentación profesional accesible desde computadoras, tablets y celulares, centralizando información de mi trayectoria y enlaces a proyectos y perfiles profesionales.
-
-## Funcionalidades previstas
-
-- Presentación personal y biografía cargadas desde la API.
-- Tecnologías agrupadas por área, experiencia y formación publicadas.
-- Proyectos con tecnologías, imágenes, demos y repositorios.
-- Enlaces profesionales publicados desde la API.
-- Estados de carga, contenido vacío y error con reintento.
-- Navegación responsive y menú móvil.
-- Temas claro y oscuro con persistencia local cuando esté disponible.
-- Selector ES/EN para interfaz, contenido de la API y fechas, con preferencia guardada.
-- Carrusel sobre desarrollo full stack, calidad de software y proyecto destacado.
-- Reproductor de Spotify sin reproducción automática, sujeto a confirmar la playlist.
-- Botón para volver al inicio.
-- Metadatos básicos para buscadores y redes sociales.
-
-El carrusel, el contenido visual y las interacciones de navegación siguen formando parte de la experiencia del portfolio; los datos profesionales enumerados se administran en el backend.
-
-Ver [configuración de idiomas y orden de despliegue](docs/I18N.md). El backend
-debe desplegarse antes que el frontend para servir también el contenido en inglés.
-
-## Tecnologías previstas
-
-| Área | Tecnología |
-|---|---|
-| Frontend | Angular y TypeScript |
-| Backend | Django y API JSON |
-| Persistencia | PostgreSQL |
-| Estilos | CSS y Tailwind CSS |
-| Control de versiones | Git y GitHub |
-| Despliegue | Vercel |
-| Documentación | GitHub Wiki, Word y Excel |
-
-Tailwind CSS es compatible y está configurado mediante PostCSS. Angular CLI utiliza Vite internamente para el servidor de desarrollo y esbuild para la compilación; no se requiere configurar Vite por separado.
-
-Tipografía: Fraunces para títulos, Geist para texto y JetBrains Mono para etiquetas
-y números. Las fuentes WOFF2 se sirven desde `public/fonts`, con sus licencias;
-ver [fuentes y procedencia](public/fonts/README.md).
-
-Los endpoints de contenido son de solo lectura y no requieren autenticación desde el frontend.
-El chat agrega un endpoint POST público, acotado y sin operaciones de escritura.
-
-## Aubar · Asistente del portfolio
-
-Aubar es el chat flotante del sitio. Saluda, usa el nombre que el visitante
-proporcione y responde en español o inglés sobre el contenido publicado.
-Se abre automáticamente una sola vez por navegador en desktop (desde 1280 px).
-En tablet y celular permanece cerrado hasta que el visitante lo abre.
-Si el almacenamiento está bloqueado, no puede recordar la primera apertura entre recargas.
-Incluye preguntas sugeridas sobre Angular, Django y contacto, historial temporal,
-reintento y nueva conversación. Los mensajes se muestran como texto, sin ejecutar HTML.
-
-El frontend envía `mensaje`, `historial` e `idioma` a `/api/v1/chat/`. Django
-recupera el contenido público mediante MCP y consulta Groq. No se envían claves
-al navegador. Las conversaciones no se guardan en localStorage ni en la base de
-datos; el contexto acotado sí se envía a Groq para generar cada respuesta.
-
-Configurar `GROQ_API_KEY` y `GROQ_MODEL` únicamente en el `.env` del backend y
-en Render. Publicar primero el backend y después el frontend. Ver
-[guía de Aubar del backend](https://github.com/aubarcito48/portfolio_backend/blob/main/docs/AUBAR.md).
-
-Pruebas del chat: `npx playwright test e2e/aubar-chat.spec.ts`.
-
-## Organización del código
-
-La aplicación conserva esta estructura en `src/app/`:
-
-- `guards/`: reservada para futuras rutas protegidas; la API pública no requiere guard.
-- `models/`: interfaces del portfolio.
-- `pages/`: vistas y secciones.
-- `service/`: servicio HTTP y sus pruebas.
-- `shared/`: componentes, contenido compartido y datos de prueba.
-
-La configuración por entorno está en `src/environments/`, fuera de `app`.
-
-## Diseño
-
-La identidad visual combinará un tema oscuro con una alternativa clara.
-
-| Elemento | Tema oscuro | Tema claro |
-|---|---|---|
-| Fondo principal | `#0B1020` | `#F5F7FB` |
-| Superficies | `#151D32` | `#FFFFFF` |
-| Acento principal | `#38BDF8` | `#38BDF8` |
-| Acento secundario | `#A78BFA` | `#A78BFA` |
-| Texto principal | `#F1F5F9` | `#182235` |
-| Texto secundario | `#94A3B8` | `#5B687B` |
-| Bordes sutiles | `rgb(148 163 184 / 17%)` | `rgb(24 34 53 / 11%)` |
-
-Se utilizarán Space Grotesk para títulos e Inter para el cuerpo del texto.
-
-El diseño priorizará legibilidad, contraste, navegación por teclado y adaptación a diferentes pantallas. Las animaciones respetarán la preferencia de movimiento reducido.
-
-## Organización del trabajo
-
-El desarrollo se organizará mediante tareas identificadas como `TK01` a `TK14`, relacionadas con requisitos, historias de usuario y casos de prueba.
-
-- **Pendiente:** trabajo planificado.
-- **En curso:** trabajo iniciado.
-- **Terminado:** trabajo implementado, verificado y documentado.
-
-### Sprint 1 — CV y portfolio estático
-
-Comprende la configuración técnica, construcción de las secciones, implementación de interacciones, pruebas y publicación inicial.
-
-Las fechas se definirán según la disponibilidad del responsable.
-
-## Documentación y seguimiento
-
-- [Wiki del proyecto](https://github.com/aubarcito48/cv-proyecto/wiki)
-- [Tablero Kanban](https://github.com/users/aubarcito48/projects/1)
-- [Issues](https://github.com/aubarcito48/cv-proyecto/issues)
-- [Milestones](https://github.com/aubarcito48/cv-proyecto/milestones)
-
-La documentación complementaria comprende:
-
-- **Documento del proyecto:** objetivos, alcance, requisitos, arquitectura, riesgos y calidad.
-- **Excel de planificación:** Product Backlog, Sprint Backlog, INVEST, trazabilidad, Gantt y casos de prueba.
-
-Los enlaces a estos archivos se incorporarán cuando estén publicados en una ubicación accesible desde el repositorio.
-
-## Ejecución local
-
-### Requisitos
-
-- Node.js 20.19 o superior, 22.12 o superior, o 24 o superior.
-- npm.
-
-### Instalar dependencias
-
-Desde la raíz del repositorio, ejecutar:
-
-```bash
-npm install
-```
-
-### Iniciar el servidor de desarrollo
-
-```bash
-npm start
-```
-
-Angular CLI inicia la aplicación en `http://localhost:4200/`.
-
-### Compilar para producción
-
-```bash
-npm run build
-```
-
-Los archivos compilados se generan en `dist/cv-proyecto`.
-
-## Integración con la API
-
-En desarrollo, Angular consulta `http://localhost:8000/api/v1`. Iniciá el backend Django en ese origen antes de usar el contenido real. La URL se define en [environment.ts](./src/environments/environment.ts).
-
-La configuración de producción usa `https://portfolio-backend-6ecn.onrender.com/api/v1`, definida en [environment.production.ts](./src/environments/environment.production.ts). `npm run build -- --configuration production` aplica el reemplazo de entorno; `npm start` conserva el backend local. El servicio aplica esa base solo a las solicitudes HTTP: las imágenes `/assets/...` mantienen el origen del frontend y se copian desde `public/assets/` al build. No configurar un `<base href>` hacia Render.
-
-La prueba de producción del 19/10/2026 verificó siete respuestas reales de Render (incluida la segunda página de tecnologías), 24 tecnologías, 2 proyectos y seis imágenes cargadas desde el frontend. CORS permite `https://portfolio-nahuel48.vercel.app`. Se sirvió el build local mediante rutas de Playwright bajo ese origen, sin desplegar cambios ni simular la API. Resultado: [docs/production-verification.json](docs/production-verification.json). También pasaron el build y las 17 pruebas unitarias; las advertencias de canvas de jsdom no impidieron su ejecución. El mecanismo de reemplazo está documentado en [Angular CLI](https://angular.dev/tools/cli/environments).
-
-La aplicación consume `perfil/`, `tecnologias/`, `experiencias/`, `formacion/`, `proyectos/` y `enlaces/` bajo `/api/v1/`. Para los listados sigue todos los enlaces `next` de la paginación (20 elementos por defecto, máximo 100) y combina las categorías de tecnologías que puedan aparecer en páginas distintas. La sección de proyectos muestra la lista publicada; el servicio también permite consultar un proyecto individual por slug.
-
-Cada sección presenta su propio estado de carga, vacío o error. Los errores ofrecen reintento; la ausencia de un perfil publicado se muestra como contenido vacío. Un fallo de API no bloquea la navegación, el menú ni el cambio de tema.
-
-### Ejecutar con Docker
-
-Se requiere Docker Engine con Docker Compose. Desde la raíz del repositorio, construir y ejecutar la imagen de producción:
-
-```bash
-docker compose up --build
-```
-
-El portfolio queda disponible en `http://localhost:8080/`. Para detenerlo:
-
-```bash
-docker compose down
-```
-
-La imagen usa un build multi-stage: Node.js compila Angular y Nginx sirve únicamente los archivos estáticos resultantes.
-
-## Pruebas y calidad
-
-La validación funcional incluye:
-
-- Revisión responsive en anchos de 360, 768 y 1440 píxeles.
-- Navegación por teclado y foco visible.
-- Legibilidad en ambos temas.
-- Funcionamiento del menú, carrusel y controles.
-- Verificación de información profesional y enlaces.
-- Revisión de recursos, metadatos y rendimiento.
-- Build y comprobación del sitio publicado.
-
-Cada ejecución registrará su resultado y evidencia en la planilla de casos de prueba.
-
-### Pruebas E2E con Playwright
-
-Las pruebas de extremo a extremo usan Playwright con Chromium, Firefox y WebKit; interceptan los endpoints públicos con datos de prueba y no requieren backend. Node.js debe cumplir las versiones indicadas en «Ejecución local».
-
-La regresión integrada TK15 se ejecuta desde `portfolio_backend` mediante
-`.\.venv\Scripts\python.exe scripts\run_regression.py`. Requiere los dos
-repositorios como carpetas hermanas, PostgreSQL con `CREATEDB`, `.env` del
-backend, dependencias de ambos proyectos y los tres navegadores instalados.
-El runner crea bases descartables, ejecuta Django, unitarias Angular y build,
-inicia ambos servidores y agrega `e2e/real-api.spec.ts` a la matriz completa.
-Estos recorridos usan Django real para comprobar contenido publicado,
-paginación, borradores, navegación, enlaces, tema y recuperación tras un fallo
-de red controlado. Las pruebas aisladas verifican estados vacíos y errores.
-
-Sin `PORTFOLIO_REAL_API=1`, `npm run test:e2e` excluye `real-api.spec.ts` y no
-requiere backend. El runner configura esa variable y la URL del frontend
-`http://127.0.0.1:4301`; Angular consulta la API en el puerto 8000.
-
-El resumen queda en `portfolio_backend/reports/TK15-regression-latest.json`.
-Cada ejecución conserva su JSON histórico y una carpeta con reporte HTML,
-JSON por caso, capturas, trazas de fallos y logs de servidores. Los comandos
-para abrirlos se documentan en el README del backend; el estado de BE-CP22 y
-los defectos se registran en `portfolio_backend/reports/BE-CP22.md`.
-
-Las pruebas unitarias usan `HttpTestingController` para verificar las rutas, la paginación, la unión de categorías divididas entre páginas, el reintento y la respuesta de perfil ausente. Para ejecutarlas:
-
-```bash
-npm test -- --watch=false
-```
-
-Instalar los navegadores usados por la matriz una vez por entorno:
-
-```bash
-npx playwright install chromium firefox webkit
-```
-
-Ejecutar las pruebas funcionales y responsive (Playwright inicia Angular en `http://127.0.0.1:4300/`):
-
-```bash
-npm run test:e2e
-```
-
-La matriz ejecuta Chromium, Firefox y WebKit emulando viewports de 360 × 800 (celular), 768 × 1024 (tablet) y 1440 × 1000 (escritorio). El ancho activa el breakpoint responsive; no representa una prueba en dispositivos físicos. CP10 comprueba ausencia de desbordamiento horizontal, visibilidad de controles principales y uso de ambos temas. CP03 del menú móvil aplica a 360 y 768 px; a 1440 px queda fuera de alcance. El resto de los casos funcionales se ejecuta en las nueve combinaciones.
-
-### Integración continua
-
-GitHub Actions ejecuta build y la matriz E2E en cada pull request, en los pushes a `main` y cuando se inicia manualmente desde **Actions → CI → Run workflow**. El job usa `npm ci`, instala las dependencias de sistema y navegadores requeridas por Playwright y deja que Playwright inicie Angular en `127.0.0.1:4300`; no requiere Vercel ni secretos.
-
-Para repetir la misma validación localmente:
-
-```bash
+Portfolio personal para presentar mi trayectoria, formación y proyectos a equipos
+de desarrollo, reclutadores y potenciales clientes.
+
+**[Ver el portfolio](https://portfolio-nahuel48.vercel.app/)** ·
+[Backend Django](https://github.com/aubarcito48/portfolio_backend)
+
+## Funcionalidades
+
+- Perfil, experiencia, formación, tecnologías y proyectos administrados desde la API.
+- Imágenes, demos, repositorios, CV y enlaces profesionales.
+- Español e inglés, tema claro y oscuro y diseño adaptable.
+- Chat Aubar para consultar el contenido publicado.
+- Formulario de contacto, acceso a WhatsApp y navegación por secciones.
+
+## Tecnologías
+
+| Tecnología | Función |
+| --- | --- |
+| Angular y TypeScript | Componentes, interfaz y comunicación con la API. |
+| CSS y Tailwind CSS | Diseño, temas y adaptación a pantallas. |
+| Transloco | Interfaz en español e inglés. |
+| Django y PostgreSQL | Contenido y administración, en el backend separado. |
+| Groq y MCP | Respuestas de Aubar basadas en el portfolio, desde el backend. |
+| Playwright | Pruebas funcionales y responsive. |
+
+Las claves de IA y del envío de correo pertenecen exclusivamente al backend.
+El chat del portfolio es una interfaz de texto; el dispositivo físico de
+[Aubar Bot](https://github.com/aubarcito48/aubar-bot) es un proyecto separado.
+
+## Instalación desde cero
+
+Para visitar el sitio publicado no necesitás instalar nada. Para desarrollar
+localmente necesitás Git, Node.js 24, npm y el backend Django del portfolio.
+
+Prepará primero el backend siguiendo su
+[README](https://github.com/aubarcito48/portfolio_backend#readme), incluyendo
+PostgreSQL, configuración privada, migraciones y contenido publicado. Dejalo
+activo en http://localhost:8000. Sin contenido publicado, la interfaz mostrará
+estados vacíos: el frontend no carga datos en tu base.
+
+En otra terminal:
+
+~~~powershell
+git clone https://github.com/aubarcito48/cv-proyecto.git
+cd cv-proyecto
 npm ci
+npm start
+~~~
+
+Abrí http://localhost:4200. La dirección local de la API se define en
+[src/environments/environment.ts](src/environments/environment.ts) y por defecto
+es http://localhost:8000/api/v1. La dirección de producción está en
+[src/environments/environment.production.ts](src/environments/environment.production.ts).
+
+**El comando actual npm start no genera estos archivos desde .env.**
+Si cambiás de backend, actualizá el archivo de entorno correspondiente y reiniciá
+Angular. Django debe permitir el origen del frontend en su configuración de CORS.
+
+## Comprobar que funciona
+
+1. Revisá que se carguen perfil, experiencia y proyectos desde tu API.
+2. Cambiá idioma y tema y abrí un proyecto o su demo.
+3. Abrí Aubar y enviá una pregunta: necesita Groq configurado en el backend.
+4. Para probar contacto, configurá el proveedor de correo del backend y usá tus
+   propios datos y destinatario de prueba.
+
+Aubar se abre una vez para nuevos visitantes de escritorio desde 1280 px; en
+celular y tablet se abre al pulsar su botón. El contexto de conversación es
+temporal y se envía al servicio de IA para responder.
+
+Para retomar otro día, iniciá el backend en una terminal y ejecutá npm start
+desde el frontend en otra. No reinstales dependencias en cada inicio.
+
+## Compilación y pruebas
+
+~~~powershell
 npm run build
+npm test
+~~~
+
+Las pruebas de navegador usan una instancia local en el puerto 4300 y respuestas
+simuladas para las integraciones habituales:
+
+~~~powershell
 npx playwright install chromium firefox webkit
 npm run test:e2e
-```
+npm run test:e2e:report
+~~~
 
-Los resultados se pueden descargar desde **Actions → ejecución del workflow → Artifacts**. El artefacto `playwright-results-*` incluye el reporte HTML y los resultados/capturas/traces de Playwright, se conserva durante 14 días y se carga incluso si falla un paso. En caso de fallo, el job queda en rojo; abrir el reporte descargado o inspeccionar el trace con `npx playwright show-trace <archivo-trace.zip>`.
+La configuración incluye tres tamaños por navegador. Es una cobertura de prueba,
+no una garantía de compatibilidad con todos los dispositivos. Las pruebas contra
+la API real están separadas y no se ejecutan por defecto.
 
-Para probar contra un servidor ya iniciado, define `PLAYWRIGHT_BASE_URL` y Playwright no iniciará otro servidor:
+## Problemas frecuentes
 
-```bash
-# PowerShell
-$env:PLAYWRIGHT_BASE_URL = "http://127.0.0.1:4200"
-npm run test:e2e
-```
+| Síntoma | Qué revisar |
+| --- | --- |
+| Faltan datos | API activa, contenido publicado, URL del entorno y CORS. |
+| Aubar no responde | Clave y modelo de Groq del backend y límites del proveedor. |
+| El contacto falla | Configuración de correo del backend; no pongas claves en Angular. |
+| Playwright no inicia un navegador | Instalá los navegadores con el comando anterior. |
+| Sigue usando la API anterior | Revisá el archivo de entorno y reiniciá o recompilá. |
 
-El HTML report se genera en `playwright-report/` y se abre con `npm run test:e2e:report`. En fallos se guardan capturas, video y trazas en `test-results/`; ambos directorios están excluidos de Git. Las pruebas están organizadas por funcionalidad y etiquetadas con los casos manuales CP01, CP02, CP03, CP04, CP05, CP07 y CP09. Cubren presentación, navegación, menú móvil y teclado, temas y persistencia, carrusel, destinos externos, retorno al inicio e integración API (incluidos carga, vacío, error y reintento). Las peticiones a Spotify y Google Fonts se bloquean para no depender de servicios externos; los enlaces de proyectos y contacto se comprueban por su destino y atributos sin abrirlos.
+## Organización y documentación
 
-## Proyecto destacado — PintaEbook
+Las secciones están en src/app/pages/, los servicios en service/, los contratos
+en models/ y los componentes compartidos en shared/. Las imágenes siguen en
+public/ y las pruebas de navegador en e2e/.
 
-Plataforma desarrollada en equipo con funcionalidades de frontend y backend, autenticación, integración de APIs y funciones asistidas por inteligencia artificial.
+- [Guía de idiomas](docs/I18N.md).
+- [Configuración de Aubar en Django](https://github.com/aubarcito48/portfolio_backend/blob/main/docs/AUBAR.md).
+- [Issues y sugerencias](https://github.com/aubarcito48/cv-proyecto/issues).
 
-- [Demo de PintaEbook](https://pinta-ebook-eta.vercel.app/)
-- [Repositorio frontend](https://github.com/ISPC-ProCoders-2026/PintaEbook)
-- [Repositorio backend](https://github.com/ISPC-ProCoders-2026/Pintaebook_backend)
-
-La presentación del proyecto distinguirá el trabajo colectivo de las contribuciones individuales que se documenten.
-
-## Próximas etapas
-
-La versión inicial estática ya se integró con el backend Django. Las próximas etapas pueden incluir:
-
-- Formulario de contacto con envío real.
-- CV descargable.
-
-Estas mejoras quedan pendientes de definición y priorización.
-
-## Autor y contacto
-
-**Nahuel Argandoña**  
-Córdoba, Argentina.
-
-Estudiante de la Tecnicatura Superior en Desarrollo de Software del Instituto Superior Politécnico de Córdoba.
-
-- [GitHub](https://github.com/aubarcito48)
-- [LinkedIn](https://www.linkedin.com/in/aubar48/)
+Para informar un error, incluí navegador, dispositivo y pasos sin datos privados.
