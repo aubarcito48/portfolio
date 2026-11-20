@@ -51,6 +51,6 @@ jobs:
           name: playwright-results-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             playwright-report/
-            test-results/
+            test-results/results.json
           if-no-files-found: warn
           retention-days: 14

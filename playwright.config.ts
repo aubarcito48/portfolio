@@ -32,9 +32,9 @@ export default defineConfig({
   outputDir: 'test-results',
   use: {
     baseURL,
-    trace: 'retain-on-failure',
+    trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'off',
   },
   projects: browsers.flatMap((browserName) =>
     viewports.map(({ name, width, height }) => ({

@@ -62,7 +62,11 @@ test('Aubar welcomes visitors, keeps their conversation and supports both langua
   await launcher.click();
   const panel = page.locator('#aubar-panel');
   await expect(panel).toBeVisible();
-  await expect(panel.getByRole('button', { name: /Angular|Django|contactarlo/ })).toHaveCount(3);
+  await expect(panel.locator('.chat-suggestions').getByRole('button')).toHaveText([
+    '¿Qué proyectos hizo Nahuel con Angular?',
+    '¿Qué experiencia laboral tiene Nahuel?',
+    '¿Dónde puedo contactarlo?',
+  ]);
   const input = panel.getByRole('textbox', { name: 'Mensaje para Aubar' });
   await expect(input).toBeFocused();
   await input.fill('Hola, soy Juan');
@@ -123,9 +127,9 @@ test('Aubar retries failed messages once and renders replies as text', async ({ 
   await expect(panel.locator('.chat-message:not(.from-user)')).toContainText(attack);
   expect(calls).toBe(2);
   await expect(panel.locator('.from-user')).toHaveCount(1);
-  await expect(panel.locator('img')).toHaveCount(0);
+  await expect(panel.locator('.chat-message img')).toHaveCount(0);
   expect(await page.evaluate(() => 'aubarAttack' in window)).toBe(false);
-  await panel.getByRole('link', { name: 'Contacto', exact: true }).click();
+  await panel.getByRole('button', { name: 'Cerrar chat', exact: true }).click();
   await expect(panel).toHaveCount(0);
-  await expect(page).toHaveURL(/#contacto$/);
+  await expect(page.getByRole('button', { name: 'Hablar con Aubar', exact: true })).toBeFocused();
 });
