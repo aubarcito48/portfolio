@@ -63,6 +63,75 @@
   object-fit: cover;
 }
 
+.profile-composition {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  padding: 2rem clamp(2rem, 7vw, 5.5rem) 4.5rem;
+  color: #f8fafc;
+}
+
+.profile-composition p { margin: 0; }
+.profile-greeting, .profile-focus { color: #c4dfef; font-size: 1rem; }
+.profile-composition .profile-name {
+  margin: 0.5rem 0 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.profile-role { font-size: 1.25rem; font-weight: 600; }
+.profile-composition .profile-focus { margin-top: 0.5rem; }
+.profile-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin: 2rem 0 0;
+}
+.profile-specialties div { border-top: 1px solid #7dd3fc80; padding-top: 0.5rem; }
+.profile-specialties dt { color: #7dd3fc; font-weight: 600; font-size: 0.875rem; }
+.profile-specialties dd { margin: 0.25rem 0 0; font-size: 0.75rem; }
+.profile-connections { display: grid; gap: 0.75rem; }
+.profile-composition .profile-location {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #7dd3fc80;
+  font-size: 1rem;
+}
+.profile-location span { color: #7dd3fc; margin-right: 0.5rem; }
+.profile-connections a {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #08192bd9;
+  color: #f8fafc;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+.profile-connections a span:first-child { color: #7dd3fc; }
+.profile-connections a:hover { background: #173b54; }
+.profile-connections a:focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3px; }
+@media (max-width: 800px) {
+  .profile-composition { grid-template-columns: 1fr; align-content: center; gap: 1rem; padding: 1.5rem 3rem 4.5rem; }
+  .profile-specialties { margin-top: 1rem; gap: 0.75rem; }
+  .profile-connections { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+  .profile-composition .profile-location { grid-column: 1 / -1; border: 0; padding: 0; font-size: 0.875rem; }
+  .profile-connections a { font-size: 0.75rem; padding: 0.5rem; }
+  .profile-focus { font-size: 0.875rem; }
+}
+@media (max-width: 380px) {
+  .profile-composition { padding-inline: 2rem; }
+  .profile-name { font-size: 2.25rem; }
+}
+
 .slide-content {
   position: relative;
   z-index: 2;
@@ -71,6 +140,47 @@
   align-items: flex-start;
   padding: clamp(2rem, 7vw, 5.5rem);
   color: #f8fafc;
+}
+
+@media (min-width: 641px) {
+  .dges-slide::before {
+    background: linear-gradient(90deg, rgb(7 13 25 / 98%) 0%, rgb(7 13 25 / 93%) 45%, transparent 90%);
+  }
+
+  .dges-slide .slide-content {
+    width: 62%;
+    padding-right: 2rem;
+  }
+
+  .pinta-slide::before {
+    background: linear-gradient(270deg, rgb(7 13 25 / 90%) 0%, rgb(7 13 25 / 70%) 45%, transparent 100%);
+  }
+
+  .pinta-slide .slide-content {
+    width: 55%;
+    margin-left: auto;
+    padding-left: 2rem;
+  }
+}
+
+.weather-slide img {
+  object-position: left center;
+}
+
+.weather-slide::after {
+  background: linear-gradient(0deg, rgb(7 13 25 / 35%), transparent 50%);
+}
+
+@media (min-width: 641px) {
+  .weather-slide::before {
+    background: linear-gradient(270deg, rgb(7 13 25 / 96%) 0%, rgb(7 13 25 / 90%) 42%, transparent 76%);
+  }
+
+  .weather-slide .slide-content {
+    width: 50%;
+    margin-left: auto;
+    padding-left: 1.5rem;
+  }
 }
 
 .slide-title {

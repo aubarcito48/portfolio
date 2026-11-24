@@ -20,12 +20,20 @@
       @for (slide of slides; track slide.title; let index = $index) {
         <article
           class="slider-slide"
+          [class.pinta-slide]="slide.title === 'PintaEbook'"
+          [class.weather-slide]="slide.title === 'StitchWeather'"
+          [class.dges-slide]="slide.title === 'Desarrollo web en la DGES'"
+          [class.profile-banner]="!!slide.banner"
           role="group"
           [attr.aria-roledescription]="i18n.text('diapositiva')"
           [attr.aria-label]="index + 1 + i18n.text(' de ') + slides.length"
           [attr.aria-hidden]="index !== activeIndex()"
           [attr.inert]="index !== activeIndex() ? '' : null"
         >
+          @if (slide.banner) {
+              <img [src]="bannerImage(slide, index)" width="560" height="316"
+                loading="lazy" decoding="async" [alt]="i18n.text(slide.imageAlt)" />
+          } @else {
           <img
             fill
             [ngSrc]="slide.image"
@@ -33,6 +41,32 @@
             [priority]="index === 0"
             [alt]="i18n.text(slide.imageAlt)"
           />
+          }
+          @if (slide.banner) {
+            <div class="profile-composition">
+              <div class="profile-introduction">
+                <p class="profile-greeting">{{ i18n.text('Hola, soy') }}</p>
+                <p class="profile-name">Nahuel Argandoña</p>
+                <p class="profile-role">{{ i18n.text('Desarrollador Full Stack') }}</p>
+                <p class="profile-focus">{{ i18n.text('Software, IA y sistemas embebidos') }}</p>
+                <dl class="profile-specialties">
+                  <div><dt>Frontend</dt><dd>Angular · TypeScript</dd></div>
+                  <div><dt>Backend</dt><dd>Python · Django</dd></div>
+                  <div><dt>{{ i18n.text('Calidad') }}</dt><dd>Playwright · Cypress</dd></div>
+                </dl>
+              </div>
+              <div class="profile-connections">
+                <p class="profile-location"><span aria-hidden="true">⌖</span> Córdoba, Argentina</p>
+                <a href="https://github.com/aubarcito48" target="_blank" rel="noopener noreferrer">
+                  <span>GitHub</span><span>aubarcito48</span>
+                </a>
+                <a href="https://www.linkedin.com/in/aubar48/" target="_blank" rel="noopener noreferrer">
+                  <span>LinkedIn</span><span>aubar48</span>
+                </a>
+                <a href="#proyectos"><span>{{ i18n.text('Proyectos') }}</span><span>{{ i18n.text('Conocé mi trabajo') }}</span></a>
+              </div>
+            </div>
+          } @else {
           <div class="slide-content">
             <p class="slide-title">{{ i18n.text(slide.title) }}</p>
             <p class="slide-description">{{ i18n.text(slide.description) }}</p>
@@ -47,6 +81,7 @@
               </a>
             }
           </div>
+          }
         </article>
       }
     </div>

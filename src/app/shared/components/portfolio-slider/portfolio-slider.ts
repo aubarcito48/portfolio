@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { sliderSlides } from '../../data/slider-slides.data';
+import { SliderSlide, sliderSlides } from '../../data/slider-slides.data';
 
 @Component({
   selector: 'app-portfolio-slider',
@@ -54,6 +54,14 @@ export class PortfolioSlider {
       window.clearInterval(autoplayTimer);
       this.motionPreference?.removeEventListener('change', onMotionPreferenceChange);
     });
+  }
+
+  protected bannerImage(slide: SliderSlide, index: number): string {
+    if (!slide.banner) return slide.image;
+    if (this.prefersReducedMotion() || index !== this.activeIndex()) {
+      return slide.banner.preview;
+    }
+    return slide.image;
   }
 
   protected showPrevious(): void {

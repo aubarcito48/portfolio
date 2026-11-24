@@ -94,27 +94,24 @@ describe('App', () => {
 
     expect(slider).toBeTruthy();
     expect(slider?.nextElementSibling).toBe(hero);
-    expect(slider?.querySelectorAll('.slider-slide')).toHaveLength(3);
+    expect(slider?.querySelectorAll('.slider-slide')).toHaveLength(4);
     expect(
       Array.from(slider?.querySelectorAll('.slider-slide img') ?? []).map((image) =>
         image.getAttribute('src'),
       ),
     ).toEqual([
-      '/assets/bandera-argentina.png',
-      '/assets/morgan.png',
-      '/assets/nahuel-carrousel.png',
+      '/assets/github/cielo-nocturno.gif',
+      '/assets/pintaebook.png',
+      '/assets/stitchweather.png',
+      '/assets/dges.png',
     ]);
-    expect(slider?.textContent).toContain('Desarrollador Full Stack');
-    expect(slider?.textContent).toContain('Calidad de software');
+    expect(slider?.textContent).toContain('StitchWeather');
+    expect(slider?.textContent).not.toContain('Calidad de software');
     expect(slider?.querySelector('a[href="https://pinta-ebook-eta.vercel.app/"]')).toBeTruthy();
     const slides = slider?.querySelectorAll<HTMLElement>('.slider-slide');
     expect(slides?.[1].querySelector('.slide-title')?.textContent).toContain('PintaEbook');
-    expect(slides?.[1].querySelector('img')?.getAttribute('src')).toBe('/assets/morgan.png');
-    expect(slides?.[2].querySelector('.slide-title')?.textContent).toContain('Calidad de software');
-    expect(slides?.[2].querySelector('img')?.getAttribute('src')).toBe(
-      '/assets/nahuel-carrousel.png',
-    );
-    expect(slides?.[2].querySelector('.slide-link')).toBeNull();
+    expect(slides?.[1].querySelector('img')?.getAttribute('src')).toBe('/assets/pintaebook.png');
+    expect(slides?.[2].querySelector('.slide-title')?.textContent).toContain('StitchWeather');
     expect(slider?.querySelector('.slider-watermark')?.textContent?.trim()).toBe('dev nahuel');
     expect(compiled.querySelector('footer .footer-watermark')).toBeNull();
     expect(slider?.querySelector('.slider-window .slider-track')).toBeTruthy();

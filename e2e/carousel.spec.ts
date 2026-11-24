@@ -13,10 +13,10 @@ test.describe('[CP05] presentation carousel', () => {
     const activeIndicator = page.locator('.slider-dot[aria-current="true"]');
 
     await expect(page.locator('.slider-autoplay-toggle')).toHaveCount(0);
-    await expect(activeSlide).toContainText('Desarrollador Full Stack');
+    await expect(activeSlide).toContainText('Nahuel Argandoña');
     await expect(activeIndicator).toHaveAttribute(
       'aria-label',
-      'Mostrar diapositiva 1: Desarrollador Full Stack',
+      'Mostrar diapositiva 1: Presentación personal',
     );
 
     await page.getByRole('button', { name: 'Diapositiva siguiente' }).click();
@@ -26,20 +26,20 @@ test.describe('[CP05] presentation carousel', () => {
       'Mostrar diapositiva 2: PintaEbook',
     );
 
-    await page.getByRole('button', { name: 'Mostrar diapositiva 3: Calidad de software' }).click();
-    await expect(activeSlide).toContainText('Calidad de software');
+    await page.getByRole('button', { name: 'Mostrar diapositiva 3: StitchWeather' }).click();
+    await expect(activeSlide).toContainText('StitchWeather');
     await expect(activeIndicator).toHaveAttribute(
       'aria-label',
-      'Mostrar diapositiva 3: Calidad de software',
+      'Mostrar diapositiva 3: StitchWeather',
     );
 
     await page.getByRole('button', { name: 'Diapositiva anterior' }).click();
     await expect(activeSlide).toContainText('PintaEbook');
     await slider.press('ArrowLeft');
-    await expect(activeSlide).toContainText('Desarrollador Full Stack');
+    await expect(activeSlide).toContainText('Nahuel Argandoña');
     await expect(activeIndicator).toHaveAttribute(
       'aria-label',
-      'Mostrar diapositiva 1: Desarrollador Full Stack',
+      'Mostrar diapositiva 1: Presentación personal',
     );
   });
 });
