@@ -60,21 +60,6 @@ es http://localhost:8000/api/v1. La dirección de producción está en
 Si cambiás de backend, actualizá el archivo de entorno correspondiente y reiniciá
 Angular. Django debe permitir el origen del frontend en su configuración de CORS.
 
-## Comprobar que funciona
-
-1. Revisá que se carguen perfil, experiencia y proyectos desde tu API.
-2. Cambiá idioma y tema y abrí un proyecto o su demo.
-3. Abrí Aubar y enviá una pregunta: necesita Groq configurado en el backend.
-4. Para probar contacto, configurá el proveedor de correo del backend y usá tus
-   propios datos y destinatario de prueba.
-
-Aubar se abre una vez para nuevos visitantes de escritorio desde 1280 px; en
-celular y tablet se abre al pulsar su botón. El contexto de conversación es
-temporal y se envía al servicio de IA para responder.
-
-Para retomar otro día, iniciá el backend en una terminal y ejecutá npm start
-desde el frontend en otra. No reinstales dependencias en cada inicio.
-
 ## Compilación y pruebas
 
 ~~~powershell
@@ -94,16 +79,6 @@ npm run test:e2e:report
 La configuración incluye tres tamaños por navegador. Es una cobertura de prueba,
 no una garantía de compatibilidad con todos los dispositivos. Las pruebas contra
 la API real están separadas y no se ejecutan por defecto.
-
-## Problemas frecuentes
-
-| Síntoma | Qué revisar |
-| --- | --- |
-| Faltan datos | API activa, contenido publicado, URL del entorno y CORS. |
-| Aubar no responde | Clave y modelo de Groq del backend y límites del proveedor. |
-| El contacto falla | Configuración de correo del backend; no pongas claves en Angular. |
-| Playwright no inicia un navegador | Instalá los navegadores con el comando anterior. |
-| Sigue usando la API anterior | Revisá el archivo de entorno y reiniciá o recompilá. |
 
 ## Organización y documentación
 
