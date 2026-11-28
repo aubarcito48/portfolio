@@ -15,3 +15,10 @@ npm-debug.log
 yarn-error.log
 Thumbs.db
 .DS_Store
+tmp
+docs
+e2e
+.agents
+.claude
+.continue
+.tsupgrader

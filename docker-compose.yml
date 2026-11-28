@@ -3,11 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DJANGO_API_BASE_URL: ${DJANGO_API_BASE_URL:-http://localhost:8001/api/v1}
     ports:
-      - "8080:80"
+      - '127.0.0.1:${PORTFOLIO_FRONTEND_PORT:-8081}:80'
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"]
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://127.0.0.1/healthz']
       interval: 30s
       timeout: 5s
       retries: 3

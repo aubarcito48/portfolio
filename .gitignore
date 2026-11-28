@@ -48,5 +48,10 @@ testem.log
 __screenshots__/
 
 # System files
+.env
+.env.*
+!.env.example
+!.env.docker.example
+tmp/
 .DS_Store
 Thumbs.db

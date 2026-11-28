@@ -91,3 +91,63 @@ public/ y las pruebas de navegador en e2e/.
 - [Issues y sugerencias](https://github.com/aubarcito48/cv-proyecto/issues).
 
 Para informar un error, incluí navegador, dispositivo y pasos sin datos privados.
+
+
+## Ejecutar con Docker
+
+Necesit?s Docker con contenedores Linux. El frontend se construye en su propio
+repositorio y no necesita Node.js instalado en el equipo:
+
+```powershell
+docker build -t portfolio-frontend:local .
+docker run -d --name portfolio-frontend -p 127.0.0.1:8081:80 portfolio-frontend:local
+```
+
+Abr? `http://localhost:8081`. Por defecto la imagen consulta
+`http://localhost:8001/api/v1`; levant? el backend desde su repositorio siguiendo
+su secci?n Docker. Se usan 8081/8001 para poder ejecutar tambi?n la app de clima.
+Sin contenido publicado en la base local, se muestran estados vac?os.
+
+El Dockerfile compila con Node 24 y entrega ?nicamente los archivos generados a
+Nginx. Incluye un healthcheck en `/healthz`. Los archivos privados, `node_modules`
+y resultados de pruebas se excluyen mediante `.dockerignore`.
+
+### Elegir otra API
+
+```powershell
+docker build --build-arg DJANGO_API_BASE_URL=https://api.tu-dominio.com/api/v1 -t portfolio-frontend:server .
+```
+
+La URL es p?blica y la utiliza **el navegador**, por eso debe ser accesible desde
+el equipo del visitante. Debe terminar en `/api/v1`, sin par?metros ni credenciales.
+HTTPS es obligatorio para un servidor remoto; HTTP se admite solo en loopback.
+No uses el nombre interno `backend` de una red Docker. La URL queda incorporada
+al construir: cambiar `docker run -e` no modifica el JavaScript ya compilado.
+El script solo configura el entorno dentro de la imagen; `npm start` y la
+compilaci?n habitual conservan su funcionamiento y sus archivos de entorno.
+
+El backend debe permitir el origen exacto del frontend mediante
+`DJANGO_CORS_ALLOWED_ORIGINS`. Para un futuro servidor, configur? tambi?n
+el dominio y HTTPS en el proxy del alojamiento.
+
+### Alternativa con Compose, solo frontend
+
+```powershell
+Copy-Item .env.docker.example .env.docker
+docker compose --env-file .env.docker up --build -d
+```
+
+Copi? el ejemplo solo si `.env.docker` no existe. Pod?s cambiar all? la URL de
+API y el puerto local. Us? `--env-file .env.docker` para no tomar el antiguo `.env`
+de desarrollo. El backend sigue siendo independiente de este Compose.
+
+```powershell
+docker ps --filter name=portfolio-frontend
+docker logs portfolio-frontend
+docker stop portfolio-frontend
+docker rm portfolio-frontend
+```
+
+Esos nombres corresponden a `docker run`. Si elegiste Compose, us?
+`docker compose --env-file .env.docker ps`, `logs` y `down` desde este repositorio.
+Las pruebas de validaci?n de URLs se ejecutan con `npm run test:docker-env`.
